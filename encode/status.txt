@@ -1,0 +1,54 @@
+
+public/snd/595/Jam.m4a
+Downloading file to temporary directory...
+Converting to MP3
+Executing this command: ffmpeg -y -v 3 -i "/var/tmp/Jam.m4a" -ab 192k "/var/tmp/Jam.mp3"
+FFmpeg version SVN-r0.5.9-4:0.5.9-0ubuntu0.10.04.1, Copyright (c) 2000-2009 Fabrice Bellard, et al.
+  configuration: --extra-version=4:0.5.9-0ubuntu0.10.04.1 --prefix=/usr --enable-avfilter --enable-avfilter-lavf --enable-vdpau --enable-bzlib --enable-libgsm --enable-libschroedinger --enable-libspeex --enable-libtheora --enable-libvorbis --enable-pthreads --enable-zlib --disable-stripping --disable-vhook --enable-runtime-cpudetect --enable-gpl --enable-postproc --enable-swscale --enable-x11grab --enable-libdc1394 --enable-shared --disable-static
+  libavutil     49.15. 0 / 49.15. 0
+  libavcodec    52.20. 1 / 52.20. 1
+  libavformat   52.31. 0 / 52.31. 0
+  libavdevice   52. 1. 0 / 52. 1. 0
+  libavfilter    0. 4. 0 /  0. 4. 0
+  libswscale     0. 7. 1 /  0. 7. 1
+  libpostproc   51. 2. 0 / 51. 2. 0
+  built on Jun 12 2012 16:27:34, gcc: 4.4.3
+
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x8274a60]ISO: File Type Major Brand: M4A 
+
+st:0 removing common factor 4 from timebase
+
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/var/tmp/Jam.m4a':
+  Duration: 
+00:05:02.25, start: 0.000000, bitrate: 65 kb/s
+    Stream #0.0(und), 256/11025: Audio: aac, 44100 Hz, mono, s16
+
+Output #0, mp3, to '/var/tmp/Jam.mp3':
+    Stream #0.0(und), 1/90000: Audio: libmp3lame, 44100 Hz, mono, s16, 192 kb/s
+
+Stream mapping:
+  Stream #0.0 -> #0.0
+
+Press [q] to stop encoding
+
+[aac @ 0x827e110]Transition from an ONLY_LONG or LONG_STOP to an EIGHT_SHORT sequence detected. If you heard an audible artifact, please submit the sample to the FFmpeg developers.
+
+size=     730kB time=31.14 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    1518kB time=64.78 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    2308kB time=98.48 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    3091kB time=131.89 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    3887kB time=165.85 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    4689kB time=200.05 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    5496kB time=234.48 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    6319kB time=269.61 bitrate= 192.0kbits/s dup=0 drop=0    
+size=    7084kB time=302.24 bitrate= 192.0kbits/s dup=0 drop=0    
+video:0kB audio:7084kB global headers:0kB muxing overhead 0.000441%
+
+
+
+MP3 conversion is complete
+Putting new file back to AWS: public/snd/595/Jam.mp3
+File has been returned to AWS.
+Deleting temporary files...
+Deleting unconverted file...
+File conversion process complete...
