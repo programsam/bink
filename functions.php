@@ -1,14 +1,14 @@
 <?php
 include "S3.php";
 
-
 function sql()
 {
-	if (!@mysql_connect("localhost", "root", "h0m3pl4t3")) {
+	include "settings.php";
+	if (!@mysql_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD)) {
 		echo "<h2>Could not connect to mySQL</h2>";
 		die;
 	}
-	if (mysql_select_db("bink") == 0)
+	if (mysql_select_db($DB_NAME) == 0)
 	{
 		print "<h2>Could not select bink database</h2>";
 		die;
