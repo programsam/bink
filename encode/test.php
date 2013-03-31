@@ -1,6 +1,7 @@
 <?php
 include "../S3.php";
-$s3 = new S3('1S00PTC6KDFZ0HWRXN82', 'eGSHoQNSG/V2Sk/uNq3WGBdzYx+s4OdQlaXkghUS');
+include "../settings.php";
+$s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
 header("Content-type: text/plain");
 $lines = file("status.txt");
 $path = trim($lines[1]);
