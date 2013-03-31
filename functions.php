@@ -1166,7 +1166,7 @@ else
   ?>
   <meta property="og:title"  content="<?= $title ?>" /> 
   <meta property="og:description"  content="<?=$notes ?>" /> 
-  <meta property="og:image"  content="http://bink.servemp3.com/img/header.jpg" /> 
+  <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> 
 <?php
 if ($root == 0)
 	echo "<META HTTP-EQUIV='PRAGMA' CONTENT='NO-CACHE'>";
@@ -1245,7 +1245,7 @@ if ($root == 0)
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
 	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
 	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td>
-	<td width="20px"><div class="fb-like" data-href="http://bink.servemp3.com" data-send="true" data-layout="button_count" data-width="20" data-show-faces="true" data-colorscheme="dark" data-font="lucida grande"></div></fb:like></td>
+	<td width="20px"><div class="fb-like" data-href="<?= $BASE_URL ?>" data-send="true" data-layout="button_count" data-width="20" data-show-faces="true" data-colorscheme="dark" data-font="lucida grande"></div></fb:like></td>
 	</tr>
 	</table>
 	</div>
@@ -1267,6 +1267,8 @@ if ($root == 0)
 
 function printHeader($root=1, $maps=0)
 {
+
+include "settings.php";
 
 if ($root == 0)
 {
@@ -1295,8 +1297,8 @@ directPhone();
 <meta name="google-site-verification" content="jMHQ1vNX95MNBOYsGemuRSIsT-CH_3Rwh6N3wEg69bY" />
 <meta property="og:title" content="BINK! An experiment in musical documentation" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://bink.servemp3.com" />
-<meta property="og:image" content="http://bink.servemp3.com/img/header.jpg" />
+<meta property="og:url" content="<?= $BASE_URL ?>" />
+<meta property="og:image" content="<?= $BASE_URL ?>img/header.jpg" />
 <meta property="og:site_name" content="BINK!" />
 <meta property="fb:admins" content="11801699" />
 <?php
@@ -1375,7 +1377,7 @@ if ($maps)
 <!-- end the facebook code -->
 
 <div class="main">
-<div class="gfx">
+<div class="gfx"> 
 	<table border=0 width="100%">
 	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
@@ -1384,7 +1386,7 @@ if ($maps)
 	
 	<!-- this is the actual like button -->
 	
-	 <iframe src="http://www.facebook.com/plugins/like.php?href=http://bink.servemp3.com&colorscheme=dark&width=50&layout=button_count"
+	 <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
         scrolling="no" frameborder="0"
         style="border:none; width:80px; height: 30px"></iframe>
 	
