@@ -157,7 +157,8 @@ function getEntityByID($id, $table)
 
 function getMediaList($id, $type)
 {
-	$s3 = new S3('1S00PTC6KDFZ0HWRXN82', 'eGSHoQNSG/V2Sk/uNq3WGBdzYx+s4OdQlaXkghUS');
+	include "../settings.php";
+	$s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
 
 	/**
 	 * These two lines are required for reading MP3 file information.
