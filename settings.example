@@ -1,7 +1,11 @@
 <?php
 
-$dbUsername = "root"
-$dbPassword = "password"
-$dbName = "bink"
+#Copy this file to settings.php and initialize these values.
+$DB_HOST = "";
+$DB_USERNAME = "";
+$DB_PASSWORD = "";
+$DB_NAME = "";
 
+#For example http://binkmusic.com
+$FULL_URL = "";
 ?>
