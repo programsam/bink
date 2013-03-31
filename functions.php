@@ -110,7 +110,7 @@ function isPhone()
 
 function directPhone()
 {
-	include "settings.php"
+	include "settings.php";
 	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
     	header("Location: " . $BASE_URL . "/m");
 	}
@@ -762,9 +762,6 @@ function printAJam($id, $trackid)
 		if(mysql_num_rows(mysql_query("select * from tracks where jamid = $id")) > 0)
 			$ret .= "<div class='item'>[ <a href='/makezip.php?id=$id'>Download as ZIP</a> ]</div>";
 
-		//$ret .= "<div>";
-		//$ret .= "<fb:comments numposts='10' width='600' publish_feed='true' style='background: black' simple='1' css='http://bink.servemp3.com/fb.css?20' title='" . $row['title'] . "'  url='http://bink.servemp3.com/jam.php?id=" . $row['id'] . "' xid='bink" . $row['id'] . "'></fb:comments>";
-		//$ret .= "</div>";
 	}
 
 	return $ret;	
@@ -953,13 +950,14 @@ else if ($_SERVER["PHP_SELF"] == "/band.php")
 function printRSS($podcast=0)
 {
 
+include "settings.php";
 header("Content-Type: application/xml");
 
 ?>
 <rss version="2.0">
 	<channel>
 		<title>BINK!</title>
-		<link>http://bink.servemp3.com</link>
+		<link><?= $BASE_URL ?></link>
 		<?php
 		if ($podcast)
 		{
@@ -982,8 +980,8 @@ header("Content-Type: application/xml");
 		
 		<image>
 			<title>BINK</title>
-			<url>http://mustbehighorlow.com/bink/img/header.jpg</url>
-			<link>http://bink.servemp3.com</link>
+			<url><?= $BASE_URL ?>/img/header.jpg</url>
+			<link><?= $BASE_URL ?></link>
 			<width>200</width>
 			<height>400</height>
 		</image>
@@ -1132,6 +1130,8 @@ function getLocationMap($locid)
 function printJamHeader($id)
 {
 
+include "settings.php";
+
 if ($root == 0)
 {
 	$leading = "../";
@@ -1156,7 +1156,7 @@ else
  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# facebookbink: http://ogp.me/ns/fb/facebookbink#">
   <meta property="fb:app_id" content="139182602788074" /> 
   <meta property="og:type"   content="facebookbink:collection" /> 
-  <meta property="og:url"    content="http://bink.servemp3.com/jam.php?id=<?=$id ?>" /> 
+  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
   <?php
   sql();
   $result = mysql_query("select title, notes from jams where id = $id");
