@@ -1,6 +1,7 @@
 <?php
 
 include "functions.php";
+include "settings.php";
 
 sql();
 
@@ -17,7 +18,6 @@ if (isset($_GET['closer']))
 
 if (isset($_GET['trackstyle']))
 {
-
 	$trackid = $_GET['trackid'];
 	$result = mysql_query("select * from tracks where id = $trackid");
 	$trackrow = mysql_fetch_array($result);
@@ -27,9 +27,9 @@ if (isset($_GET['trackstyle']))
 	
 	//print_r($trackrow);
 	
-	$url = "http://bink.servemp3.com/jam.php?id=$jamid&trackid=$trackid";
+	$url = $BASE_URL . "jam.php?id=$jamid&trackid=$trackid";
 	$encodedurl = urlencode($url);
-	$redirecturi = urlencode("http://bink.servemp3.com/share.php?closer=1");
+	$redirecturi = urlencode($BASE_URL . "/share.php?closer=1");
 	
 	$title = $jamrow['title'];
 	$encodedtitle = urlencode($title);
@@ -50,7 +50,7 @@ if (isset($_GET['trackstyle']))
 	echo "[ <a target=\'_blank\" href=\"https://www.facebook.com/dialog/feed?
 	  app_id=139182602788074&
 	  link=$encodedurl&
-	  picture=http://bink.servemp3.com/img/header.jpg&
+	  picture=" . $BASE_URL . "/img/header.jpg&
 	  name=$facebookName&
 	  caption=BINK!%20Collection&
 	  description=$encodedsubject&
@@ -66,13 +66,13 @@ $jamid = $_GET['jamid'];
 $title = $_GET['title'];
 
 $encodedtitle = urlencode($title);
-$url = "http://bink.servemp3.com/jam.php?id=$jamid";
+$url = $BASE_URL . "/jam.php?id=$jamid";
 $encodedurl = urlencode($url);
 
 $encodedsubject = urlencode("Check out $title on BINK!");
 $encodedbody = urlencode("Hey, check out this new music I found on BINK! ");
-$encodedlisten = urlencode("Go to http://bink.servemp3.com/jam.php?id=$jamid to listen.");
-$redirecturi = urlencode("http://bink.servemp3.com/share.php?closer=1");
+$encodedlisten = urlencode("Go to " . $BASE_URL . "/jam.php?id=$jamid to listen.");
+$redirecturi = urlencode($BASE_URL . "/share.php?closer=1");
 
 $result = mysql_query("select * from tracks where jamid = $jamid");
 
@@ -89,7 +89,7 @@ echo "[ <a target=\'_blank\" href=\"https://twitter.com/share?url=" . $encodedur
 echo "[ <a target=\'_blank\" href=\"https://www.facebook.com/dialog/feed?
   app_id=139182602788074&
   link=$encodedurl&
-  picture=http://bink.servemp3.com/img/header.jpg&
+  picture=" . $BASE_URL . "/img/header.jpg&
   name=$encodedtitle&
   caption=BINK!%20Collection&
   description=$encodedsubject&
