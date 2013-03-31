@@ -110,8 +110,9 @@ function isPhone()
 
 function directPhone()
 {
+	include "settings.php"
 	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
-    	header("Location: http://bink.servemp3.com/m");
+    	header("Location: " . $BASE_URL . "/m");
 	}
 }
 
@@ -561,6 +562,7 @@ function getMediaList($id, $type)
 
 function produceZIPFile($id)
 {
+	include "settings.php";
 	//exec('watchlog.php?id=$id');
 	?>
 	<script language="javascript">
@@ -617,7 +619,7 @@ function produceZIPFile($id)
 	each file in the collection you've requested into a ZIP.  Once the process
 	has been completed, you will automatically receive the ZIP file for download.
 	The file will be called "binkcollection.zip".
-	<img src="http://bink.servemp3.com/dozip.php?id=<?=$id ?>" width=0 height=0/>
+	<img src="<?= $BASE_URL ?>/dozip.php?id=<?=$id ?>" width=0 height=0/>
 	<textarea style="background:black; color: white" id="result" cols=80 rows=10></textarea>
 	</div>
 	<?	
