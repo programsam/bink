@@ -1,8 +1,6 @@
 <?php
 	include "functions.php";			
-//	if (isPhone())
-//		header("Location: http://bink.servemp3.com/m");
-	printHeader();
+ 	printHeader();
 	if ($_GET['dir'] == 1)
 		echo getJams("select * from jams where private=0 order by id desc limit 0,10");
 	else
