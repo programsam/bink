@@ -186,7 +186,8 @@ Functions above this break do not require authentication!
 
 */
 
-$s3 = new S3('1S00PTC6KDFZ0HWRXN82', 'eGSHoQNSG/V2Sk/uNq3WGBdzYx+s4OdQlaXkghUS');
+include "settings.php";
+$s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
 
 if ($_GET['action'] == "view")
 {
