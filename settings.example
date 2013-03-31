@@ -1,5 +1,6 @@
 <?php
 
+# Make a copy of this file and call it "settings.php" to setup bink.
 $DB_HOST = "";
 $DB_USERNAME = "";
 $DB_PASSWORD = "";
@@ -7,4 +8,8 @@ $DB_NAME = "";
 
 #For example "http://binkmusic.com"
 $BASE_URL = "";
+
+# AWS Credentials
+$S3_ACCESS_KEY = "";
+$S3_SECRET_KEY = "";
 ?>
