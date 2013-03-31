@@ -6,11 +6,12 @@ include "../S3.php";
 
 function sql()
 {
-	if (!@mysql_connect("localhost", "root", "h0m3pl4t3")) {
+	include "../settings.php";
+	if (!@mysql_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD)) {
 		echo "<h2>Could not connect to mySQL</h2>";
 		die;
 	}
-	if (mysql_select_db("bink") == 0)
+	if (mysql_select_db($DB_NAME) == 0)
 	{
 		print "<h2>Could not select bink database</h2>";
 		die;
@@ -20,12 +21,13 @@ function sql()
 
 function directPhone()
 {
+	include "../settings.php";
 	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
     	
 	}
 	else
 	{
-		header("Location: http://bink.servemp3.com/");
+		header("Location: $BASE_URL");
 	}
 }
 
@@ -686,6 +688,7 @@ function iconFor($type, $jamid)
 
 function printJamHeader($id)
 {
+include "../settings.php";
 ?>
 
 
@@ -703,7 +706,7 @@ function printJamHeader($id)
  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# facebookbink: http://ogp.me/ns/fb/facebookbink#">
   <meta property="fb:app_id" content="139182602788074" /> 
   <meta property="og:type"   content="facebookbink:collection" /> 
-  <meta property="og:url"    content="http://bink.servemp3.com/jam.php?id=<?=$id ?>" /> 
+  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
  <?php
   sql();
   $result = mysql_query("select title, notes from jams where id = $id");
@@ -713,7 +716,7 @@ function printJamHeader($id)
   ?>
   <meta property="og:title"  content="<?= $title ?>" /> 
   <meta property="og:description"  content="<?=$notes ?>" /> 
-  <meta property="og:image"  content="http://bink.servemp3.com/img/header.jpg" /> <title>BINK!</title>
+  <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> <title>BINK!</title>
 </head>
 <body>
 
