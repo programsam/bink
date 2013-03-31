@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/subversion/bink/!svn/ver/4/trunk/php/getid3
+END
+getid3.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/subversion/bink/!svn/ver/4/trunk/php/getid3/getid3.php
+END
+module.tag.apetag.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/subversion/bink/!svn/ver/4/trunk/php/getid3/module.tag.apetag.php
+END
+module.audio.mp3.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/subversion/bink/!svn/ver/4/trunk/php/getid3/module.audio.mp3.php
+END
+getid3.lib.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/subversion/bink/!svn/ver/4/trunk/php/getid3/getid3.lib.php
+END
+module.tag.id3v1.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/subversion/bink/!svn/ver/4/trunk/php/getid3/module.tag.id3v1.php
+END
+module.tag.lyrics3.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/subversion/bink/!svn/ver/4/trunk/php/getid3/module.tag.lyrics3.php
+END
