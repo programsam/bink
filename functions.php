@@ -1386,7 +1386,7 @@ if ($maps)
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- binkmusic -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:20px;height:30px"
+     style="display:inline-block;width:600px;height:100px"
      data-ad-client="ca-pub-1453391221011492"
      data-ad-slot="7514258764"></ins>
 <script>
