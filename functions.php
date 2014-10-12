@@ -1244,7 +1244,7 @@ if ($root == 0)
 	<div class="gfx">
 	<table border=0 width="100%">
 	<tr>
-		<td colspan=4>
+		<td colspan=5>
 		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- binkmusic -->
 	<ins class="adsbygoogle"
