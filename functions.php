@@ -1410,7 +1410,16 @@ if ($maps)
 	
 		<span><?=printSearchBar() ?></span>
 	</div>
-	<div class="content">		
+	<div class="content">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- binkmusic -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-1453391221011492"
+     data-ad-slot="7514258764"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>		
 <?php
 }
 
