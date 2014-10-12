@@ -1393,6 +1393,7 @@ if ($maps)
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>		
 	</td>
+	</tr>
 	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
 	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
