@@ -1382,6 +1382,18 @@ if ($maps)
 <div class="gfx"> 
 	<table border=0 width="100%">
 	<tr>
+	<td width="820px" colspan=3>
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- binkmusic -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-1453391221011492"
+     data-ad-slot="7514258764"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>		
+	</td>
+	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
 	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
 	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td><td width="80px">
@@ -1411,15 +1423,6 @@ if ($maps)
 		<span><?=printSearchBar() ?></span>
 	</div>
 	<div class="content">
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- binkmusic -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:120px;height:600px"
-     data-ad-client="ca-pub-1453391221011492"
-     data-ad-slot="7514258764"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>		
 <?php
 }
 
