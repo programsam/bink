@@ -1382,11 +1382,11 @@ if ($maps)
 <div class="gfx"> 
 	<table border=0 width="100%">
 	<tr>
-	<td width="820px" colspan=3>
+	<td colspan=3>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- binkmusic -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:820px;height:200px"
+     style="display:inline-block;width:20px;height:30px"
      data-ad-client="ca-pub-1453391221011492"
      data-ad-slot="7514258764"></ins>
 <script>
