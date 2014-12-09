@@ -1309,7 +1309,6 @@ directPhone();
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/> 
 <meta name="author" content="Ben Smith"/> 
-<meta name="google-site-verification" content="jMHQ1vNX95MNBOYsGemuRSIsT-CH_3Rwh6N3wEg69bY" />
 <meta property="og:title" content="BINK! An experiment in musical documentation" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="<?= $BASE_URL ?>" />
