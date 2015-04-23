@@ -698,7 +698,7 @@ function getNextId($id)
 
 function getPreviousId($id)
 {
-$id = $_GET['id'];
+	$id = $_GET['id'];
 	
 	$result = mysql_query("select * from jams where private=0 order by date asc;");
 	
@@ -713,60 +713,6 @@ $id = $_GET['id'];
 	}
 	
 	return -1;
-}
-
-
-
-function printAJam($id, $trackid)
-{
-	sql();
-	$result = mysql_query("select * from jams where id = $id");
-	$ret = "";
-	while (	$row = mysql_fetch_array($result) )
-	{
-		$id = $row['id'];
-		$ret .= "<div class='item'>";
-		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
-		$ret .= fDate($row['date']) . " - ";
-		$ret .= $row['title'] . "</a></h1>";
-		
-		$band = getEntityByID($row['bandid'], "bands");
-		$location = getEntityByID($row['locid'], "locations");
-		
-		if ($band != "" && $location != "")
-			$ret .= $band . " - " . $location;
-		else if ($band)
-			$ret .= $band;
-		else if ($location)
-			$ret .= $location;
-		
-		$ret .= getLocationMap($row['locid']);
-		
-		if(mysql_num_rows(mysql_query("select * from tracks where jamid = $id")) > 0)
-			$ret .= printCustomPlayer($id, $trackid);
-		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'];
-		$ret .= "<p align=right>";
-		if (getNextId($id) != "")
-			$ret .= "[ <a href='jam.php?id=" . getNextId($id) . "'>Next</a> ]";
-		if (getPreviousId($id) != "")
-			$ret .= "[ <a href='jam.php?id=" . getPreviousId($id) . "'>Prev</a> ]";
-		$ret .= "[ <a href='admin/main.php?id=$id'>Edit</a> ]";
-		$ret .= "[ <a href=\"javascript:show('shareBox');queryHTML('shareBox', 'share.php?jamid=$id&title=" . urlencode($row['title']) . "')\">Share</a> ]";
-		$ret .= getShareBox($id, $row['title']);
-		$ret .= "</p>";
-		$ret .= "</div>";
-		$ret .= getPeopleList($id, "musician");
-		$ret .= getPeopleList($id, "staff");
-		$ret .= getPictures($id);
-		$ret .= getMediaList($id, "music");
-		$ret .= getMediaList($id, "video");
-		$ret .= "</div>";
-		if(mysql_num_rows(mysql_query("select * from tracks where jamid = $id")) > 0)
-			$ret .= "<div class='item'>[ <a href='/makezip.php?id=$id'>Download as ZIP</a> ]</div>";
-
-	}
-
-	return $ret;	
 }
 
 function getShareBox($jamid, $title)
@@ -857,6 +803,57 @@ function getNumberOf($table, $label)
 	return "<tr><td>$label</td><td>$num</td></tr>";
 }
 
+function printAJam($id, $trackid)
+{
+	sql();
+	$result = mysql_query("select * from jams where id = $id");
+	$ret = "";
+	while (	$row = mysql_fetch_array($result) )
+	{
+		$id = $row['id'];
+		$ret .= "<div class='item'>";
+		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= fDate($row['date']) . " - ";
+		$ret .= $row['title'] . "</a></h1>";
+		
+		$band = getEntityByID($row['bandid'], "bands");
+		$location = getEntityByID($row['locid'], "locations");
+		
+		if ($band != "" && $location != "")
+			$ret .= $band . " - " . $location;
+		else if ($band)
+			$ret .= $band;
+		else if ($location)
+			$ret .= $location;
+		
+		$ret .= getLocationMap($row['locid']);
+		
+		if(mysql_num_rows(mysql_query("select * from tracks where jamid = $id")) > 0)
+			$ret .= printCustomPlayer($id, $trackid);
+		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'];
+		$ret .= "<p align=right>";
+		if (getNextId($id) != "")
+			$ret .= "[ <a href='jam.php?id=" . getNextId($id) . "'>Next</a> ]";
+		if (getPreviousId($id) != "")
+			$ret .= "[ <a href='jam.php?id=" . getPreviousId($id) . "'>Prev</a> ]";
+		$ret .= "[ <a href='admin/main.php?id=$id'>Edit</a> ]";
+		$ret .= "[ <a href=\"javascript:show('shareBox');queryHTML('shareBox', 'share.php?jamid=$id&title=" . urlencode($row['title']) . "')\">Share</a> ]";
+		$ret .= getShareBox($id, $row['title']);
+		$ret .= "</p>";
+		$ret .= "</div>";
+		$ret .= getPeopleList($id, "musician");
+		$ret .= getPeopleList($id, "staff");
+		$ret .= getPictures($id);
+		$ret .= getMediaList($id, "music");
+		$ret .= getMediaList($id, "video");
+		$ret .= "</div>";
+		if(mysql_num_rows(mysql_query("select * from tracks where jamid = $id")) > 0)
+			$ret .= "<div class='item'>[ <a href='/makezip.php?id=$id'>Download as ZIP</a> ]</div>";
+
+	}
+
+	return $ret;	
+}
 
 
 function getInfo()
