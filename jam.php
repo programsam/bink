@@ -8,7 +8,7 @@
 	if (isset($_GET['id']))
 	  $id = $_GET['id'];
 	printJamHeader($id);
-	$toprint = printAJam($id, $trackid);
+	echo printAJam($id, $trackid);
 	
 	printFooter();
 ?>
