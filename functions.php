@@ -1164,10 +1164,6 @@ $adminStr = "admin/main.php";
   <meta property="og:title"  content="<?= $title ?>" /> 
   <meta property="og:description"  content="<?=$notes ?>" /> 
   <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> 
-<?php
-if ($root == 0)
-	echo "<META HTTP-EQUIV='PRAGMA' CONTENT='NO-CACHE'>";
-?>
 <link rel="stylesheet" type="text/css" href="<?= $leading ?>default.css"/>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
