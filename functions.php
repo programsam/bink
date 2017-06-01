@@ -21,7 +21,7 @@ function sql()
 function bink_query($querystr)
 {
 	$connection = sql();
-	$result = bink_query($connection, $querystr);
+	$result = mysqli_query($connection, $querystr);
 	return $result;
 }
 
