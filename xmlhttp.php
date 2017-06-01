@@ -294,7 +294,7 @@ else if ($_GET['action'] == "delete")
 else if ($_GET['action'] == "new")
 {
 	$today = date("Y-m-d");
-	bink_query($connection, "insert into jams (id, date, title, notes, locid, bandid, private) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1, 1)");
+	bink_query("insert into jams (id, date, title, notes, locid, bandid, private) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1, 1)");
 	$result = bink_query("select * from jams order by id desc limit 1");
 	$row = mysqli_fetch_array($result);
 	
