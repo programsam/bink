@@ -1165,7 +1165,7 @@ $adminStr = "admin/main.php";
       center:  new google.maps.LatLng(37.987, -84.476),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    //map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     loadMarkers();
   }
   

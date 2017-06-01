@@ -4,7 +4,11 @@
 	if (isset($_GET['trackid']))
 		$trackid = $_GET['trackid'];
 
-	printJamHeader($_GET['id']);
-	echo printAJam($_GET['id'], $trackid);
+	$id = -1;
+	if (isset($_GET['id']))
+	  $id = $_GET['id']
+	printJamHeader($id);
+	$toprint = printAJam($id, $trackid);
+	
 	printFooter();
 ?>
