@@ -627,7 +627,7 @@ function produceZIPFile($id)
 	<img src="<?= $BASE_URL ?>/dozip.php?id=<?=$id ?>" width=0 height=0/>
 	<textarea style="background:black; color: white" id="result" cols=80 rows=10></textarea>
 	</div>
-	<?	
+	<?php
 }
 
 function getPeopleList($id, $type)
