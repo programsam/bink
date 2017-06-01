@@ -4,7 +4,8 @@ include "S3.php";
 function sql()
 {
 	include "settings.php";
-	$connection = @mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
+	
+	$connection = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
 	if (! $connection) {
 		echo "<h2>Could not connect to mySQL</h2>";
 		die;
@@ -14,7 +15,7 @@ function sql()
 		print "<h2>Could not select bink database</h2>";
 		die;
 	}
-	
+	return $connection;
 }
 
 function newPlaylist()
@@ -384,8 +385,8 @@ function iconFor($type, $jamid)
 
 function getJams($query)
 {
-	sql();
-	$result = mysqli_query($query);
+	$connection = sql();
+	$result = mysqli_query($connection, $query);
 	$ret = "";
 	
 	
@@ -408,6 +409,7 @@ function getJams($query)
 		$ret .= "</div>";	
 	}
 
+	mysqli_close($connection);
 	return $ret;	
 }
 
