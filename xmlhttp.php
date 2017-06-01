@@ -741,7 +741,7 @@ foreach ($filenames as $filename)
 	}//if dealing with an image and not a thumbnail
 }//outer foreach
 
-if ($tothm[0] != null)
+if (isset($tothm[0]))
 {
 	echo "Making thumbs...\n";
 
