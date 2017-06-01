@@ -56,17 +56,21 @@ function sDate($date)
 
 function getLocationName($id)
 {
+	$connection = sql();
 	$result = mysqli_query("select * from locations where id = $id");
 	$row = mysqli_fetch_array($result);
+	mysqli_close($connection);
 	return $row['name'];
 }
 
 function getBandName($id, $at=1)
 {
-	$result = mysqli_query("select * from bands where id = $id");
+	$connection = sql();
+	$result = mysqli_query($connection, "select * from bands where id = $id");
 	if (mysqli_num_rows($result) > 0)
 	{
 		$row = mysqli_fetch_array($result);
+		mysqli_close($connection);
 		if ($at)
 			return $row['name'] . " at ";	
 		else
@@ -74,13 +78,15 @@ function getBandName($id, $at=1)
 	}
 	else
 	{
+		mysqli_close($connection);
 		return "";
 	}
 }
 
 function getMusicianInfo($id)
 {
-	$result = mysqli_query("select * from musicians where id = $id");
+	$connection = sql();
+	$result = mysqli_query($connection, "select * from musicians where id = $id");
 	$row = mysqli_fetch_array($result);
 	$musname = $row['name'];
 	$link = $row['link'];
@@ -89,7 +95,7 @@ function getMusicianInfo($id)
 	
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
 	
-	$result = mysqli_query("select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
+	$result = mysqli_query($connection, "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
 
 	$num = mysqli_num_rows($result);
 	$ret .= "<strong>Number of Collections</strong>: $num<br />";
@@ -109,24 +115,34 @@ function getMusicianInfo($id)
 
 	$ret .= "</div>";
 
+	mysql_close($connection);
 	return $ret;
 }
 
 function getNumberOf($table, $label)
 {
-	$result = mysqli_query("SELECT * FROM `$table`;");
+	$connection = sql();
+	$result = mysqli_query($connection, "SELECT * FROM `$table`;");
 	$num = mysqli_num_rows($result);
+	mysqli_close($connection);
 	return "<tr><td>$label</td><td>$num</td></tr>";
 }
 
 function getEntityByID($id, $table)
 {
-	$result = mysqli_query("select * from $table where id = $id");
+	$connection = sql();
+	$result = mysqli_query($connection, "select * from $table where id = $id");
 	
 	if ($result == null)
+	{
+		mysqli_close($connection);
 		return "";
+	}
 	if (mysqli_num_rows($result) == 0)
+	{
+		mysqli_close($connection);	
 		return "";
+	}
 		
 	$entity = mysqli_fetch_array($result);
 	$ret = "";
@@ -150,6 +166,7 @@ function getEntityByID($id, $table)
 	{
 		$ret =  $entity['name'];
 	}
+	mysqli_close($connection);
 	return $ret;
 }
 
@@ -159,12 +176,6 @@ function getMediaList($id, $type)
 {
 	include "../settings.php";
 	$s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
-
-	/**
-	 * These two lines are required for reading MP3 file information.
-	 */
-	//require_once('getid3/getid3.php');
-	//$getID3 = new getID3;
 
 	if ($type == "music")
 	{
@@ -181,8 +192,8 @@ function getMediaList($id, $type)
 		echo "ERROR: Media type not supported.";
 		return;
 	}
-
-	$result = mysqli_query("select * from $table where jamid = $id order by num asc");
+	$connection = sql();
+	$result = mysqli_query($connection, "select * from $table where jamid = $id order by num asc");
 	if (mysqli_num_rows($result) == 0)
 		return "";
 	
@@ -227,7 +238,7 @@ function getMediaList($id, $type)
 		}
 	}
 	$ret .= "</table></ol></div>";
-	
+	mysqli_close($connection);
 	return $ret;
 }
 
@@ -257,7 +268,7 @@ function getPeopleList($id, $type)
 		echo "Type not supported!";
 		return;
 	}
-	
+	$connection = sql();
 	$result = mysqli_query("select * from $table where jamid = $id order by $idlabel");
 	if (mysqli_num_rows($result) == 0)
 		return "";

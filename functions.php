@@ -387,6 +387,7 @@ function getJams($query)
 {
 	$connection = sql();
 	$result = mysqli_query($connection, $query);
+	mysqli_close($connection);
 	$ret = "";
 	
 	
@@ -409,7 +410,7 @@ function getJams($query)
 		$ret .= "</div>";	
 	}
 
-	mysqli_close($connection);
+//	mysqli_close($connection);
 	return $ret;	
 }
 
