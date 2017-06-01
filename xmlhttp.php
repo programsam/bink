@@ -599,6 +599,7 @@ bink_query("delete from tracks where jamid = $id");
 
 $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
 $i = 0; 
+$connection = sql();
 foreach ($files as $file)
 {
 	$i++;
@@ -612,9 +613,9 @@ foreach ($files as $file)
 	//Just get the name before extension: this is now the title
 	$title = $title[0];
 	//Add it to an array to be sorted.
-	$titles[$i] = mysqli_escape_string($title);
+	$titles[$i] = mysqli_escape_string($connection, $title);
 	//Add the filename to a dictionary for later lookup
-	$filenames[mysqli_escape_string($title)] = mysqli_escape_string($filename);
+	$filenames[mysqli_escape_string($connection, $title)] = mysqli_escape_string($connection, $filename);
 }
 
 //Now we sort the array and add it to the database
@@ -669,7 +670,9 @@ $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
  * Tracks
  */
 bink_query("delete from tracks where jamid = $id");
-   	
+
+$connection = sql();
+
 $i = 0; 
 foreach ($files as $file)
 {
@@ -679,11 +682,12 @@ foreach ($files as $file)
 	$title = pathinfo($fullpath, PATHINFO_FILENAME);
 	$filename = pathinfo($fullpath, PATHINFO_BASENAME);
 	//Add it to an array to be sorted.
-	$filenames[$i] = mysqli_escape_string($filename);
+	$filenames[$i] = mysqli_escape_string($connection, $filename);
 	//Add the filename to a dictionary for later lookup
-	$titles[mysqli_escape_string($filename)] = mysqli_escape_string($title);
+	$titles[mysqli_escape_string($connection, $filename)] = mysqli_escape_string($connection, $title);
 	echo "Full Path: " . $fullpath . " Title: " . $title . "Filename: " . $filename . "<br />";
 }
+mysqli_close($connection);
 
 //Now we sort the array and add it to the database
 if ($titles != null)
