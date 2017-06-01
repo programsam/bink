@@ -6,7 +6,7 @@
 
 	$id = -1;
 	if (isset($_GET['id']))
-	  $id = $_GET['id']
+	  $id = $_GET['id'];
 	printJamHeader($id);
 	$toprint = printAJam($id, $trackid);
 	
