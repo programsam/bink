@@ -31,8 +31,7 @@ function newPlaylist()
 	do 
 	{
 		$token = randString(32);
-		$connection = sql();
-		$result = bink_query($connection, "select * from playlists where id = '$token'");
+		$result = bink_query("select * from playlists where id = '$token'");
 	} while (mysqli_num_rows($result) > 0);
 	
 	return $token;
@@ -41,7 +40,6 @@ function newPlaylist()
 function getToken()
 {
 	 $token = "N/A";
-	 $connection = sql();
 	 $result = bink_query("select * from tokens where ip = '" . $_SERVER['REMOTE_ADDR'] . "'");
 	 if (mysqli_num_rows($result))
 	 {
@@ -51,7 +49,7 @@ function getToken()
 	 else
 	 {
 		 $token = randString(16);
-		 bink_query($connection, "insert into tokens (ip, token) values ('" . $_SERVER['REMOTE_ADDR'] . "', '$token')");
+		 bink_query("insert into tokens (ip, token) values ('" . $_SERVER['REMOTE_ADDR'] . "', '$token')");
 	 }
 	 return $token;
 }
@@ -790,7 +788,7 @@ function getLocationName($id)
 
 function getBandName($id, $at=1)
 {
-	$result = bink_query($connection, "select * from bands where id = $id");
+	$result = bink_query("select * from bands where id = $id");
 	if (mysqli_num_rows($result) > 0)
 	{
 		$row = mysqli_fetch_array($result);
