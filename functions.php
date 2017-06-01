@@ -1137,17 +1137,8 @@ function printJamHeader($id)
 {
 
 include "settings.php";
-
-if ($root == 0)
-{
-	$leading = "../";
-	$adminStr = "main.php";
-}
-else
-{
-	$leading = "";
-	$adminStr = "admin/main.php";
-}
+$leading = "";
+$adminStr = "admin/main.php";
 
 ?>
 
