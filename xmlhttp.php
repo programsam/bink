@@ -299,6 +299,7 @@ else if ($_GET['action'] == "new")
 	if (! $result)
 	{
 		echo "<response>Failure inserting things!</response>";
+		echo "<query>Query was: insert into jams (id, date, title, notes, locid, bandid) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1)";
 	}
 	mysqli_close($connection);
 	$result = bink_query("select * from jams order by id desc limit 1");
