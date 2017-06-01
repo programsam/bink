@@ -6,5 +6,5 @@ $height = $_GET['h'];
 
 
 header("Content-type: image/jpeg");
-imagejpeg("http://s3.amazonaws.com/binkmedia/public/pics/$path"); 
+imagejpeg(imagecreatefromjpeg("http://s3.amazonaws.com/binkmedia/public/pics/$path"));
 ?>
