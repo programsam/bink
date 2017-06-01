@@ -778,20 +778,34 @@ function fDate($date)
 function getLocationName($id)
 {
 	$result = bink_query("select * from locations where id = $id");
-	$row = mysqli_fetch_array($result);
-	return $row['name'];
+	if ($result)
+	{
+		$row = mysqli_fetch_array($result);
+		return $row['name'];
+	}
+	else
+	{
+		return "";
+	}
 }
 
 function getBandName($id, $at=1)
 {
 	$result = bink_query("select * from bands where id = $id");
-	if (mysqli_num_rows($result) > 0)
+	if ($result)
 	{
-		$row = mysqli_fetch_array($result);
-		if ($at)
-			return $row['name'] . " at ";	
+		if (mysqli_num_rows($result) > 0)
+		{
+			$row = mysqli_fetch_array($result);
+			if ($at)
+				return $row['name'] . " at ";	
+			else
+				return $row['name'];
+		}
 		else
-			return $row['name'];
+		{
+			return "";
+		}
 	}
 	else
 	{
