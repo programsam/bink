@@ -3,8 +3,6 @@
 include "functions.php";
 include "settings.php";
 
-sql();
-
 if (isset($_GET['closer']))
 {
 ?>

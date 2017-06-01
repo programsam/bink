@@ -247,9 +247,6 @@ function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort
 
 function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="date", $sort="desc")
 {
-	
-	sql();
-
 	if ($listmode == 3)
 	{
 		$ret .= "<div class='item'>";
@@ -419,7 +416,6 @@ function getJams($query)
 
 function getJamsMobile($query)
 {
-	sql();
 	$result = bink_query($query);
 	$ret = "";
 	
@@ -812,7 +808,6 @@ function getNumberOf($table, $label)
 
 function printAJam($id, $trackid)
 {
-	sql();
 	$result = bink_query("select * from jams where id = $id");
 	$ret = "";
 	while (	$row = mysqli_fetch_array($result) )
@@ -865,8 +860,6 @@ function printAJam($id, $trackid)
 
 function getInfo()
 {
-	sql();
-
 	$result = bink_query("SELECT * FROM `jams` where private=0 ORDER BY `date`;");
 	$row = mysqli_fetch_array($result);
 	$earliest = $row['date'];
@@ -994,7 +987,6 @@ header("Content-Type: application/xml");
 		
 <?php
 
-	sql();
 	$result = bink_query("select * from jams where private=0 order by date desc limit 0,20 ");
 	$ret = "";
 	
@@ -1057,8 +1049,6 @@ header("Content-Type: application/xml");
 function printPlayer($id)
 {
 
-sql();
-
 $row = mysqli_fetch_array(bink_query("select * from jams where private=0 and id = $id"));
 $jtitle = urlencode($row['title']);
 
@@ -1087,7 +1077,6 @@ function getLocationInfoWindow($id, $name)
 
 function getMasterMap()
 {
-	sql();
 	$result = bink_query("select * from locations where address <> ''");
 	
 	$timeout = 0;
@@ -1113,7 +1102,6 @@ function getMasterMap()
 
 function getLocationMap($locid)
 {
-	sql();
 	$ret = "";
 	$result = bink_query("select * from locations where id = $locid");
 	$row = mysqli_fetch_array($result);
@@ -1155,7 +1143,6 @@ $adminStr = "admin/main.php";
   <meta property="og:type"   content="facebookbink:collection" /> 
   <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
   <?php
-  sql();
   $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
   $title = $row['title'];

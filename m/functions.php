@@ -6,17 +6,26 @@ include "../S3.php";
 
 function sql()
 {
-	include "../settings.php";
-	if (!@mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD)) {
+	include "settings.php";
+	
+	$connection = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
+	if (! $connection) {
 		echo "<h2>Could not connect to mySQL</h2>";
 		die;
 	}
-	if (mysqli_select_db($DB_NAME) == 0)
+	if (mysqli_select_db($connection, $DB_NAME) == 0)
 	{
 		print "<h2>Could not select bink database</h2>";
 		die;
 	}
-	
+	return $connection;
+}
+
+function bink_query($querystr)
+{
+	$connection = sql();
+	$result = mysqli_query($connection, $querystr);
+	return $result;
 }
 
 function directPhone()
@@ -56,21 +65,17 @@ function sDate($date)
 
 function getLocationName($id)
 {
-	$connection = sql();
 	$result = bink_query("select * from locations where id = $id");
 	$row = mysqli_fetch_array($result);
-	mysqli_close($connection);
 	return $row['name'];
 }
 
 function getBandName($id, $at=1)
 {
-	$connection = sql();
 	$result = bink_query($connection, "select * from bands where id = $id");
 	if (mysqli_num_rows($result) > 0)
 	{
 		$row = mysqli_fetch_array($result);
-		mysqli_close($connection);
 		if ($at)
 			return $row['name'] . " at ";	
 		else
@@ -78,14 +83,12 @@ function getBandName($id, $at=1)
 	}
 	else
 	{
-		mysqli_close($connection);
 		return "";
 	}
 }
 
 function getMusicianInfo($id)
 {
-	$connection = sql();
 	$result = bink_query($connection, "select * from musicians where id = $id");
 	$row = mysqli_fetch_array($result);
 	$musname = $row['name'];
@@ -115,32 +118,26 @@ function getMusicianInfo($id)
 
 	$ret .= "</div>";
 
-	mysql_close($connection);
 	return $ret;
 }
 
 function getNumberOf($table, $label)
 {
-	$connection = sql();
-	$result = bink_query($connection, "SELECT * FROM `$table`;");
+	$result = bink_query("SELECT * FROM `$table`;");
 	$num = mysqli_num_rows($result);
-	mysqli_close($connection);
 	return "<tr><td>$label</td><td>$num</td></tr>";
 }
 
 function getEntityByID($id, $table)
 {
-	$connection = sql();
-	$result = bink_query($connection, "select * from $table where id = $id");
+	$result = bink_query("select * from $table where id = $id");
 	
 	if ($result == null)
 	{
-		mysqli_close($connection);
 		return "";
 	}
 	if (mysqli_num_rows($result) == 0)
 	{
-		mysqli_close($connection);	
 		return "";
 	}
 		
@@ -166,7 +163,6 @@ function getEntityByID($id, $table)
 	{
 		$ret =  $entity['name'];
 	}
-	mysqli_close($connection);
 	return $ret;
 }
 
@@ -192,8 +188,7 @@ function getMediaList($id, $type)
 		echo "ERROR: Media type not supported.";
 		return;
 	}
-	$connection = sql();
-	$result = bink_query($connection, "select * from $table where jamid = $id order by num asc");
+	$result = bink_query("select * from $table where jamid = $id order by num asc");
 	if (mysqli_num_rows($result) == 0)
 		return "";
 	
@@ -238,7 +233,6 @@ function getMediaList($id, $type)
 		}
 	}
 	$ret .= "</table></ol></div>";
-	mysqli_close($connection);
 	return $ret;
 }
 
@@ -268,7 +262,6 @@ function getPeopleList($id, $type)
 		echo "Type not supported!";
 		return;
 	}
-	$connection = sql();
 	$result = bink_query("select * from $table where jamid = $id order by $idlabel");
 	if (mysqli_num_rows($result) == 0)
 		return "";
@@ -407,7 +400,6 @@ function isPhone()
 
 function getJams($query)
 {
-	sql();
 	$result = bink_query($query);
 	$ret = "";
 	
@@ -436,7 +428,6 @@ function getJams($query)
 
 function printAJam($id)
 {
-	sql();
 	$result = bink_query("select * from jams where id = $id");
 	$ret = "";
 	while (	$row = mysqli_fetch_array($result) )
@@ -479,8 +470,6 @@ function printAJam($id)
 
 function embediPhonePlayer($id=-1)
 {
-  sql();
-  
   $result = bink_query("select * from tracks where jamid = $id order by num asc	");
 	
   $row = mysqli_fetch_array($result);
@@ -511,9 +500,6 @@ function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort
 
 function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="date", $sort="desc")
 {
-	
-	sql();
-
 	if ($listmode == 3)
 	{
 		$ret .= "<div class='item'>";
@@ -720,7 +706,6 @@ include "../settings.php";
   <meta property="og:type"   content="facebookbink:collection" /> 
   <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
  <?php
-  sql();
   $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
   $title = $row['title'];

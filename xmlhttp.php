@@ -1,8 +1,6 @@
 <?php
 
 include "functions.php";
-sql();
-
 
 if ($_GET['action'] == "login")
 {

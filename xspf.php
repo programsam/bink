@@ -2,9 +2,6 @@
 
 include "functions.php";
 
-sql();
-
-
 if ($_GET['mode'] == "index")
 {
 	header("Content-Type: application/xml");

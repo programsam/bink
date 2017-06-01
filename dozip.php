@@ -21,7 +21,6 @@
 
  include "functions.php";
  
- sql();
  $id = $_GET['id']; 
 	//echo "Would be making zip file for $id";
 	//echo ". First we need the list of sound files...";

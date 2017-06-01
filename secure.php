@@ -2,9 +2,6 @@
 
 include "functions.php";
 
-sql();
-
-
 
 /*
  If the user is already logged-in, this will return their logged in token.

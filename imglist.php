@@ -1,8 +1,6 @@
 <?php
 
 include "functions.php";
-sql();
-
 $id = $_GET['jamid'];
 $start = $_GET['start'];
 
