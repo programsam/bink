@@ -19,10 +19,10 @@ if (isset($_GET['closer']))
 if (isset($_GET['trackstyle']))
 {
 	$trackid = $_GET['trackid'];
-	$result = mysql_query("select * from tracks where id = $trackid");
-	$trackrow = mysql_fetch_array($result);
-	$result2 = mysql_query("select * from jams where id = " . $trackrow['jamid']);
-	$jamrow = mysql_fetch_array($result2);
+	$result = mysqli_query("select * from tracks where id = $trackid");
+	$trackrow = mysqli_fetch_array($result);
+	$result2 = mysqli_query("select * from jams where id = " . $trackrow['jamid']);
+	$jamrow = mysqli_fetch_array($result2);
 	$jamid = $jamrow['id'];
 	
 	//print_r($trackrow);
@@ -74,7 +74,7 @@ $encodedbody = urlencode("Hey, check out this new music I found on BINK! ");
 $encodedlisten = urlencode("Go to " . $BASE_URL . "/jam.php?id=$jamid to listen.");
 $redirecturi = urlencode($BASE_URL . "/share.php?closer=1");
 
-$result = mysql_query("select * from tracks where jamid = $jamid");
+$result = mysqli_query("select * from tracks where jamid = $jamid");
 
 ?>
 <div style="float:right"><a href="javascript:hide('shareBox')"><img src="img/close.png" border=0 /></a></div>
@@ -107,7 +107,7 @@ echo "[ <a target=\'_blank\" href=\"https://www.facebook.com/dialog/feed?
 	<option value="-1"> -- Select a Track -- </option>
 <?php
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysqli_fetch_array($result))
 {
 	echo "<option value=\"" . $row['id'] . "\">" . $row['title'] . "</option>";
 }

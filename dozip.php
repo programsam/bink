@@ -26,9 +26,9 @@
 	//echo "Would be making zip file for $id";
 	//echo ". First we need the list of sound files...";
 	
-	$result = mysql_query("select * from tracks where jamid = $id order by num asc");
+	$result = mysqli_query("select * from tracks where jamid = $id order by num asc");
 
-	if (mysql_num_rows($result) == 0)
+	if (mysqli_num_rows($result) == 0)
 		return "";
 	
 	$logfile = "/var/tmp/downloadlog";
@@ -41,7 +41,7 @@
 	$zip = new ZipArchive();
 	$zip-> open($file, ZipArchive::OVERWRITE);
 	
-	while (	$row = mysql_fetch_array($result) )
+	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ext = pathinfo($row['path'], PATHINFO_EXTENSION);
 		

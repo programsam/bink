@@ -13,9 +13,9 @@ $start = $_GET['start'];
 		exit;
 	}
 
-	$result = mysql_query("SELECT * FROM `pictures` WHERE `jamid` = $id LIMIT $start,5");
+	$result = mysqli_query("SELECT * FROM `pictures` WHERE `jamid` = $id LIMIT $start,5");
 		
-	while ($picrow = mysql_fetch_array($result))
+	while ($picrow = mysqli_fetch_array($result))
 	{
 		$filename = $picrow['filename'];
 		$picid = $picrow['id'];

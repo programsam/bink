@@ -12,12 +12,12 @@ if ($_GET['mode'] == "index")
 	echo "<title>Welcome to BINK!</title><trackList>";
 
 
-	$result = mysql_query("select * from jams where private=0 order by date desc");
+	$result = mysqli_query("select * from jams where private=0 order by date desc");
 	
 	$sql = "";
 	$i=0;
-	$num = mysql_num_rows($result);
-	while ($row = mysql_fetch_array($result))
+	$num = mysqli_num_rows($result);
+	while ($row = mysqli_fetch_array($result))
 	{
 		if ($i < $num-1)
 			$tunion = " union ";
@@ -29,8 +29,8 @@ if ($_GET['mode'] == "index")
 		
 	}
 	
-	$result2 = mysql_query($sql);
-	while ($trkrow = mysql_fetch_array($result2))
+	$result2 = mysqli_query($sql);
+	while ($trkrow = mysqli_fetch_array($result2))
 	{
 		$loc = $trkrow['path'];
 		$loc = addslashes($loc);
@@ -44,7 +44,7 @@ if ($_GET['mode'] == "index")
 		
 		if ($trkrow['defpic'])
 		{
-			$picrow = mysql_fetch_array(mysql_query("select * from pictures where id = " . $trkrow['defpic']));
+			$picrow = mysqli_fetch_array(mysqli_query("select * from pictures where id = " . $trkrow['defpic']));
 			
 			echo "<image>http://s3.amazonaws.com/binkmedia/public/pics/" . $trkrow['id'] . "/" . $picrow['filename'] . "</image>";
 		}
@@ -58,17 +58,17 @@ else
 {
 	$id = $_GET['id'];
 
-	$result = mysql_query("SELECT * FROM jams WHERE id = $id");
-	$jamrow = mysql_fetch_array($result);
+	$result = mysqli_query("SELECT * FROM jams WHERE id = $id");
+	$jamrow = mysqli_fetch_array($result);
 	$jtitle = urlencode($jamrow['title']);
 	header("Content-Type: application/xml");
 	echo "<?xml version='1.0' encoding='UTF-8'?><playlist version='0' xmlns = 'http://xspf.org/ns/0/'>";
 	echo "<title>$jtitle</title><trackList>";
 
 
-	$result = mysql_query("SELECT * FROM `tracks` WHERE jamid=$id ORDER BY `num` ASC;");
+	$result = mysqli_query("SELECT * FROM `tracks` WHERE jamid=$id ORDER BY `num` ASC;");
 
-	while ($trkrow = mysql_fetch_array($result))
+	while ($trkrow = mysqli_fetch_array($result))
 	{
 		$loc = $trkrow['path'];
 		$extension = pathinfo($loc, PATHINFO_EXTENSION);
