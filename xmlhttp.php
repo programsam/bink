@@ -2,7 +2,11 @@
 
 include "functions.php";
 
-if ($_GET['action'] == "login")
+if (! isset($_GET['action']))
+{
+	echo "<response>Please specify an action, sir!</response>";
+}
+else if ($_GET['action'] == "login")
 {
 	if ($_GET['password'] == "h0m3pl4t3")
 	{
