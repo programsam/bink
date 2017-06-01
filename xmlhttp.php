@@ -294,7 +294,13 @@ else if ($_GET['action'] == "delete")
 else if ($_GET['action'] == "new")
 {
 	$today = date("Y-m-d");
-	bink_query("insert into jams (id, date, title, notes, locid, bandid) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1)");
+	$connection = sql();
+	$result = mysqli_query($connection, "insert into jams (id, date, title, notes, locid, bandid) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1)";
+	if (! $result)
+	{
+		echo "<response>Failure inserting things!</response>";
+	}
+	mysqli_close_connection($connection);
 	$result = bink_query("select * from jams order by id desc limit 1");
 	$row = mysqli_fetch_array($result);
 	
