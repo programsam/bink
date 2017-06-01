@@ -552,45 +552,6 @@ else if ($_GET['action'] == "edittrack")
 	
 	echo "<sucess />";
 }
-else if ((isset($_POST['action']) && $_POST['action'] == "upload") || $_GET['action'] == "upload")
-{
-	$id = $_GET['jamid'];
-	require_once 'MIME/Type.php';
-
-	$baseDir = "/var/www/bink/";
-	echo "Uploading stuff";
-	
-	foreach ($_FILES as $thisfile)
-	{
-
-		$dettype = MIME_Type::autoDetect($thisfile['tmp_name']);
-
-		if (MIME_Type::wildcardMatch('image/*', $dettype))
-			$typeDir = "pics/";
-		else if (MIME_Type::wildcardMatch('video/*', $dettype))
-			$typeDir = "video/";
-		else if (MIME_Type::wildcardMatch('audio/*', $dettype))
-			$typeDir = "snd/";
-		else
-			header("HTTP/1.0 500");
-	
-		echo "Detected Type: $dettype<br />";
-		
-		
-		$myname = $thisfile['name'];
-		$myname = str_replace("\'", "", $myname);
-		$myname = str_replace("'", "", $myname);
-
-		$idDir = "$id/";
-		$saveFile = $baseDir . $typeDir . $idDir . $myname;
-	
-		echo "Saved File as: $saveFile";
-		
-		
-		
-		move_uploaded_file($thisfile["tmp_name"], $saveFile);
-	}
-}
 else if ($_GET['action'] == "strip")
 {
 
