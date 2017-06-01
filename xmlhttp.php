@@ -298,19 +298,14 @@ else if ($_GET['action'] == "new")
 	$result = bink_query("select * from jams order by id desc limit 1");
 	$row = mysqli_fetch_array($result);
 	
-	mkdir("snd/" . $row['id'] . "/");
-	mkdir("pics/" . $row['id'] . "/");
-	mkdir("video/" . $row['id'] . "/");
-	
-	
-		echo "<jam>";
-		echo "<id>" . $row['id'] . "</id>";
-		echo "<date>" . date("m/d/Y", strtotime($row['date'])) . "</date>";
-		echo "<title>" . $row['title'] . "</title>";
-		echo "<location>Click to add location...</location>";
-		echo "<band>Click to add band...</band>";
-		echo "<notes>" . $row['notes'] . "</notes>";
-		echo "</jam>";
+	echo "<jam>";
+	echo "<id>" . $row['id'] . "</id>";
+	echo "<date>" . date("m/d/Y", strtotime($row['date'])) . "</date>";
+	echo "<title>" . $row['title'] . "</title>";
+	echo "<location>Click to add location...</location>";
+	echo "<band>Click to add band...</band>";
+	echo "<notes>" . $row['notes'] . "</notes>";
+	echo "</jam>";
 
 }
 else if ($_GET['action'] == "managedata")
