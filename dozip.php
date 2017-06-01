@@ -26,7 +26,7 @@
 	//echo "Would be making zip file for $id";
 	//echo ". First we need the list of sound files...";
 	
-	$result = mysqli_query("select * from tracks where jamid = $id order by num asc");
+	$result = bink_query("select * from tracks where jamid = $id order by num asc");
 
 	if (mysqli_num_rows($result) == 0)
 		return "";

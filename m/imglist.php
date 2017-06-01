@@ -13,7 +13,7 @@ $start = $_GET['start'];
 		exit;
 	}
 
-	$result = mysqli_query("SELECT * FROM `pictures` WHERE `jamid` = $id LIMIT $start,5");
+	$result = bink_query("SELECT * FROM `pictures` WHERE `jamid` = $id LIMIT $start,5");
 		
 	while ($picrow = mysqli_fetch_array($result))
 	{

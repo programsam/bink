@@ -57,7 +57,7 @@ function sDate($date)
 function getLocationName($id)
 {
 	$connection = sql();
-	$result = mysqli_query("select * from locations where id = $id");
+	$result = bink_query("select * from locations where id = $id");
 	$row = mysqli_fetch_array($result);
 	mysqli_close($connection);
 	return $row['name'];
@@ -66,7 +66,7 @@ function getLocationName($id)
 function getBandName($id, $at=1)
 {
 	$connection = sql();
-	$result = mysqli_query($connection, "select * from bands where id = $id");
+	$result = bink_query($connection, "select * from bands where id = $id");
 	if (mysqli_num_rows($result) > 0)
 	{
 		$row = mysqli_fetch_array($result);
@@ -86,7 +86,7 @@ function getBandName($id, $at=1)
 function getMusicianInfo($id)
 {
 	$connection = sql();
-	$result = mysqli_query($connection, "select * from musicians where id = $id");
+	$result = bink_query($connection, "select * from musicians where id = $id");
 	$row = mysqli_fetch_array($result);
 	$musname = $row['name'];
 	$link = $row['link'];
@@ -95,7 +95,7 @@ function getMusicianInfo($id)
 	
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
 	
-	$result = mysqli_query($connection, "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
+	$result = bink_query($connection, "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
 
 	$num = mysqli_num_rows($result);
 	$ret .= "<strong>Number of Collections</strong>: $num<br />";
@@ -122,7 +122,7 @@ function getMusicianInfo($id)
 function getNumberOf($table, $label)
 {
 	$connection = sql();
-	$result = mysqli_query($connection, "SELECT * FROM `$table`;");
+	$result = bink_query($connection, "SELECT * FROM `$table`;");
 	$num = mysqli_num_rows($result);
 	mysqli_close($connection);
 	return "<tr><td>$label</td><td>$num</td></tr>";
@@ -131,7 +131,7 @@ function getNumberOf($table, $label)
 function getEntityByID($id, $table)
 {
 	$connection = sql();
-	$result = mysqli_query($connection, "select * from $table where id = $id");
+	$result = bink_query($connection, "select * from $table where id = $id");
 	
 	if ($result == null)
 	{
@@ -193,7 +193,7 @@ function getMediaList($id, $type)
 		return;
 	}
 	$connection = sql();
-	$result = mysqli_query($connection, "select * from $table where jamid = $id order by num asc");
+	$result = bink_query($connection, "select * from $table where jamid = $id order by num asc");
 	if (mysqli_num_rows($result) == 0)
 		return "";
 	
@@ -269,7 +269,7 @@ function getPeopleList($id, $type)
 		return;
 	}
 	$connection = sql();
-	$result = mysqli_query("select * from $table where jamid = $id order by $idlabel");
+	$result = bink_query("select * from $table where jamid = $id order by $idlabel");
 	if (mysqli_num_rows($result) == 0)
 		return "";
 		
@@ -297,7 +297,7 @@ function getPeopleList($id, $type)
 function getPictures($jamid)
 {
 	
-	$num = mysqli_num_rows(mysqli_query("select * from pictures where jamid = $jamid"));
+	$num = mysqli_num_rows(bink_query("select * from pictures where jamid = $jamid"));
 
 	if ($num == 0)
 	{
@@ -305,11 +305,11 @@ function getPictures($jamid)
 	}
 	if ($num == 1)
 	{
-		$toprow = mysqli_fetch_array(mysqli_query("select * from pictures where jamid = $jamid"));
+		$toprow = mysqli_fetch_array(bink_query("select * from pictures where jamid = $jamid"));
 		$filename = $toprow['filename'];
 		return "<div class='item'><h1>Pictures</h1><a href='../getimage.php?f=$jamid/$filename'><img border=0 src='../getimage.php?f=$jamid/$filename&w=300&h=200'></a></div>";
 	}
-	$row = mysqli_fetch_array(mysqli_query("SELECT * FROM jams, pictures where jams.defpic = pictures.id and jams.id=$jamid"));
+	$row = mysqli_fetch_array(bink_query("SELECT * FROM jams, pictures where jams.defpic = pictures.id and jams.id=$jamid"));
 
 	$ret = "<div class='item'><h1>Pictures</h1>";
 	$ret .= "<div id='loadindicator' style='float: right'>Loading...</div>";
@@ -320,7 +320,7 @@ function getPictures($jamid)
 	}
 	else
 	{
-		$row = mysqli_fetch_array(mysqli_query("SELECT * FROM pictures where pictures.jamid = $jamid"));
+		$row = mysqli_fetch_array(bink_query("SELECT * FROM pictures where pictures.jamid = $jamid"));
 		$ret .= "<a id='imagelink' href='../getimage.php?f=$jamid/" . $row['filename'] . "'><img name='mainpic' onLoad=\"setHTML('loadindicator', '');\"  border=0 id='mainpic' src='getimage.php?f=$jamid/" . $row['filename'] . "&w=300&h=200' /></a>";
 	}
 	$ret .= "<br />";
@@ -339,7 +339,7 @@ function getPictures($jamid)
 }
 function getNextId($id)
 {
-	$result = mysqli_query("select * from jams where private=0 order by date desc;");
+	$result = bink_query("select * from jams where private=0 order by date desc;");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -358,7 +358,7 @@ function getPreviousId($id)
 {
 $id = $_GET['id'];
 	
-	$result = mysqli_query("select * from jams where private=0 order by date asc;");
+	$result = bink_query("select * from jams where private=0 order by date asc;");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -408,7 +408,7 @@ function isPhone()
 function getJams($query)
 {
 	sql();
-	$result = mysqli_query($query);
+	$result = bink_query($query);
 	$ret = "";
 	
 	
@@ -424,7 +424,7 @@ function getJams($query)
 		
 		if ($row['defpic'] && $row['defpic'] != -1)
 		{
-			$picrow = mysqli_fetch_array(mysqli_query("select * from jams, pictures where pictures.id = jams.defpic && jams.id = " . $row['id']));
+			$picrow = mysqli_fetch_array(bink_query("select * from jams, pictures where pictures.id = jams.defpic && jams.id = " . $row['id']));
 			$ret .= "<p /><img src='../getimage.php?f=" . $row['id'] . "/" . $picrow['filename'] . "&w=250&h=350' />";
 		}
 		
@@ -437,7 +437,7 @@ function getJams($query)
 function printAJam($id)
 {
 	sql();
-	$result = mysqli_query("select * from jams where id = $id");
+	$result = bink_query("select * from jams where id = $id");
 	$ret = "";
 	while (	$row = mysqli_fetch_array($result) )
 	{
@@ -481,7 +481,7 @@ function embediPhonePlayer($id=-1)
 {
   sql();
   
-  $result = mysqli_query("select * from tracks where jamid = $id order by num asc	");
+  $result = bink_query("select * from tracks where jamid = $id order by num asc	");
 	
   $row = mysqli_fetch_array($result);
 
@@ -553,7 +553,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 		$sql = "($sTitle) union ($sLocation) union ($sBand) union ($sMusicians) union ($sStaff) union ($sNotes) union ($sTracks)";
 	}
 	
-	$result = mysqli_query($sql);
+	$result = bink_query($sql);
 	
 	$num = mysqli_num_rows($result);
 
@@ -564,7 +564,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 
 	//echo $sql;
 
-	$result = mysqli_query($sql);
+	$result = bink_query($sql);
 
 	$lenbold[$order] = 1;
 	
@@ -637,7 +637,7 @@ function todayInHistory()
 
 function getBandInfo($id)
 {
-	$result = mysqli_query("select * from bands where id = $id");
+	$result = bink_query("select * from bands where id = $id");
 	$row = mysqli_fetch_array($result);
 	$musname = $row['name'];
 	$link = $row['link'];
@@ -646,13 +646,13 @@ function getBandInfo($id)
 	
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
 	
-	$result = mysqli_query("select distinct $columns from jams, bands where jams.private=0 and jams.bandid=bands.id and bands.id=$id");
+	$result = bink_query("select distinct $columns from jams, bands where jams.private=0 and jams.bandid=bands.id and bands.id=$id");
 
 	$num = mysqli_num_rows($result);
 	$ret .= "<strong>Number of Collections</strong>: $num<br />";
 	$ret .= "<strong>Link</strong>: <a href='$link'>$link</a><br />";
 	$ret .= "<strong>Played Locations</strong>: ";
-	$result2 = mysqli_query("select distinct locations.name as name from jams, locations, bands where jams.bandid=bands.id and bands.id = $id and jams.locid = locations.id");
+	$result2 = bink_query("select distinct locations.name as name from jams, locations, bands where jams.bandid=bands.id and bands.id = $id and jams.locid = locations.id");
 	$total = mysqli_num_rows($result2);
 	$i=0;
 	while ($row = mysqli_fetch_array($result2))
@@ -674,7 +674,7 @@ function iconFor($type, $jamid)
 
 	if ($type == "sound")
 	{
-		if(mysqli_num_rows(mysqli_query("select * from tracks where jamid = $jamid")) > 0)
+		if(mysqli_num_rows(bink_query("select * from tracks where jamid = $jamid")) > 0)
 			return "<img src='../img/soundicon.jpg' width=15 />";
 		else
 			return "&nbsp;";
@@ -682,14 +682,14 @@ function iconFor($type, $jamid)
 	
 	if ($type == "pics")
 	{
-		if(mysqli_num_rows(mysqli_query("select * from pictures where jamid = $jamid")) > 0)
+		if(mysqli_num_rows(bink_query("select * from pictures where jamid = $jamid")) > 0)
 			return "<img src='../img/photoicon.jpg' width=15 />";
 		else
 			return "&nbsp;";
 	}
 	if ($type == "video")
 	{
-		if(mysqli_num_rows(mysqli_query("select * from video where jamid = $jamid")) > 0)
+		if(mysqli_num_rows(bink_query("select * from video where jamid = $jamid")) > 0)
 			return "<img src='../img/videoicon.jpg' width=15 />";
 		else
 			return "&nbsp;";
@@ -721,7 +721,7 @@ include "../settings.php";
   <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
  <?php
   sql();
-  $result = mysqli_query("select title, notes from jams where id = $id");
+  $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
   $title = $row['title'];
   $notes = $row['notes'];

@@ -19,9 +19,9 @@ if (isset($_GET['closer']))
 if (isset($_GET['trackstyle']))
 {
 	$trackid = $_GET['trackid'];
-	$result = mysqli_query("select * from tracks where id = $trackid");
+	$result = bink_query("select * from tracks where id = $trackid");
 	$trackrow = mysqli_fetch_array($result);
-	$result2 = mysqli_query("select * from jams where id = " . $trackrow['jamid']);
+	$result2 = bink_query("select * from jams where id = " . $trackrow['jamid']);
 	$jamrow = mysqli_fetch_array($result2);
 	$jamid = $jamrow['id'];
 	
@@ -74,7 +74,7 @@ $encodedbody = urlencode("Hey, check out this new music I found on BINK! ");
 $encodedlisten = urlencode("Go to " . $BASE_URL . "/jam.php?id=$jamid to listen.");
 $redirecturi = urlencode($BASE_URL . "/share.php?closer=1");
 
-$result = mysqli_query("select * from tracks where jamid = $jamid");
+$result = bink_query("select * from tracks where jamid = $jamid");
 
 ?>
 <div style="float:right"><a href="javascript:hide('shareBox')"><img src="img/close.png" border=0 /></a></div>

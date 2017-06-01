@@ -12,7 +12,7 @@ if ($_GET['mode'] == "index")
 	echo "<title>Welcome to BINK!</title><trackList>";
 
 
-	$result = mysqli_query("select * from jams where private=0 order by date desc");
+	$result = bink_query("select * from jams where private=0 order by date desc");
 	
 	$sql = "";
 	$i=0;
@@ -29,7 +29,7 @@ if ($_GET['mode'] == "index")
 		
 	}
 	
-	$result2 = mysqli_query($sql);
+	$result2 = bink_query($sql);
 	while ($trkrow = mysqli_fetch_array($result2))
 	{
 		$loc = $trkrow['path'];
@@ -44,7 +44,7 @@ if ($_GET['mode'] == "index")
 		
 		if ($trkrow['defpic'])
 		{
-			$picrow = mysqli_fetch_array(mysqli_query("select * from pictures where id = " . $trkrow['defpic']));
+			$picrow = mysqli_fetch_array(bink_query("select * from pictures where id = " . $trkrow['defpic']));
 			
 			echo "<image>http://s3.amazonaws.com/binkmedia/public/pics/" . $trkrow['id'] . "/" . $picrow['filename'] . "</image>";
 		}
@@ -58,7 +58,7 @@ else
 {
 	$id = $_GET['id'];
 
-	$result = mysqli_query("SELECT * FROM jams WHERE id = $id");
+	$result = bink_query("SELECT * FROM jams WHERE id = $id");
 	$jamrow = mysqli_fetch_array($result);
 	$jtitle = urlencode($jamrow['title']);
 	header("Content-Type: application/xml");
@@ -66,7 +66,7 @@ else
 	echo "<title>$jtitle</title><trackList>";
 
 
-	$result = mysqli_query("SELECT * FROM `tracks` WHERE jamid=$id ORDER BY `num` ASC;");
+	$result = bink_query("SELECT * FROM `tracks` WHERE jamid=$id ORDER BY `num` ASC;");
 
 	while ($trkrow = mysqli_fetch_array($result))
 	{

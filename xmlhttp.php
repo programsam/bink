@@ -22,7 +22,7 @@ else if ($_GET['action'] == "tracks")
 {
 	$jamid = $_GET['id'];
 	
-	$result = mysqli_query("SELECT tracks.id as id, tracks.num, tracks.title, tracks.path, tracks.notes FROM tracks, jams where tracks.jamid = jams.id and jamid = $jamid order by tracks.num asc");
+	$result = bink_query("SELECT tracks.id as id, tracks.num, tracks.title, tracks.path, tracks.notes FROM tracks, jams where tracks.jamid = jams.id and jamid = $jamid order by tracks.num asc");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -67,7 +67,7 @@ else if ($_GET['action'] == "trackList")
 	
 	echo "$sql";
 	
-	$result = mysqli_query($sql);
+	$result = bink_query($sql);
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -107,7 +107,7 @@ else if ($_GET['action'] == "list")
 		$sql = "select * from jams order by date desc";
 	}
 	
-	$result = mysqli_query($sql);
+	$result = bink_query($sql);
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -120,20 +120,20 @@ else if ($_GET['action'] == "list")
 		
 		$media = "";
 		
-		$imgresult = mysqli_query("select * from pictures where jamid = " . $row['id'] . ";");
+		$imgresult = bink_query("select * from pictures where jamid = " . $row['id'] . ";");
 		$num = mysqli_num_rows($imgresult);
 		
 		if ($num > 0)
 			$media .= "P";
 		
-		$vidresult = mysqli_query("select * from video where jamid = " . $row['id'] . ";");
+		$vidresult = bink_query("select * from video where jamid = " . $row['id'] . ";");
 		$num = mysqli_num_rows($vidresult);
 		
 		if ($num > 0)
 			$media .= "V";
 		
 		
-		$trkresult = mysqli_query("select * from tracks where jamid = " . $row['id'] . ";");
+		$trkresult = bink_query("select * from tracks where jamid = " . $row['id'] . ";");
 		$num = mysqli_num_rows($trkresult);
 		
 		if ($num > 0)
@@ -154,7 +154,7 @@ else if ($_GET['action'] == "newplaylist")
 	
 	foreach ($trackarray as $thistrack)
 	{ 
-		mysqli_query("insert into playlists (id, trackid) values ('$id', $thistrack)");
+		bink_query("insert into playlists (id, trackid) values ('$id', $thistrack)");
 	}
 	echo "<playlist><id>$id</id></playlist>";
 }
@@ -191,7 +191,7 @@ $s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
 
 if ($_GET['action'] == "view")
 {
-	$result = mysqli_query("select * from jams where id = " . $_GET['id']);
+	$result = bink_query("select * from jams where id = " . $_GET['id']);
 	
 	$row = mysqli_fetch_array($result);
 		echo "<jam>";
@@ -227,18 +227,18 @@ else if ($_GET['action'] == "setprivate")
 	else if ($_GET['private'] == "false")
 		$private = 0;
 		
-	mysqli_query("update jams set private=$private where id=$id");
+	bink_query("update jams set private=$private where id=$id");
 }
 else if ($_GET['action'] == "delete")
 {
 	$id = $_GET['id'];
 	
-	mysqli_query("delete from jams where id = $id");
-	mysqli_query("delete from musiciansoncollection where jamid = $id");
-	mysqli_query("delete from productiononcollection where jamid = $id");
-	mysqli_query("delete from pictures where jamid = $id");
-	mysqli_query("delete from tracks where jamid = $id");
-	mysqli_query("delete from video where jamid = $id");
+	bink_query("delete from jams where id = $id");
+	bink_query("delete from musiciansoncollection where jamid = $id");
+	bink_query("delete from productiononcollection where jamid = $id");
+	bink_query("delete from pictures where jamid = $id");
+	bink_query("delete from tracks where jamid = $id");
+	bink_query("delete from video where jamid = $id");
 
 	/**
 	 * Delete all pictures from amazon's S3.
@@ -292,8 +292,8 @@ else if ($_GET['action'] == "delete")
 else if ($_GET['action'] == "new")
 {
 	$today = date("Y-m-d");
-	mysqli_query("insert into jams (id, date, title, notes, locid, bandid) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1)");
-	$result = mysqli_query("select * from jams order by id desc limit 1");
+	bink_query("insert into jams (id, date, title, notes, locid, bandid) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1)");
+	$result = bink_query("select * from jams order by id desc limit 1");
 	$row = mysqli_fetch_array($result);
 	
 	mkdir("snd/" . $row['id'] . "/");
@@ -319,7 +319,7 @@ else if ($_GET['action'] == "managedata")
 	{
 		$querystr = " where name like ('%" . $_GET['query'] . "%')";
 	}
-	$result = mysqli_query("select * from $field $querystr");
+	$result = bink_query("select * from $field $querystr");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -348,7 +348,7 @@ else if ($_GET['action'] == "data")
 	{
 		$querystr = " where name like ('%" . $_GET['query'] . "%')";
 	}
-	$result = mysqli_query("select * from $field $querystr");
+	$result = bink_query("select * from $field $querystr");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -367,7 +367,7 @@ else if ($_GET['action'] == "edit")
 	if ($field == "date")
 		$value = date("Y-m-d", strtotime($value));
 	
-	mysqli_query("update jams set $field='$value' where id = $id");
+	bink_query("update jams set $field='$value' where id = $id");
 	
 	echo "<response>success</response>";
 }
@@ -376,7 +376,7 @@ else if ($_GET['action'] == "deleteitem")
 	$type = $_GET['field'];
 	$id = $_GET['id'];
 	
-	mysqli_query("delete from $type where id = $id");
+	bink_query("delete from $type where id = $id");
 	
 	echo "<id>$id</id>";
 	
@@ -391,9 +391,9 @@ else if ($_GET['action'] == "editdataitem")
 	$lng = $_GET['lng']; 
 	if ($field == "address" && $type == "locations")
 	{
-		mysqli_query("update $type set $field = '$value', lat = '$lat', lon = '$lng' where id = $id");
+		bink_query("update $type set $field = '$value', lat = '$lat', lon = '$lng' where id = $id");
 	}
-	mysqli_query("update $type set $field = '$value' where id = $id");
+	bink_query("update $type set $field = '$value' where id = $id");
 	
 	echo "<sucess>true</sucess>";
 	
@@ -403,8 +403,8 @@ else if ($_GET['action'] == "additem")
 	$type = $_GET['type'];
 	$name = $_GET['name'];
 	
-	mysqli_query("insert into $type (id, name) values (null, '$name')");
-	$result = mysqli_query("select max(id) as id from $type");
+	bink_query("insert into $type (id, name) values (null, '$name')");
+	$result = bink_query("select max(id) as id from $type");
 	$row = mysqli_fetch_array($result);
 	$newid = $row['id'];
 	
@@ -413,7 +413,7 @@ else if ($_GET['action'] == "additem")
 else if ($_GET['action'] == "musicians")
 {
 	$id = $_GET['id'];
-	$result = mysqli_query("select musicianid, jamid, instrumentid, musicians.name as musician, instruments.name as instrument from musiciansoncollection, musicians, instruments where musiciansoncollection.musicianid = musicians.id and musiciansoncollection.instrumentid = instruments.id  and jamid=$id;");
+	$result = bink_query("select musicianid, jamid, instrumentid, musicians.name as musician, instruments.name as instrument from musiciansoncollection, musicians, instruments where musiciansoncollection.musicianid = musicians.id and musiciansoncollection.instrumentid = instruments.id  and jamid=$id;");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -432,7 +432,7 @@ else if ($_GET['action'] == "addmustocol")
 	$musid = $_GET['musid'];
 	$insid = $_GET['insid'];
 	
-	mysqli_query("insert into musiciansoncollection (jamid, instrumentid, musicianid) values ($jamid, $insid, $musid)");
+	bink_query("insert into musiciansoncollection (jamid, instrumentid, musicianid) values ($jamid, $insid, $musid)");
 }
 else if ($_GET['action'] == "delmusfromcol")
 {
@@ -440,12 +440,12 @@ else if ($_GET['action'] == "delmusfromcol")
 	$musid = $_GET['musid'];
 	$insid = $_GET['insid'];
 	
-	mysqli_query("delete from musiciansoncollection where jamid = $jamid and musicianid = $musid and instrumentid = $insid");
+	bink_query("delete from musiciansoncollection where jamid = $jamid and musicianid = $musid and instrumentid = $insid");
 }
 else if ($_GET['action'] == "staff")
 {
 	$id = $_GET['id'];
-	$result = mysqli_query("select staffid, jamid, roleid, staff.name as name, roles.name as role from productiononcollection, staff, roles where productiononcollection.staffid = staff.id and productiononcollection.roleid = roles.id  and jamid=$id;");
+	$result = bink_query("select staffid, jamid, roleid, staff.name as name, roles.name as role from productiononcollection, staff, roles where productiononcollection.staffid = staff.id and productiononcollection.roleid = roles.id  and jamid=$id;");
 	
 	
 	while ($row = mysqli_fetch_array($result))
@@ -465,7 +465,7 @@ else if ($_GET['action'] == "addstafftocol")
 	$staffid = $_GET['staffid'];
 	$roleid = $_GET['roleid'];
 	
-	mysqli_query("insert into productiononcollection (jamid, staffid, roleid) values ($jamid, $staffid, $roleid)");
+	bink_query("insert into productiononcollection (jamid, staffid, roleid) values ($jamid, $staffid, $roleid)");
 	echo "<success />";
 }
 else if ($_GET['action'] == "delstafffromcol")
@@ -474,18 +474,18 @@ else if ($_GET['action'] == "delstafffromcol")
 	$staffid = $_GET['staffid'];
 	$roleid = $_GET['roleid'];
 	
-	mysqli_query("delete from productiononcollection where jamid = $jamid and staffid = $staffid and roleid = $roleid");
+	bink_query("delete from productiononcollection where jamid = $jamid and staffid = $staffid and roleid = $roleid");
 }
 else if ($_GET['action'] == "reordertracks")
 {
 	$jamid = $_GET['jamid'];
 	
-	$result = mysqli_query("select id from tracks where jamid = $jamid");
+	$result = bink_query("select id from tracks where jamid = $jamid");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
 		$newnum = $_GET['trackid' . $row['id']];
-		mysqli_query("update tracks set num = $newnum where id = " . $row['id']);
+		bink_query("update tracks set num = $newnum where id = " . $row['id']);
 		
 		echo "update tracks set num = $newnum where id = " . $row['id'];
 	}
@@ -494,19 +494,19 @@ else if ($_GET['action'] == "reordervideo")
 {
 	$jamid = $_GET['jamid'];
 	
-	$result = mysqli_query("select id from video where jamid = $jamid");
+	$result = bink_query("select id from video where jamid = $jamid");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
 		$newnum = $_GET['videoid' . $row['id']];
-		mysqli_query("update video set num = $newnum where id = " . $row['id']);
+		bink_query("update video set num = $newnum where id = " . $row['id']);
 	}
 }
 else if ($_GET['action'] == "next")
 {
 	$id = $_GET['id'];
 	
-	$result = mysqli_query("select * from jams order by date desc;");
+	$result = bink_query("select * from jams order by date desc;");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -525,7 +525,7 @@ else if ($_GET['action'] == "previous")
 {
 	$id = $_GET['id'];
 	
-	$result = mysqli_query("select * from jams order by date asc;");
+	$result = bink_query("select * from jams order by date asc;");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -546,7 +546,7 @@ else if ($_GET['action'] == "edittrack")
 	$field = $_GET['field'];
 	$value = $_GET['value'];
 	
-	mysqli_query("update tracks set $field = '$value' where id = $trackid");
+	bink_query("update tracks set $field = '$value' where id = $trackid");
 	
 	echo "<sucess />";
 }
@@ -593,7 +593,7 @@ else if ($_GET['action'] == "strip")
 {
 
 $id = $_GET['jamid']; 
-mysqli_query("delete from tracks where jamid = $id");
+bink_query("delete from tracks where jamid = $id");
 
 $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
 $i = 0; 
@@ -627,7 +627,7 @@ if ($titles != null)
 		//complicated regular expression parsing to remove extra crap
 		$striptitle = preg_replace("(\d+)", "", $title, 1);
 		$striptitle = preg_replace("(\s+)", "", $striptitle, 1);
-	   	mysqli_query("insert into tracks (id, jamid, num, title, path) values (NULL, $id, $j, '$striptitle', 'snd/$id/" . $filenames[$title] . "');");
+	   	bink_query("insert into tracks (id, jamid, num, title, path) values (NULL, $id, $j, '$striptitle', 'snd/$id/" . $filenames[$title] . "');");
 	   	//echo "insert into tracks (id, jamid, num, title, path) values (NULL, $id, $j, '$striptitle', 'snd/$id/" . $filenames[$title] . "');";
 	}
 
@@ -666,7 +666,7 @@ $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
 /**
  * Tracks
  */
-mysqli_query("delete from tracks where jamid = $id");
+bink_query("delete from tracks where jamid = $id");
    	
 $i = 0; 
 foreach ($files as $file)
@@ -692,7 +692,7 @@ if ($titles != null)
 	foreach ($filenames as $filename)
 	{
 		$j++;
-		mysqli_query("insert into tracks (id, jamid, num, title, path) values (NULL, $id, $j, '" . $titles[$filename] . "', 'snd/$id/$filename');");
+		bink_query("insert into tracks (id, jamid, num, title, path) values (NULL, $id, $j, '" . $titles[$filename] . "', 'snd/$id/$filename');");
 		echo "insert into tracks (id, jamid, num, title, path) values (NULL, $id, $j, '" . $titles[$filename] . "', 'snd/$id/$filename');";
 	}
 
@@ -701,7 +701,7 @@ if ($titles != null)
 /**
  * Pictures
  */
-mysqli_query("delete from pictures where jamid = $id"); 
+bink_query("delete from pictures where jamid = $id"); 
 $files = $s3 -> getBucket('binkmedia', 'public/pics/' . $id);
 $filenames = array();
 $tothm = array();
@@ -726,7 +726,7 @@ foreach ($filenames as $filename)
 	if ($ext != "thm")
 	{
 		//We aren't dealing with a thumbnail, so it's safe to add to the pictures table.
-		mysqli_query("insert into pictures (id, jamid, filename) values (NULL, $id, '" . $filename . "');");
+		bink_query("insert into pictures (id, jamid, filename) values (NULL, $id, '" . $filename . "');");
 		echo "\tSearching for file: $filename.thm\n";
 		$result = array_search("$filename.thm", $filenames);
 		echo "\t\tResult: $result\n";
@@ -749,7 +749,7 @@ if ($tothm[0] != null)
 /**
  * Videos
  */
-mysqli_query("delete from video where jamid = $id");
+bink_query("delete from video where jamid = $id");
 $files = $s3 -> getBucket('binkmedia', 'public/video/' . $id);
 
 foreach ($files as $file)
@@ -765,7 +765,7 @@ foreach ($files as $file)
 	//Just get the name before extension: this is now the title
 	$title = $title[0];
 	
-	mysqli_query("INSERT INTO `video` (`id`,`jamid`,`title`,`num`, `path`) VALUES (NULL, '$id', '$title', '$i', 'video/$id/$filename');");
+	bink_query("INSERT INTO `video` (`id`,`jamid`,`title`,`num`, `path`) VALUES (NULL, '$id', '$title', '$i', 'video/$id/$filename');");
 	//echo "INSERT INTO `video` (`id`,`jamid`,`title`,`num`, `path`) VALUES (NULL, '$id', '$title', '$i', 'video/$id/$filename');";
 }
 
@@ -782,7 +782,7 @@ else if ($_GET['action'] == "deltrack")
 	$trackid = $_GET['trackid'];
 	$path = $_GET['path'];
 	
-	mysqli_query("delete from tracks where id = $trackid");
+	bink_query("delete from tracks where id = $trackid");
 	
 	$s3 -> deleteObject('binkmedia', 'public/' . $path);
 }
@@ -791,7 +791,7 @@ else if ($_GET['action'] == "delvideo")
 	$id = $_GET['videoid'];
 	$path = $_GET['path'];
 	
-	mysqli_query("delete from video where id = $id");
+	bink_query("delete from video where id = $id");
 	
 	$s3 -> deleteObject('binkmedia', 'public/' . $path);
 }
@@ -799,8 +799,8 @@ else if ($_GET['action'] == "pics")
 {
 
 	$jamid = $_GET['id'];
-	$result = mysqli_query("select * from pictures where jamid = $jamid");
-	$defpicresult = mysqli_query("select defpic from jams where id = $jamid");
+	$result = bink_query("select * from pictures where jamid = $jamid");
+	$defpicresult = bink_query("select defpic from jams where id = $jamid");
 	$defpicrow = mysqli_fetch_array($defpicresult);
 	$defpicnum = $defpicrow['defpic'];
 	
@@ -823,7 +823,7 @@ else if ($_GET['action'] == "video")
 {
 
 	$jamid = $_GET['id'];
-	$result = mysqli_query("select * from video where jamid = $jamid order by num asc");
+	$result = bink_query("select * from video where jamid = $jamid order by num asc");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -843,7 +843,7 @@ else if ($_GET['action'] == "editvideo")
 	$field = $_GET['field'];
 	$value = $_GET['value'];
 	
-	mysqli_query("update video set $field = '$value' where id = $videoid");
+	bink_query("update video set $field = '$value' where id = $videoid");
 	echo "update videos set $field = '$value' where id = $videoid";
 }
 else if ($_GET['action'] == "setdefpic")
@@ -851,11 +851,11 @@ else if ($_GET['action'] == "setdefpic")
 	$jamid = $_GET['jamid'];
 	$defid = $_GET['defpic'];
 
-	$result = mysqli_query("select defpic from jams where id = $jamid");
+	$result = bink_query("select defpic from jams where id = $jamid");
 	$row = mysqli_fetch_array($result);
 	$frompic = $row['defpic'];
 	
-	mysqli_query("update jams set defpic = $defid where id = $jamid");
+	bink_query("update jams set defpic = $defid where id = $jamid");
 	
 	echo "<result><imageset>$defid</imageset><imageunset>$frompic</imageunset></result>";
 }
@@ -864,14 +864,14 @@ else if ($_GET['action'] == "delpic")
 	$picid = $_GET['picid'];
 	$jamid = $_GET['jamid'];
 	$filename = $_GET['filename'];
-	mysqli_query("delete from pictures where id = $picid");
+	bink_query("delete from pictures where id = $picid");
 	
-	$result = mysqli_query("select defpic from jams where id = $jamid");
+	$result = bink_query("select defpic from jams where id = $jamid");
 	$row = mysqli_fetch_array($result);
 	$defpic = $row['defpic'];
 	
 	if ($picid == $defpic)
-		mysqli_query("update jams set defpic = -1 where id = $jamid");
+		bink_query("update jams set defpic = -1 where id = $jamid");
 	
 	//unlink("pics/$jamid/$filename");
 	//unlink("pics/$jamid/$filename.thm");
@@ -884,12 +884,12 @@ else if ($_GET['action'] == "setbreak")
 {
 	$id = $_GET['id'];
 	
-	mysqli_query("insert into tracks (id, jamid, num, title, path) values (NULL, $id, 0, '--------------------', '');");
+	bink_query("insert into tracks (id, jamid, num, title, path) values (NULL, $id, 0, '--------------------', '');");
 
 }
 else if ($_GET['action'] == "getaddresses")
 {
-	$result = mysqli_query("select * from locations where address <> ''");
+	$result = bink_query("select * from locations where address <> ''");
 	
 	while ($row = mysqli_fetch_array($result))
 	{
