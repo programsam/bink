@@ -4,11 +4,12 @@ include "S3.php";
 function sql()
 {
 	include "settings.php";
-	if (!@mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD)) {
+	$connection = @mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
+	if (! $connection) {
 		echo "<h2>Could not connect to mySQL</h2>";
 		die;
 	}
-	if (mysqli_select_db($DB_NAME) == 0)
+	if (mysqli_select_db($connection, $DB_NAME) == 0)
 	{
 		print "<h2>Could not select bink database</h2>";
 		die;
