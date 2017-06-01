@@ -5,7 +5,9 @@ $width = $_GET['w'];
 $height = $_GET['h'];
 
 
-header("Content-type: image/jpeg");
+//header("Content-type: image/jpeg");
+
+echo "I received the filename: " . $_GET['f'];
 
 if ($width != "" && $height != "")
 {
