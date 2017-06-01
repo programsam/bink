@@ -552,7 +552,7 @@ else if ($_GET['action'] == "edittrack")
 	
 	echo "<sucess />";
 }
-else if ($_POST['action'] == "upload" || $_GET['action'] == "upload")
+else if ((isset($_POST['action'] && $_POST['action'] == "upload") || $_GET['action'] == "upload")
 {
 	$id = $_GET['jamid'];
 	require_once 'MIME/Type.php';
