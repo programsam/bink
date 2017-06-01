@@ -295,7 +295,7 @@ else if ($_GET['action'] == "new")
 {
 	$today = date("Y-m-d");
 	$connection = sql();
-	$result = mysqli_query($connection, "insert into jams (id, date, title, notes, locid, bandid) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1)");
+	$result = mysqli_query($connection, "insert into jams (id, date, title, notes, locid, bandid, private) values (null, '$today', 'New Collection', 'Add Notes Here', -1, -1, 1)");
 	if (! $result)
 	{
 		echo "<response>Failure inserting things!</response>";
