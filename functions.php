@@ -18,13 +18,22 @@ function sql()
 	return $connection;
 }
 
+function bink_query($querystr)
+{
+	$connection = sql();
+	$result = mysqli_query($connection, $querystr);
+	return $result;
+}
+
 function newPlaylist()
 {
 	$token = "N/A";
 	do 
 	{
 		$token = randString(32);
-		$result = mysqli_query("select * from playlists where id = '$token'");
+		$connection = sql();
+		$result = mysqli_query($connection, "select * from playlists where id = '$token'");
+		mysqli_close($connection);
 	} while (mysqli_num_rows($result) > 0);
 	
 	return $token;
@@ -33,6 +42,7 @@ function newPlaylist()
 function getToken()
 {
 	 $token = "N/A";
+	 $connection = sql();
 	 $result = mysqli_query("select * from tokens where ip = '" . $_SERVER['REMOTE_ADDR'] . "'");
 	 if (mysqli_num_rows($result))
 	 {
@@ -42,9 +52,9 @@ function getToken()
 	 else
 	 {
 		 $token = randString(16);
-		 mysqli_query("insert into tokens (ip, token) values ('" . $_SERVER['REMOTE_ADDR'] . "', '$token')");
+		 mysqli_query($connection, "insert into tokens (ip, token) values ('" . $_SERVER['REMOTE_ADDR'] . "', '$token')");
 	 }
-	 
+	 mysqli_close($connection);
 	 return $token;
 }
 
@@ -385,9 +395,7 @@ function iconFor($type, $jamid)
 
 function getJams($query)
 {
-	$connection = sql();
-	$result = mysqli_query($connection, $query);
-	mysqli_close($connection);
+	$result = bink_query($query);
 	$ret = "";
 	
 	
@@ -410,7 +418,6 @@ function getJams($query)
 		$ret .= "</div>";	
 	}
 
-//	mysqli_close($connection);
 	return $ret;	
 }
 
