@@ -785,7 +785,9 @@ function getLocationName($id)
 
 function getBandName($id, $at=1)
 {
+	$connection = sql();
 	$result = mysqli_query("select * from bands where id = $id");
+	mysqli_close($connection);
 	if (mysqli_num_rows($result) > 0)
 	{
 		$row = mysqli_fetch_array($result);
