@@ -834,10 +834,10 @@ function printAJam($id, $trackid)
 			$ret .= printCustomPlayer($id, $trackid);
 		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'];
 		$ret .= "<p align=right>";
-		if (getNextId($id) != "")
-			$ret .= "[ <a href='jam.php?id=" . getNextId($id) . "'>Next</a> ]";
-		if (getPreviousId($id) != "")
-			$ret .= "[ <a href='jam.php?id=" . getPreviousId($id) . "'>Prev</a> ]";
+		//if (getNextId($id) != "")
+		//	$ret .= "[ <a href='jam.php?id=" . getNextId($id) . "'>Next</a> ]";
+		//if (getPreviousId($id) != "")
+		//	$ret .= "[ <a href='jam.php?id=" . getPreviousId($id) . "'>Prev</a> ]";
 		$ret .= "[ <a href='admin/main.php?id=$id'>Edit</a> ]";
 		$ret .= "[ <a href=\"javascript:show('shareBox');queryHTML('shareBox', 'share.php?jamid=$id&title=" . urlencode($row['title']) . "')\">Share</a> ]";
 		$ret .= getShareBox($id, $row['title']);
