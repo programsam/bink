@@ -1421,8 +1421,7 @@ if ($maps)
 function printFooter()
 {
 ?>
-	<div class='item'>
-<p align=right>[ <a href='<?= $_SERVER['HTTP_REFERER']?>'>Go Back</a> ]</p></div></div>
+	</div>
 	<div class="footer">&copy; 2009-2015 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="http://arcsin.se">Arcsin</a></div>
 </div>
 </body>
