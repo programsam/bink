@@ -37,8 +37,9 @@
 	$log = fopen($logfile, 'a') or die("can't open file");
 			
 	$file = "/var/tmp/temp.zip";
+	
 	$zip = new ZipArchive();
-	$zip-> open($file, ZipArchive::OVERWRITE);
+	$zip-> open($file, ZipArchive::CREATE);
 	
 	while (	$row = mysqli_fetch_array($result) )
 	{
