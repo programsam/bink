@@ -778,7 +778,6 @@ else if ($_GET['action'] == "deletefile")
 	
 	$s3 -> deleteObject('binkmedia', $path);
 }
-
 else if ($_GET['action'] == "deltrack")
 {
 	$trackid = $_GET['trackid'];
