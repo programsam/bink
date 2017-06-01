@@ -1,21 +1,18 @@
 <?php
 
-$filename = $_GET['f'];
+$path = $_GET['f'];
 $width = $_GET['w'];
 $height = $_GET['h'];
 
 
 //header("Content-type: image/jpeg");
-
-echo "I received the filename: " . $_GET['f'];
-
 if ($width != "" && $height != "")
 {
-	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$filename", $width, $height), '', 100);
+	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$path", $width, $height), '', 100);
 }
 else
 {
-	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$filename", 0, 0));
+	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$path", 0, 0));
 }
 
 /**
