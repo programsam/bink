@@ -300,7 +300,7 @@ else if ($_GET['action'] == "new")
 	{
 		echo "<response>Failure inserting things!</response>";
 	}
-	mysqli_close_connection($connection);
+	mysqli_close($connection);
 	$result = bink_query("select * from jams order by id desc limit 1");
 	$row = mysqli_fetch_array($result);
 	
