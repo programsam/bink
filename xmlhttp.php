@@ -89,7 +89,7 @@ else if ($_GET['action'] == "trackList")
 else if ($_GET['action'] == "list")
 {
 
-	if ($_GET['query'])
+	if (isset($_GET['query']))
 	{
 		$query = $_GET['query'];
 		$columns = "jams.date, jams.id, jams.title, jams.locid, jams.bandid";
