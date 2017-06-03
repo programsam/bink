@@ -500,6 +500,7 @@ function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort
 
 function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="date", $sort="desc")
 {
+	$ret = "";
 	if ($listmode == 3)
 	{
 		$ret .= "<div class='item'>";
