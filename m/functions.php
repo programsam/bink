@@ -336,7 +336,7 @@ function getNextId($id)
 	
 	while ($row = mysqli_fetch_array($result))
 	{
-		if ($row['id'] == $id)
+		if ($row['id'] == $id && isset($oldrow))
 		{
 			return $oldrow['id'];
 		}
@@ -349,7 +349,7 @@ function getNextId($id)
 
 function getPreviousId($id)
 {
-$id = $_GET['id'];
+	$id = $_GET['id'];
 	
 	$result = bink_query("select * from jams where private=0 order by date asc;");
 	
