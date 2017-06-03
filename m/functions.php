@@ -371,7 +371,7 @@ $id = $_GET['id'];
 function printSearchBar($m = 0)
 {
 
-if ($_GET['query'])
+if (isset($_GET['query']))
 	$q = $_GET['query'];
 else
 	$q = "Search";
