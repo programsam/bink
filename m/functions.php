@@ -89,7 +89,7 @@ function getBandName($id, $at=1)
 
 function getMusicianInfo($id)
 {
-	$result = bink_query($connection, "select * from musicians where id = $id");
+	$result = bink_query("select * from musicians where id = $id");
 	$row = mysqli_fetch_array($result);
 	$musname = $row['name'];
 	$link = $row['link'];
@@ -98,13 +98,13 @@ function getMusicianInfo($id)
 	
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
 	
-	$result = bink_query($connection, "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
+	$result = bink_query("select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
 
 	$num = mysqli_num_rows($result);
 	$ret .= "<strong>Number of Collections</strong>: $num<br />";
 	$ret .= "<strong>Link</strong>: <a href='$link'>$link</a><br />";
 	$ret .= "<strong>Played Instruments</strong>: ";
-	$result2 = mysqil_query("select distinct instruments.name from musiciansoncollection, instruments where musiciansoncollection.instrumentid = instruments.id and musiciansoncollection.musicianid = $id;");
+	$result2 = bink_query("select distinct instruments.name from musiciansoncollection, instruments where musiciansoncollection.instrumentid = instruments.id and musiciansoncollection.musicianid = $id;");
 	$total = mysqli_num_rows($result2);
 	$i=0;
 	while ($row = mysqli_fetch_array($result2))
