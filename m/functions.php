@@ -6,7 +6,7 @@ include "../S3.php";
 
 function sql()
 {
-	include "settings.php";
+	include "../settings.php";
 	
 	$connection = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
 	if (! $connection) {
