@@ -336,7 +336,7 @@ function getNextId($id)
 	
 	while ($row = mysqli_fetch_array($result))
 	{
-		if ($row['id'] == $id && isset($oldrow))
+		if (isset($oldrow) && $row['id'] == $id)
 		{
 			return $oldrow['id'];
 		}
@@ -355,7 +355,7 @@ function getPreviousId($id)
 	
 	while ($row = mysqli_fetch_array($result))
 	{
-		if ($row['id'] == $id)
+		if (isset($oldrow) && $row['id'] == $id)
 		{
 			return $oldrow['id'];
 		}
