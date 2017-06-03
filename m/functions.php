@@ -72,7 +72,7 @@ function getLocationName($id)
 
 function getBandName($id, $at=1)
 {
-	$result = bink_query($connection, "select * from bands where id = $id");
+	$result = bink_query("select * from bands where id = $id");
 	if ($result && mysqli_num_rows($result) > 0)
 	{
 		$row = mysqli_fetch_array($result);
