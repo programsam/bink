@@ -198,7 +198,7 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
   $s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
   echo "With id $id and filename $filename\n";
 
-	$awspath = "http://binkmedia.s3.amazonaws.com/public/pics/$id/$filename";
+	$awspath = "https://binkmedia.s3.amazonaws.com/public/pics/$id/$filename";
 	$localthmpath = "/var/tmp/$filename.thm";
 	$uploadpath = "public/pics/$id/$filename.thm";
 
@@ -467,7 +467,7 @@ function getEntityByID($id, $table)
 	}
 	else if ($table == "instruments")
 	{
-		$ret = "<a href='http://en.wikipedia.org/wiki/" . $entity['name'] . "'>" . 	$entity['name'] . "</a>";
+		$ret = "<a href='https://en.wikipedia.org/wiki/" . $entity['name'] . "'>" . 	$entity['name'] . "</a>";
 	}
 	else
 	{
@@ -1029,7 +1029,7 @@ header("Content-Type: application/xml");
 				$filename = substr(strrchr($innerrow['path'], "/"), 1);
 				$filename = rawurlencode($filename);
 				
-				echo "<enclosure url=\"http://binkmedia.s3.amazonaws.com/public/snd/" . $row['id'] . "/$filename\" type=\"audio/mpeg\"/>";
+				echo "<enclosure url=\"https://binkmedia.s3.amazonaws.com/public/snd/" . $row['id'] . "/$filename\" type=\"audio/mpeg\"/>";
 				echo "\t\t</item>\n";
 			}
 		}
@@ -1145,14 +1145,14 @@ $adminStr = "admin/main.php";
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+"https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/> 
 <meta name="author" content="Ben Smith"/> 
- <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# facebookbink: http://ogp.me/ns/fb/facebookbink#">
+ <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
   <meta property="fb:app_id" content="139182602788074" /> 
   <meta property="og:type"   content="facebookbink:collection" /> 
   <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
@@ -1293,7 +1293,7 @@ directPhone();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+"https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
 <script charset="utf-8" src="https://widgets.twimg.com/j/2/widget.js"></script>
@@ -1436,7 +1436,7 @@ function printFooter()
 {
 ?>
 	</div>
-	<div class="footer">&copy; 2009-2017 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="http://arcsin.se">Arcsin</a></div>
+	<div class="footer">&copy; 2009-2017 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
 </div>
 </body>
 </html>
