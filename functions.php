@@ -1015,7 +1015,7 @@ header("Content-Type: application/xml");
 			{
 				echo "\t\t<item>\n";
 				echo "\t\t\t<title>" . $row['title'] . " - " . $innerrow['title'] . "</title>\n";
-				echo "\t\t\t<link>http://mustbehighorlow.com/bink/jam.php?id=" . $row['id'] . "</link>\n";
+				echo "\t\t\t<link>https://binkmusic.com/bink/jam.php?id=" . $row['id'] . "</link>\n";
 				echo "\t\t\t<description>";
 				if (getBandName($row['bandid']))
 					echo getBandName($row['bandid']);
@@ -1040,7 +1040,7 @@ header("Content-Type: application/xml");
 		{
 			echo "\t\t<item>\n";
 			echo "\t\t\t<title>" . $row['title'] . "</title>\n";
-			echo "\t\t\t<link>http://mustbehighorlow.com/bink/jam.php?id=" . $row['id'] . "</link>\n";
+			echo "\t\t\t<link>https://binkmusic.com/jam.php?id=" . $row['id'] . "</link>\n";
 			echo "\t\t\t<description>";
 			if (getBandName($row['bandid']))
 				echo getBandName($row['bandid']);
@@ -1296,7 +1296,7 @@ directPhone();
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script charset="utf-8" src="https://widgets.twimg.com/j/2/widget.js"></script>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/> 
@@ -1317,7 +1317,7 @@ if ($maps)
 {
 ?>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript"> 
   var geocoder;
   var map;
@@ -1405,7 +1405,7 @@ if ($maps)
 	
 	<!-- this is the actual like button -->
 	
-	 <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
+	 <iframe src="https://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
         scrolling="no" frameborder="0"
         style="border:none; width:80px; height: 30px"></iframe>
 	
