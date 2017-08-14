@@ -1167,7 +1167,7 @@ $adminStr = "admin/main.php";
   <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> 
 <link rel="stylesheet" type="text/css" href="<?= $leading ?>default.css"/>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript"> 
   var geocoder;
   var map;
@@ -1450,7 +1450,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 	{
   		$toRet = "<div style=\"padding-left: 0px; border-left: 0px; padding-top: 20px;\"><object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"
 			id=\"MusicPlayer\" width=\"580\" height=\"20\"
-			codebase=\"http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
+			codebase=\"https://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
 			<param name=\"movie\" value=\"MusicPlayer.swf?jamid=$jamid\" />
 			<param name=\"quality\" value=\"high\" />
 			<param name=\"bgcolor\" value=\"#869ca7\" />
@@ -1462,7 +1462,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 				quality=\"high\"
 				allowScriptAccess=\"sameDomain\"
 				type=\"application/x-shockwave-flash\"
-				pluginspage=\"http://www.adobe.com/go/getflashplayer\">
+				pluginspage=\"https://www.adobe.com/go/getflashplayer\">
 			</embed>
 		</object></div>";
 	}
@@ -1470,7 +1470,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 	{
 		$toRet = "<div style=\"padding-left: 0px; border-left: 0px; padding-top: 20px;\"><object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"
 			id=\"MusicPlayer\" width=\"580\" height=\"20\"
-			codebase=\"http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
+			codebase=\"https://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
 			<param name=\"movie\" value=\"MusicPlayer.swf?jamid=$jamid\" />
 			<param name=\"quality\" value=\"high\" />
 			<param name=\"bgcolor\" value=\"#869ca7\" />
@@ -1482,7 +1482,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 				quality=\"high\"
 				allowScriptAccess=\"sameDomain\"
 				type=\"application/x-shockwave-flash\"
-				pluginspage=\"http://www.adobe.com/go/getflashplayer\">
+				pluginspage=\"https://www.adobe.com/go/getflashplayer\">
 			</embed>
 		</object></div>";
 	}
