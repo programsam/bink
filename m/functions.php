@@ -157,7 +157,7 @@ function getEntityByID($id, $table)
 	}
 	else if ($table == "instruments")
 	{
-		$ret = "<a href='http://en.wikipedia.org/wiki/" . $entity['name'] . "'>" . 	$entity['name'] . "</a>";
+		$ret = "<a href='https://en.wikipedia.org/wiki/" . $entity['name'] . "'>" . 	$entity['name'] . "</a>";
 	}
 	else
 	{
