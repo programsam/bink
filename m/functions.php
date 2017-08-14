@@ -192,8 +192,7 @@ function getMediaList($id, $type)
 	if (mysqli_num_rows($result) == 0)
 		return "";
 	
-	$ret = "<script language='javascript' src='js/ajax.js'></script>";
-	$ret .= "<div class='item'><h1>$header</h1>";
+	$ret = "<div class='item'><h1>$header</h1>";
 	
 	$ret .= "<ol><table width='100%'>";
 	while (	$row = mysqli_fetch_array($result) )
@@ -474,12 +473,12 @@ function embediPhonePlayer($id=-1)
 	
   $row = mysqli_fetch_array($result);
 
-  $toRet = "<embed target=\"myself\" src=\"play-button.gif\" href=\"http://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "\" width=\"128\" height=\"16\" autoplay=\"true\" type=\"audio/mp3\" loop=\"true\" controller=\"false\"";
+  $toRet = "<embed target=\"myself\" src=\"play-button.gif\" href=\"https://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "\" width=\"128\" height=\"16\" autoplay=\"true\" type=\"audio/mp3\" loop=\"true\" controller=\"false\"";
   
   $i = 1;
   while ($row = mysqli_fetch_array($result))
   {
-  	$toRet .= " qtnext" . $i . "=\"<http://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "> T<myself>\"";
+  	$toRet .= " qtnext" . $i . "=\"<https://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "> T<myself>\"";
   	$i++;
   }
   
@@ -692,7 +691,7 @@ include "../settings.php";
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+"https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
@@ -701,8 +700,7 @@ include "../settings.php";
 <meta name="keywords" content="music, website, jams, mp3, free, download"/> 
 <meta name="author" content="Ben Smith"/> 
 <link rel="stylesheet" type="text/css" href="default.css"/>
-<script language="javascript" src="../js/ajax.js"></script>
- <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# facebookbink: http://ogp.me/ns/fb/facebookbink#">
+ <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
   <meta property="fb:app_id" content="139182602788074" /> 
   <meta property="og:type"   content="facebookbink:collection" /> 
   <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
@@ -739,7 +737,7 @@ directPhone();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+"https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
@@ -773,7 +771,7 @@ function printFooter()
 ?>
 	<div class='item'>
 </div></div>
-	<div class="footer">&copy; 2009-2017 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="http://arcsin.se">Arcsin</a></div>
+	<div class="footer">&copy; 2009-2017 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
 </div>
 </body>
 </html>
