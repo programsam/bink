@@ -358,7 +358,7 @@ else if ($_GET['action'] == "data")
 else if ($_GET['action'] == "edit")
 {
 	$field = $_GET['field'];
-	$value = $_GET['value'];
+	$value = urldecode($_GET['value']);
 	$id = $_GET['id'];
 	
 	if ($field == "date")
