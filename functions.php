@@ -198,7 +198,7 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
   $s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
   echo "With id $id and filename $filename\n";
 
-	$awspath = "http://binkmedia.s3.amazonaws.com/public/pics/$id/$filename";
+	$awspath = "https://binkmedia.s3.amazonaws.com/public/pics/$id/$filename";
 	$localthmpath = "/var/tmp/$filename.thm";
 	$uploadpath = "public/pics/$id/$filename.thm";
 
@@ -467,7 +467,7 @@ function getEntityByID($id, $table)
 	}
 	else if ($table == "instruments")
 	{
-		$ret = "<a href='http://en.wikipedia.org/wiki/" . $entity['name'] . "'>" . 	$entity['name'] . "</a>";
+		$ret = "<a href='https://en.wikipedia.org/wiki/" . $entity['name'] . "'>" . 	$entity['name'] . "</a>";
 	}
 	else
 	{
@@ -1015,7 +1015,7 @@ header("Content-Type: application/xml");
 			{
 				echo "\t\t<item>\n";
 				echo "\t\t\t<title>" . $row['title'] . " - " . $innerrow['title'] . "</title>\n";
-				echo "\t\t\t<link>http://mustbehighorlow.com/bink/jam.php?id=" . $row['id'] . "</link>\n";
+				echo "\t\t\t<link>https://binkmusic.com/bink/jam.php?id=" . $row['id'] . "</link>\n";
 				echo "\t\t\t<description>";
 				if (getBandName($row['bandid']))
 					echo getBandName($row['bandid']);
@@ -1029,7 +1029,7 @@ header("Content-Type: application/xml");
 				$filename = substr(strrchr($innerrow['path'], "/"), 1);
 				$filename = rawurlencode($filename);
 				
-				echo "<enclosure url=\"http://binkmedia.s3.amazonaws.com/public/snd/" . $row['id'] . "/$filename\" type=\"audio/mpeg\"/>";
+				echo "<enclosure url=\"https://binkmedia.s3.amazonaws.com/public/snd/" . $row['id'] . "/$filename\" type=\"audio/mpeg\"/>";
 				echo "\t\t</item>\n";
 			}
 		}
@@ -1040,7 +1040,7 @@ header("Content-Type: application/xml");
 		{
 			echo "\t\t<item>\n";
 			echo "\t\t\t<title>" . $row['title'] . "</title>\n";
-			echo "\t\t\t<link>http://mustbehighorlow.com/bink/jam.php?id=" . $row['id'] . "</link>\n";
+			echo "\t\t\t<link>https://binkmusic.com/jam.php?id=" . $row['id'] . "</link>\n";
 			echo "\t\t\t<description>";
 			if (getBandName($row['bandid']))
 				echo getBandName($row['bandid']);
@@ -1145,14 +1145,14 @@ $adminStr = "admin/main.php";
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+"https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/> 
 <meta name="author" content="Ben Smith"/> 
- <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# facebookbink: http://ogp.me/ns/fb/facebookbink#">
+ <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
   <meta property="fb:app_id" content="139182602788074" /> 
   <meta property="og:type"   content="facebookbink:collection" /> 
   <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
@@ -1167,7 +1167,7 @@ $adminStr = "admin/main.php";
   <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> 
 <link rel="stylesheet" type="text/css" href="<?= $leading ?>default.css"/>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript"> 
   var geocoder;
   var map;
@@ -1293,10 +1293,10 @@ directPhone();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+"https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script charset="utf-8" src="https://widgets.twimg.com/j/2/widget.js"></script>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/> 
@@ -1317,7 +1317,7 @@ if ($maps)
 {
 ?>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript"> 
   var geocoder;
   var map;
@@ -1405,7 +1405,7 @@ if ($maps)
 	
 	<!-- this is the actual like button -->
 	
-	 <iframe src="http://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
+	 <iframe src="https://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
         scrolling="no" frameborder="0"
         style="border:none; width:80px; height: 30px"></iframe>
 	
@@ -1436,7 +1436,7 @@ function printFooter()
 {
 ?>
 	</div>
-	<div class="footer">&copy; 2009-2017 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="http://arcsin.se">Arcsin</a></div>
+	<div class="footer">&copy; 2009-2017 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
 </div>
 </body>
 </html>
@@ -1450,7 +1450,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 	{
   		$toRet = "<div style=\"padding-left: 0px; border-left: 0px; padding-top: 20px;\"><object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"
 			id=\"MusicPlayer\" width=\"580\" height=\"20\"
-			codebase=\"http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
+			codebase=\"https://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
 			<param name=\"movie\" value=\"MusicPlayer.swf?jamid=$jamid\" />
 			<param name=\"quality\" value=\"high\" />
 			<param name=\"bgcolor\" value=\"#869ca7\" />
@@ -1462,7 +1462,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 				quality=\"high\"
 				allowScriptAccess=\"sameDomain\"
 				type=\"application/x-shockwave-flash\"
-				pluginspage=\"http://www.adobe.com/go/getflashplayer\">
+				pluginspage=\"https://www.adobe.com/go/getflashplayer\">
 			</embed>
 		</object></div>";
 	}
@@ -1470,7 +1470,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 	{
 		$toRet = "<div style=\"padding-left: 0px; border-left: 0px; padding-top: 20px;\"><object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"
 			id=\"MusicPlayer\" width=\"580\" height=\"20\"
-			codebase=\"http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
+			codebase=\"https://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab\">
 			<param name=\"movie\" value=\"MusicPlayer.swf?jamid=$jamid\" />
 			<param name=\"quality\" value=\"high\" />
 			<param name=\"bgcolor\" value=\"#869ca7\" />
@@ -1482,7 +1482,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 				quality=\"high\"
 				allowScriptAccess=\"sameDomain\"
 				type=\"application/x-shockwave-flash\"
-				pluginspage=\"http://www.adobe.com/go/getflashplayer\">
+				pluginspage=\"https://www.adobe.com/go/getflashplayer\">
 			</embed>
 		</object></div>";
 	}
