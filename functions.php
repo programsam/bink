@@ -1356,25 +1356,21 @@ if ($maps)
  	 });
 
   }
+	</script>
 <?php
 } else {
 ?>
+<script type="text/javascript">
 function initialize() {
-	
+
 }
+</script>
 <?php
 } //end maps
 ?>
-</script>
 <title>BINK!</title>
 </head>
 <body onload="initialize();">
-
-<!-- this is the facebook code to asynchronously load the API -->
-
-
-<!-- end the facebook code -->
-
 <div class="main">
 <div class="gfx">
 	<table border=0 width="100%">
