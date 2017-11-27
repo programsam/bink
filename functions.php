@@ -1391,11 +1391,12 @@ function initialize() {
 	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td><td width="80px">
 
 	<!-- this is the actual like button -->
-
-	 <iframe src="https://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
-        scrolling="no" frameborder="0"
-        style="border:none; width:80px; height: 30px"></iframe>
-
+				<div
+				  class="fb-like"
+				  data-share="true"
+				  data-width="450"
+				  data-show-faces="true">
+				</div>
 	<!-- end the actual like button -->
 	</td>
 	</tr>
