@@ -4,7 +4,7 @@ include "S3.php";
 function sql()
 {
 	include "settings.php";
-	
+
 	$connection = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
 	if (! $connection) {
 		echo "<h2>Could not connect to mySQL</h2>";
@@ -28,12 +28,12 @@ function bink_query($querystr)
 function newPlaylist()
 {
 	$token = "N/A";
-	do 
+	do
 	{
 		$token = randString(32);
 		$result = bink_query("select * from playlists where id = '$token'");
 	} while (mysqli_num_rows($result) > 0);
-	
+
 	return $token;
 }
 
@@ -57,12 +57,12 @@ function getToken()
 function deleteOldTokens()
 {
 	$result = bink_query("select * from tokens");
-	
+
 	while ($row = mysqli_fetch_array($result))
 	{
-	
+
 		$age = checkTokenAge($row['ip']);
-		
+
 		if ($age > 5)
 		{
 			bink_query("delete from tokens where ip = '" . $row['ip'] . "'");
@@ -77,7 +77,7 @@ function checkTokenAge($ip)
 	 $result = bink_query("select timestampdiff(HOUR, (SELECT date from tokens where ip = '$ip'), NOW()) as diff;");
 	 $row = mysqli_fetch_array($result);
 	 $age = $row['diff'];
-	 
+
 	 return $age;
 }
 
@@ -85,12 +85,12 @@ function validToken($ip, $token)
 {
 	deleteOldTokens();
 	$result = bink_query("select * from tokens where ip = '$ip' and token = '$token'");
-	
+
 	if (mysqli_num_rows($result) === 0)
 	{
 		return false;
 	}
-	
+
 	return true;
 
 }
@@ -132,9 +132,9 @@ function getMusicianInfo($id)
 	$link = $row['link'];
 	$ret = "<div class='item'>";
 	$ret .= "<h2>Musician: $musname</h2>";
-	
+
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
+
 	$result = bink_query("select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
 
 	$num = mysqli_num_rows($result);
@@ -166,9 +166,9 @@ function getBandInfo($id)
 	$link = $row['link'];
 	$ret = "<div class='item'>";
 	$ret .= "<h2>Band: $musname</h2>";
-	
+
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
+
 	$result = bink_query("select distinct $columns from jams, bands where jams.private=0 and jams.bandid=bands.id and bands.id=$id");
 
 	$num = mysqli_num_rows($result);
@@ -202,7 +202,7 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
 	$localthmpath = "/var/tmp/$filename.thm";
 	$uploadpath = "public/pics/$id/$filename.thm";
 
-	echo "AWS path: $awspath\n";  
+	echo "AWS path: $awspath\n";
 	echo "Local path: $localthmpath\n";
 	echo "Upload path: $uploadpath\n";
   list($orig_width, $orig_height) = getimagesize($awspath);
@@ -229,10 +229,10 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
 
    $image = imagecreatefromjpeg($awspath);
 
-   imagecopyresampled($image_p, $image, 0, 0, 0, 0, 
+   imagecopyresampled($image_p, $image, 0, 0, 0, 0,
                                      $width, $height, $orig_width, $orig_height);
 
-   imagejpeg($image_p,  $localthmpath); 
+   imagejpeg($image_p,  $localthmpath);
    $s3 -> putObjectFile($localthmpath, "binkmedia", $uploadpath, "public-read-write", null, "image/jpeg");
    unlink($localthmpath);
 }
@@ -251,15 +251,15 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	{
 		$ret .= "<div class='item'>";
 		$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
-		$sql = "select distinct $columns from jams, bands where jams.bandid=bands.id and bands.id = $query";	
+
+		$sql = "select distinct $columns from jams, bands where jams.bandid=bands.id and bands.id = $query";
 	}
 	elseif ($listmode == 1)
 	{
 		$ret .= "<div class='item'>";
 		$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
-		$sql = "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $query";	
+
+		$sql = "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $query";
 	}
 	elseif ($listmode == 0)
 	{
@@ -274,7 +274,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 		$ret .= "<h1>Searching the Collection</h1>";
 
 		$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
+
 		$sTitle = "select $columns from jams where jams.private=0 and title like ('%$query%')";
 		$sLocation = "select $columns from locations, jams where jams.private=0 and locations.name like ('%$query%') and jams.locid = locations.id";
 		$sBand = "select $columns from bands, jams where jams.private=0 and bands.name like ('%$query%') and jams.bandid = bands.id";
@@ -282,12 +282,12 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 		$sStaff = "select $columns from productiononcollection, jams, staff where jams.private=0 and staff.id = productiononcollection.staffid and productiononcollection.jamid = jams.id and staff.name like ('%$query%')";
 		$sNotes = "select $columns from jams where jams.private=0 and notes like ('%$query%')";
 		$sTracks = "select $columns from tracks, jams where jams.private=0 and tracks.jamid = jams.id and tracks.title like ('%$query%')";
-	
+
 		$sql = "($sTitle) union ($sLocation) union ($sBand) union ($sMusicians) union ($sStaff) union ($sNotes) union ($sTracks)";
 	}
-	
+
 	$result = bink_query($sql);
-	
+
 	$num = mysqli_num_rows($result);
 
 	if ($length == "all")
@@ -300,7 +300,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	$result = bink_query($sql);
 
 	$lenbold[$order] = 1;
-	
+
 	if ($listmode == 1)
 		$url = "musician";
 	elseif ($listmode == 2)
@@ -309,19 +309,19 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 		$url = "band";
 	else
 		$url = "list";
-	
+
 	$ret .= generateSearchLink($url, $query, "date", $offset, $length, "date", $sort, $lenbold["date"]);
 	$ret .= generateSearchLink($url, $query, "id", $offset, $length, "id", $sort, $lenbold["id"]);
 	$ret .= generateSearchLink($url, $query, "location", $offset, $length, "locid", $sort, $lenbold["locid"]);
 
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "asc"); 	
+		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "asc");
 	else
 		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, "desc");
-	
-	
+
+
 	$lenbold[$length] = 1;
-	
+
 	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, $lenbold[5]);
 	$ret .= generateSearchLink($url, $query, "10", $offset, "10", $order, $sort, $lenbold[10]);
 	$ret .= generateSearchLink($url, $query, "20", $offset, "20", $order, $sort, $lenbold[20]);
@@ -331,30 +331,30 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 
 	if ($offset+$length < $num && $length != "all")
 		$ret .= generateSearchLink($url, $query, "next", $offset+$length, $length, $order, $sort);
-	
+
 	if ($offset-$length >= 0 && $length != "all")
 		$ret .= generateSearchLink($url, $query, "prev", $offset-$length, $length, $order, $sort);
-	
 
-	
+
+
 	$ret .= "<br />Listing " . $offset . " - " . ($offset + $length) . " of "  . $num;
 	$ret .= "</div><div class='item'><h1>Results</h1>";
-	
+
 	$ret .= "<table width='100%'>";
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ret .= "<tr>";
 		$ret .= "<td>" . fDate($row['date']) . "</td>";
-		$ret .= "<td><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<td><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= $row['title'] . "</a></td>";
 		$ret .= "<td>" . getEntityByID($row['locid'], "locations") . "</td>";
 		$ret .= "<td>" . iconFor("sound", $row['id']) . "</td>";
 		$ret .= "<td>" . iconFor("pics", $row['id']) . "</td>";
 		$ret .= "<td>" . iconFor("video", $row['id']) . "</td>";
-		$ret .= "</tr>";	
+		$ret .= "</tr>";
 	}
 	$ret .= "</table></div>";
-	return $ret;	
+	return $ret;
 
 }
 
@@ -368,7 +368,7 @@ function iconFor($type, $jamid)
 		else
 			return "&nbsp;";
 	}
-	
+
 	if ($type == "pics")
 	{
 		if(mysqli_num_rows(bink_query("select * from pictures where jamid = $jamid")) > 0)
@@ -383,74 +383,74 @@ function iconFor($type, $jamid)
 		else
 			return "&nbsp;";
 	}
-		
+
 }
 
 function getJams($query)
 {
 	$result = bink_query($query);
 	$ret = "";
-	
-	
+
+
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ret .= "<div class='item'>";
-		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= fDate($row['date']) . " - ";
 		$ret .= $row['title'] . "</a></h1>";
 		$ret .= getBandName($row['bandid']);
 		$ret .= getLocationName($row['locid']);
 		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'] . "</div>";
-		
+
 		if ($row['defpic'] && $row['defpic'] != -1)
 		{
 			$picrow = mysqli_fetch_array(bink_query("select * from jams, pictures where pictures.id = jams.defpic && jams.id = " . $row['id']));
 			$ret .= "<p align='center'><img src='getimage.php?f=" . $row['id'] . "/" . $picrow['filename'] . "&w=300&h=400' /></p>";
 		}
-		
-		$ret .= "</div>";	
+
+		$ret .= "</div>";
 	}
 
-	return $ret;	
+	return $ret;
 }
 
 function getJamsMobile($query)
 {
 	$result = bink_query($query);
 	$ret = "";
-	
-	
+
+
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ret .= "<div class='item'>";
-		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= fDate($row['date']) . " - ";
 		$ret .= $row['title'] . "</a></h1>";
 		$ret .= getBandName($row['bandid']);
 		$ret .= getLocationName($row['locid']);
 		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'];
-		
+
 		if ($row['defpic'] && $row['defpic'] != -1)
 		{
 			$picrow = mysqli_fetch_array(bink_query("select * from jams, pictures where pictures.id = jams.defpic && jams.id = " . $row['id']));
 			$ret .= "<p /><img src='../getimage.php?f=" . $row['id'] . "/" . $picrow['filename'] . "&w=200&h=300' />";
 		}
-		
-		$ret .= "</div></div>";	
+
+		$ret .= "</div></div>";
 	}
 
-	return $ret;	
+	return $ret;
 }
 
 function getEntityByID($id, $table)
 {
 	$result = bink_query("select * from $table where id = $id");
-	
+
 	if ($result == null)
 		return "";
 	if (mysqli_num_rows($result) == 0)
 		return "";
-		
+
 	$entity = mysqli_fetch_array($result);
 	$ret = "";
 	if (isset($entity['link']) && $entity['link'] != "" && $entity['link'] != " " && $table != "musicians" && $table != "bands")
@@ -508,18 +508,18 @@ function getMediaList($id, $type)
 	$result = bink_query("select * from $table where jamid = $id order by num asc");
 	if (mysqli_num_rows($result) == 0)
 		return "";
-	
+
 	$ret = "<script language='javascript' src='js/ajax.js'></script>";
 	$ret .= "<div class='item'><h1>$header</h1>";
-	
+
 	$ret .= "<ol><table width='100%'>";
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ext = pathinfo($row['path'], PATHINFO_EXTENSION);
-		
+
 		if ($ext == "xspf" || $ext == "xspf")
 			continue;
-			
+
 		if ($row['title'] == "_BREAK_" || $row['title'] == "--------------------")
 		{
 			$ret .= "<tr><td colspan=6><br /><hr /><p /><hr /><br /></td></tr>";
@@ -543,7 +543,7 @@ function getMediaList($id, $type)
 			$ret .= "<td>" . $ext . " file </td>";
 			//$ret .= "<td>" . $ThisFileInfo['playtime_string']. "</td>";
 			//$ret .= "<td>" . ($ThisFileInfo['audio']['bitrate']/1000). " KB/s </td>";
-			
+
 			$id = $row['id'];
 			$notes = $row['notes'];
 			if ($row['notes'] != " " && $row['notes'] != "")
@@ -555,13 +555,13 @@ function getMediaList($id, $type)
 			{
 				$ret .= "<td>&nbsp;</td></tr>";
 			}
-				
-			
-			
+
+
+
 		}
 	}
 	$ret .= "</table></ol></div>";
-	
+
 	return $ret;
 }
 
@@ -580,7 +580,7 @@ function produceZIPFile($id)
 	   }
    	catch(e){
     //suppress error
-	   } 
+	   }
 	  }
 	 }
 	 else if (window.XMLHttpRequest) // if Mozilla, Safari etc
@@ -588,7 +588,7 @@ function produceZIPFile($id)
 	 else
 	  return false
 	}
-	
+
 	function updateStatus()
 	{
 		var mygetrequest=new ajaxRequest()
@@ -600,18 +600,18 @@ function produceZIPFile($id)
 	   textbox.scrollTop = document.getElementById("result").scrollHeight;
 	   if (textbox.value.indexOf('DONE...') != -1)
 	   {
-	   	   
+
 	   	   document.location = "/dozip.php?dl=1";
 	   	   clearInterval(intervalid);
 	   }
-	   	
+
 	  }
 	  else{
 	   alert("An error has occured making the request")
 	  }
 	 }
 	}
-	
+
 	mygetrequest.open("GET", "/viewlog.php", true)
 	mygetrequest.send(null);
 	}
@@ -656,11 +656,11 @@ function getPeopleList($id, $type)
 		echo "Type not supported!";
 		return;
 	}
-	
+
 	$result = bink_query("select * from $table where jamid = $id order by $idlabel");
 	if (mysqli_num_rows($result) == 0)
 		return "";
-		
+
 	$ret = "<div class='item'><h1>$header</h1>";
 	$currentMusician = -1;
 	while (	$row = mysqli_fetch_array($result) )
@@ -685,42 +685,42 @@ function getPeopleList($id, $type)
 function getNextId($id)
 {
 	$result = bink_query("select * from jams where private=0 order by date desc;");
-	
+
 	while ($row = mysqli_fetch_array($result))
 	{
 		if (isset($oldrow) && $row['id'] == $id)
 		{
 			return $oldrow['id'];
 		}
-		
+
 		$oldrow = $row;
 	}
-	
+
 	return -1;
 }
 
 function getPreviousId($id)
 {
 	$id = $_GET['id'];
-	
+
 	$result = bink_query("select * from jams where private=0 order by date asc;");
-	
+
 	while ($row = mysqli_fetch_array($result))
 	{
 		if (isset($oldrow) && $row['id'] == $id)
 		{
 			return $oldrow['id'];
 		}
-		
+
 		$oldrow = $row;
 	}
-	
+
 	return -1;
 }
 
 function getShareBox($jamid, $title)
 {
-	
+
 ?>
 <div id='shareBox' style='visibility:hidden; position: absolute; top: 25%; right: 25%; bottom: 25%; left: 25%; margin: 5px; padding: 25px; border: solid 3px grey;z-index:5; background: black; color: white'>
 </div>
@@ -729,7 +729,7 @@ function getShareBox($jamid, $title)
 
 function getPictures($jamid)
 {
-	
+
 	$num = mysqli_num_rows(bink_query("select * from pictures where jamid = $jamid"));
 	if ($num == 0)
 	{
@@ -764,8 +764,8 @@ function getPictures($jamid)
 	$ret .= "<div id='picspot'>";
 	$ret .= "<script language='javascript'>var start = 0; queryHTML('picspot', 'imglist.php?jamid=" . $jamid. "&start=' + start);</script>";
 	$ret .= "</div>";
-	
-	
+
+
 	$ret .= "</div>";
 	return $ret;
 }
@@ -798,7 +798,7 @@ function getBandName($id, $at=1)
 		{
 			$row = mysqli_fetch_array($result);
 			if ($at)
-				return $row['name'] . " at ";	
+				return $row['name'] . " at ";
 			else
 				return $row['name'];
 		}
@@ -828,22 +828,22 @@ function printAJam($id, $trackid)
 	{
 		$id = $row['id'];
 		$ret .= "<div class='item'>";
-		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= fDate($row['date']) . " - ";
 		$ret .= $row['title'] . "</a></h1>";
-		
+
 		$band = getEntityByID($row['bandid'], "bands");
 		$location = getEntityByID($row['locid'], "locations");
-		
+
 		if ($band != "" && $location != "")
 			$ret .= $band . " - " . $location;
 		else if ($band)
 			$ret .= $band;
 		else if ($location)
 			$ret .= $location;
-		
+
 		$ret .= getLocationMap($row['locid']);
-		
+
 		if(mysqli_num_rows(bink_query("select * from tracks where jamid = $id")) > 0)
 			$ret .= printCustomPlayer($id, $trackid);
 		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'];
@@ -868,7 +868,7 @@ function printAJam($id, $trackid)
 
 	}
 
-	return $ret;	
+	return $ret;
 }
 
 
@@ -898,19 +898,19 @@ function getInfo()
 
 function todayInHistory()
 {
-	
+
 	echo "<div class='item'><h1>Today in BINK! History</h1>";
 	echo "These are the jams that happened today, " . date("m/d") . " in previous years on BINK!";
-	
+
 	$sqldate = date("-m-d");
-	
+
 	$out = getJams("SELECT * FROM `jams` where private=0 and date LIKE('%$sqldate');");
-	
+
 	if ($out == "")
 		echo "</div><div class='item'>Nothing has happened on this date in previous years!";
 	else
 		echo $out;
-	
+
 	echo "</div>";
 }
 
@@ -990,7 +990,7 @@ header("Content-Type: application/xml");
 		<webMaster>Ben Smith</webMaster>
 		<pubDate>Mon, 12 Apr 2010 19:34:28 -0400</pubDate>
 		<lastBuildDate>Mon, 12 Apr 2010 19:34:28 -0400</lastBuildDate>
-		
+
 		<image>
 			<title>BINK</title>
 			<url><?= $BASE_URL ?>/img/header.jpg</url>
@@ -998,18 +998,18 @@ header("Content-Type: application/xml");
 			<width>200</width>
 			<height>400</height>
 		</image>
-		
+
 <?php
 
 	$result = bink_query("select * from jams where private=0 order by date desc limit 0,20 ");
 	$ret = "";
-	
+
 	if ($podcast)
 	{
 		while (	$row = mysqli_fetch_array($result) )
 		{
 			$innerresults = bink_query("select * from tracks where tracks.jamid = " . $row['id'] . " order by num asc");
-			
+
 			$seconds = 1000;
 			while ($innerrow = mysqli_fetch_array($innerresults))
 			{
@@ -1023,12 +1023,12 @@ header("Content-Type: application/xml");
 					echo getLocationName($row['locid']) . ". ";
 				echo  $row['notes'] . "</description>\n";
 				echo "<pubDate>" . date(DATE_RSS, strtotime($row['date']) + $seconds) . "</pubDate>";
-				
+
 				$seconds--;
-				
+
 				$filename = substr(strrchr($innerrow['path'], "/"), 1);
 				$filename = rawurlencode($filename);
-				
+
 				echo "<enclosure url=\"https://binkmedia.s3.amazonaws.com/public/snd/" . $row['id'] . "/$filename\" type=\"audio/mpeg\"/>";
 				echo "\t\t</item>\n";
 			}
@@ -1085,31 +1085,31 @@ function getLocationInfoWindow($id, $name)
 			$jamlist .= "<a href='jam.php?id=" . $subrow['id'] . "'>" . $subrow['title'] . "</a>. ";
 		}
 		$info = "$name<hr />At this location: $jamlist";
-		
+
 		return $info;
 }
 
 function getMasterMap()
 {
 	$result = bink_query("select * from locations where address <> ''");
-	
+
 	$timeout = 0;
 	$scriptStr = "<script type=\"text/javascript\">\nfunction loadMarkers() {\n";
-		
+
 	while ($row = mysqli_fetch_array($result))
 	{
 		$lat = $row['lat'];
 		$lon = $row['lon'];
-		
+
 		$info = getLocationInfoWindow($row['id'], $row['name']);
-		
+
 		if ($lat != "" && $lat != null && $lat != " ")
 		{
 			$scriptStr .= "addMarker($lat, $lon, \"$info\", false);\n";
 			$timeout += 500;
 		}
 	}
-	
+
 	$scriptStr .= "\n}</script><div id='map_canvas' style='width:585px; height:500px'></div>";
 	return $scriptStr;
 }
@@ -1123,7 +1123,7 @@ function getLocationMap($locid)
 	$lat = $row['lat'];
 	$lon = $row['lon'];
 	$info = getLocationInfoWindow($row['id'], $row['name']);
-	
+
 	if ($lat != "" && $lat != null && $lat != " ")
 	{
 		$ret .= "<script type=\"text/javascript\">\nfunction loadMarkers() { \n\t addMarker($lat, $lon, \"$info\", true);\n }</script><p /><div id='map_canvas' style='width:585px; height:200px'></div>";
@@ -1150,25 +1150,25 @@ $adminStr = "admin/main.php";
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
-<meta name="keywords" content="music, website, jams, mp3, free, download"/> 
-<meta name="author" content="Ben Smith"/> 
+<meta name="keywords" content="music, website, jams, mp3, free, download"/>
+<meta name="author" content="Ben Smith"/>
  <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
-  <meta property="fb:app_id" content="139182602788074" /> 
-  <meta property="og:type"   content="facebookbink:collection" /> 
-  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
+  <meta property="fb:app_id" content="139182602788074" />
+  <meta property="og:type"   content="facebookbink:collection" />
+  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" />
   <?php
   $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
   $title = $row['title'];
   $notes = $row['notes'];
   ?>
-  <meta property="og:title"  content="<?= $title ?>" /> 
-  <meta property="og:description"  content="<?=$notes ?>" /> 
-  <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> 
+  <meta property="og:title"  content="<?= $title ?>" />
+  <meta property="og:description"  content="<?=$notes ?>" />
+  <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" />
 <link rel="stylesheet" type="text/css" href="<?= $leading ?>default.css"/>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript"> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
   var geocoder;
   var map;
   var lastopen;
@@ -1182,44 +1182,44 @@ $adminStr = "admin/main.php";
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     loadMarkers();
   }
-  
+
   function addMarker(lat, lng, title, center)
   {
   	setTimeout("callAddMarker(" + lat + ", " + lng + ", \"" + title + "\", " + center + ");", timeout);
   	timeout += 30;
   }
-  
+
   function callAddMarker(lat, lng, title, center) {
   	var latlng = new google.maps.LatLng(lat, lng);
-  	
+
   	if (center)
   	{
   		map.setCenter(latlng);
   		map.setZoom(15);
   	}
-   
+
     var marker = new google.maps.Marker({
     	position: latlng,
     	animation: google.maps.Animation.DROP,
     	map: map});
- 	 
+
 
  	 if (title ==null)
  	 	return;
- 	 
+
  	 var infowindow = new google.maps.InfoWindow({
  	 	content: title
  	 	});
- 	 	
+
  	 google.maps.event.addListener(marker, 'click', function() {
  	 	if (lastopen != null)
  	 		lastopen.close();
  	 	infowindow.open(map,marker);
  	 	lastopen = infowindow;
  	 });
- 	 
+
   }
-</script> 
+</script>
 <title>BINK!</title>
 </head>
 <body onload="initialize();">
@@ -1235,19 +1235,6 @@ $adminStr = "admin/main.php";
 <div class="main">
 	<div class="gfx">
 	<table border=0 width="100%">
-	<tr>
-		<td colspan=5>
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<!-- binkmusic -->
-	<ins class="adsbygoogle"
-	     style="display:inline-block;width:550px;height:80px"
-	     data-ad-client="ca-pub-1453391221011492"
-	     data-ad-slot="7514258764"></ins>
-	<script>
-	(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>		
-		</td>
-		</tr>
 	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
 	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
@@ -1265,10 +1252,10 @@ $adminStr = "admin/main.php";
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
 		<a href="<?= $leading ?>news.php"><span>Tweets</span></a>
  		<a href="/admin/main.php"><span>Admin</span></a>
-	
+
 		<span><?=printSearchBar() ?></span>
 	</div>
-	<div class="content">		
+	<div class="content">
 <?php
 }
 
@@ -1299,8 +1286,8 @@ directPhone();
 <script charset="utf-8" src="https://widgets.twimg.com/j/2/widget.js"></script>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
-<meta name="keywords" content="music, website, jams, mp3, free, download"/> 
-<meta name="author" content="Ben Smith"/> 
+<meta name="keywords" content="music, website, jams, mp3, free, download"/>
+<meta name="author" content="Ben Smith"/>
 <meta property="og:title" content="BINK! An experiment in musical documentation" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="<?= $BASE_URL ?>" />
@@ -1317,8 +1304,8 @@ if ($maps)
 {
 ?>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript"> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
   var geocoder;
   var map;
   var lastopen;
@@ -1332,47 +1319,47 @@ if ($maps)
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     loadMarkers();
   }
-  
+
   function addMarker(lat, lng, title, center)
   {
   	setTimeout("callAddMarker(" + lat + ", " + lng + ", \"" + title + "\", " + center + ");", timeout);
   	timeout += 30;
   }
-  
+
   function callAddMarker(lat, lng, title, center) {
   	var latlng = new google.maps.LatLng(lat, lng);
-  	
+
   	if (center)
   	{
   		map.setCenter(latlng);
   		map.setZoom(15);
   	}
-   
+
     var marker = new google.maps.Marker({
     	position: latlng,
     	animation: google.maps.Animation.DROP,
     	map: map});
- 	 
+
 
  	 if (title ==null)
  	 	return;
- 	 
+
  	 var infowindow = new google.maps.InfoWindow({
  	 	content: title
  	 	});
- 	 	
+
  	 google.maps.event.addListener(marker, 'click', function() {
  	 	if (lastopen != null)
  	 		lastopen.close();
  	 	infowindow.open(map,marker);
  	 	lastopen = infowindow;
  	 });
- 	 
+
   }
 <?php
 } //end maps
 ?>
-</script> 
+</script>
 <title>BINK!</title>
 </head>
 <body onload="initialize();">
@@ -1383,32 +1370,19 @@ if ($maps)
 <!-- end the facebook code -->
 
 <div class="main">
-<div class="gfx"> 
+<div class="gfx">
 	<table border=0 width="100%">
-	<tr>
-	<td colspan=4>
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- binkmusic -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:550px;height:80px"
-     data-ad-client="ca-pub-1453391221011492"
-     data-ad-slot="7514258764"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>		
-	</td>
-	</tr>
 	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
 	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
 	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td><td width="80px">
-	
+
 	<!-- this is the actual like button -->
-	
+
 	 <iframe src="https://www.facebook.com/plugins/like.php?href=<?= $BASE_URL ?>&colorscheme=dark&width=50&layout=button_count"
         scrolling="no" frameborder="0"
         style="border:none; width:80px; height: 30px"></iframe>
-	
+
 	<!-- end the actual like button -->
 	</td>
 	</tr>
@@ -1423,8 +1397,8 @@ if ($maps)
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
 		<a href="<?= $leading ?>news.php"><span>Tweets</span></a>
  		<a href="/admin/main.php"><span>Admin</span></a>
-		
-	
+
+
 		<span><?=printSearchBar() ?></span>
 	</div>
 	<div class="content">
@@ -1486,7 +1460,7 @@ function printCustomPlayer($jamid, $trackid = -1)
 			</embed>
 		</object></div>";
 	}
-	
+
 	return $toRet;
 
 }
