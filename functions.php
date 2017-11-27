@@ -1158,9 +1158,6 @@ $adminStr = "admin/main.php";
   $title = $row['title'];
   $notes = $row['notes'];
   ?>
-  <meta property="og:title"  content="<?= $title ?>" />
-  <meta property="og:description"  content="<?=$notes ?>" />
-  <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" />
 <link rel="stylesheet" type="text/css" href="<?= $leading ?>default.css"/>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
@@ -1224,9 +1221,7 @@ $adminStr = "admin/main.php";
 	<table border=0 width="100%">
 	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
-	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
 	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td>
-	<td width="20px"><div class="fb-like" data-href="<?= $BASE_URL ?>" data-send="true" data-layout="button_count" data-width="20" data-show-faces="true" data-colorscheme="dark" data-font="lucida grande"></div></fb:like></td>
 	</tr>
 	</table>
 	</div>
@@ -1363,18 +1358,7 @@ function initialize() {
 	<table border=0 width="100%">
 	<tr>
 	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
-	<td width="120px"><a href="<?= $leading ?>feed.php"><img src=<?= $leading ?>img/rss-0.91.gif border=0 /></a></td>
-	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td><td width="80px">
-
-	<!-- this is the actual like button -->
-				<div
-				  class="fb-like"
-				  data-share="true"
-				  data-width="450"
-				  data-show-faces="true">
-				</div>
-	<!-- end the actual like button -->
-	</td>
+	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td>
 	</tr>
 	</table>
 </div>
