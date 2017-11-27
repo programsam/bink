@@ -17,7 +17,7 @@ a {
 	text-decoration: none;
 }
 body {
-	background: #000 url(img/bg.png) repeat-x fixed left bottom; 
+	background: #000 url(img/bg.png) repeat-x fixed left bottom;
 	color: #666;
 	margin: 20px 0;
 	text-align: center;
@@ -53,18 +53,18 @@ div.quote {
 
 /* Main structure */
 .main {
-	background: #000; 
-	border: 3px double #EEE; 
-	border-color: #141414 #202020 #222 #202020; 
-	margin: 20px auto 4px auto; 
+	background: #000;
+	border: 3px double #EEE;
+	border-color: #141414 #202020 #222 #202020;
+	margin: 20px auto 4px auto;
 	text-align: left;
-	width: 600px; 
+	width: 600px;
 }
 
 
 /* Header */
 .gfx {
-	height: 175px;
+	height: 75px;
 }
 .gfx h1 {
 	color: #FFF;
@@ -122,4 +122,4 @@ div.quote {
 	padding: 5px;
 	background: #0A0A0A;
 	color: #666;
-} 
+}
