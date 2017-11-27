@@ -1358,9 +1358,11 @@ if ($maps)
   }
 <?php
 } else {
-	function initialize() {
-		
-	}
+?>
+function initialize() {
+	
+}
+<?php
 } //end maps
 ?>
 </script>
