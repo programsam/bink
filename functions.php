@@ -1152,10 +1152,6 @@ $adminStr = "admin/main.php";
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/>
 <meta name="author" content="Ben Smith"/>
- <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
-  <meta property="fb:app_id" content="139182602788074" />
-  <meta property="og:type"   content="facebookbink:collection" />
-  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" />
   <?php
   $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
@@ -1223,15 +1219,6 @@ $adminStr = "admin/main.php";
 <title>BINK!</title>
 </head>
 <body onload="initialize();">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=139182602788074';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <div class="main">
 	<div class="gfx">
 	<table border=0 width="100%">
