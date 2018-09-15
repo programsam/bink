@@ -1160,7 +1160,7 @@ $adminStr = "admin/main.php";
   ?>
 <link rel="stylesheet" type="text/css" href="<?= $leading ?>default.css"/>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?= $GOOGLE_MAPS_KEY ?>"></script>
 <script type="text/javascript">
   var geocoder;
   var map;
@@ -1286,7 +1286,7 @@ if ($maps)
 {
 ?>
 <script language="javascript" src="<?= $leading ?>js/ajax.js"></script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?=$GOOGLE_MAPS_KEY ?>"></script>
 <script type="text/javascript">
   var geocoder;
   var map;

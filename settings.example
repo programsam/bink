@@ -12,4 +12,7 @@ $BASE_URL = "";
 # AWS Credentials
 $S3_ACCESS_KEY = "";
 $S3_SECRET_KEY = "";
+
+# Google Maps API Key
+$GOOGLE_MAPS_KEY="";
 ?>
