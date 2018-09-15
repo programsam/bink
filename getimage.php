@@ -4,15 +4,21 @@ $path = $_GET['f'];
 $width = $_GET['w'];
 $height = $_GET['h'];
 
+if (stripos(".thm", $path)) {
+	$width = 100;
+	$height = 100;
+}
+
+$nothumbnailspath = str_replace(".thm", "", $path);
 
 header("Content-type: image/jpeg");
 if ($width != "" && $height != "")
 {
-	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$path", $width, $height), NULL, 100);
+	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$nothumbnailspath", $width, $height), NULL, 100);
 }
 else
 {
-	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$path", 0, 0));
+	imagejpeg(resizeImage("http://s3.amazonaws.com/binkmedia/public/pics/$nothumbnailspath", 0, 0));
 }
 
 /**
@@ -49,7 +55,7 @@ function resizeImage($filename, $max_width, $max_height)
 
    $image = imagecreatefromjpeg($filename);
 
-   imagecopyresampled($image_p, $image, 0, 0, 0, 0, 
+   imagecopyresampled($image_p, $image, 0, 0, 0, 0,
                                      $width, $height, $orig_width, $orig_height);
 
    return $image_p;
