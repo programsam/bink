@@ -7,7 +7,7 @@ include "../S3.php";
 function sql()
 {
 	include "../settings.php";
-	
+
 	$connection = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD);
 	if (! $connection) {
 		echo "<h2>Could not connect to mySQL</h2>";
@@ -32,7 +32,7 @@ function directPhone()
 {
 	include "../settings.php";
 	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
-    	
+
 	}
 	else
 	{
@@ -77,7 +77,7 @@ function getBandName($id, $at=1)
 	{
 		$row = mysqli_fetch_array($result);
 		if ($at)
-			return $row['name'] . " at ";	
+			return $row['name'] . " at ";
 		else
 			return $row['name'];
 	}
@@ -95,9 +95,9 @@ function getMusicianInfo($id)
 	$link = $row['link'];
 	$ret = "<div class='item'>";
 	$ret .= "<h2>Musician: $musname</h2>";
-	
+
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
+
 	$result = bink_query("select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $id");
 
 	$num = mysqli_num_rows($result);
@@ -131,7 +131,7 @@ function getNumberOf($table, $label)
 function getEntityByID($id, $table)
 {
 	$result = bink_query("select * from $table where id = $id");
-	
+
 	if ($result == null)
 	{
 		return "";
@@ -140,7 +140,7 @@ function getEntityByID($id, $table)
 	{
 		return "";
 	}
-		
+
 	$entity = mysqli_fetch_array($result);
 	$ret = "";
 	if (isset($entity['link']) && $entity['link'] != "" && $entity['link'] != " " && $table != "musicians" && $table != "bands")
@@ -191,17 +191,17 @@ function getMediaList($id, $type)
 	$result = bink_query("select * from $table where jamid = $id order by num asc");
 	if (mysqli_num_rows($result) == 0)
 		return "";
-	
+
 	$ret = "<div class='item'><h1>$header</h1>";
-	
+
 	$ret .= "<ol><table width='100%'>";
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ext = pathinfo($row['path'], PATHINFO_EXTENSION);
-		
+
 		if ($ext == "xspf" || $ext == "xspf")
 			continue;
-			
+
 		if ($row['title'] == "_BREAK_" || $row['title'] == "--------------------")
 		{
 			$ret .= "<tr><td colspan=6><br /><hr /><p /><hr /><br /></td></tr>";
@@ -214,7 +214,7 @@ function getMediaList($id, $type)
 			$ret .= "<tr>";
 			$ret .= "<td><a href=\"https://s3.amazonaws.com/binkmedia/public/$path\">" . $row['title'] . "</a></td>";
 			//$ret .= "<td>" . $ext . "</td>";
-			
+
 			$id = $row['id'];
 			$notes = $row['notes'];
 			if ($row['notes'] != " " && $row['notes'] != "")
@@ -226,9 +226,9 @@ function getMediaList($id, $type)
 			{
 				$ret .= "<td>&nbsp;</td></tr>";
 			}
-				
-			
-			
+
+
+
 		}
 	}
 	$ret .= "</table></ol></div>";
@@ -264,7 +264,7 @@ function getPeopleList($id, $type)
 	$result = bink_query("select * from $table where jamid = $id order by $idlabel");
 	if (mysqli_num_rows($result) == 0)
 		return "";
-		
+
 	$ret = "<div class='item'><h1>$header</h1>";
 	$currentMusician = -1;
 	while (	$row = mysqli_fetch_array($result) )
@@ -288,7 +288,7 @@ function getPeopleList($id, $type)
 
 function getPictures($jamid)
 {
-	
+
 	$num = mysqli_num_rows(bink_query("select * from pictures where jamid = $jamid"));
 
 	if ($num == 0)
@@ -324,44 +324,44 @@ function getPictures($jamid)
 	$ret .= "<div id='picspot'>";
 	$ret .= "<script language='javascript'>var start = 0; queryHTML('picspot', 'imglist.php?jamid=" . $jamid. "&start=' + start);</script>";
 	$ret .= "</div>";
-	
-	
+
+
 	$ret .= "</div>";
 	return $ret;
 }
 function getNextId($id)
 {
 	$result = bink_query("select * from jams where private=0 order by date desc;");
-	
+
 	while ($row = mysqli_fetch_array($result))
 	{
 		if (isset($oldrow) && $row['id'] == $id)
 		{
 			return $oldrow['id'];
 		}
-		
+
 		$oldrow = $row;
 	}
-	
+
 	return -1;
 }
 
 function getPreviousId($id)
 {
 	$id = $_GET['id'];
-	
+
 	$result = bink_query("select * from jams where private=0 order by date asc;");
-	
+
 	while ($row = mysqli_fetch_array($result))
 	{
 		if (isset($oldrow) && $row['id'] == $id)
 		{
 			return $oldrow['id'];
 		}
-		
+
 		$oldrow = $row;
 	}
-	
+
 	return -1;
 }
 
@@ -401,28 +401,28 @@ function getJams($query)
 {
 	$result = bink_query($query);
 	$ret = "";
-	
-	
+
+
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ret .= "<div class='item'>";
-		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= fDate($row['date']) . " - ";
 		$ret .= $row['title'] . "</a></h1>";
 		$ret .= getBandName($row['bandid']);
 		$ret .= getLocationName($row['locid']);
 		$ret .= "<br />&nbsp;<br /><div class='quote'>" . $row['notes'] . "";
-		
+
 		if ($row['defpic'] && $row['defpic'] != -1)
 		{
 			$picrow = mysqli_fetch_array(bink_query("select * from jams, pictures where pictures.id = jams.defpic && jams.id = " . $row['id']));
 			$ret .= "<p /><img src='../getimage.php?f=" . $row['id'] . "/" . $picrow['filename'] . "&w=250&h=350' />";
 		}
-		
-		$ret .= "</div></div>";	
+
+		$ret .= "</div></div>";
 	}
 
-	return $ret;	
+	return $ret;
 }
 
 function printAJam($id)
@@ -432,20 +432,20 @@ function printAJam($id)
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ret .= "<div class='item'>";
-		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<h1><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= fDate($row['date']) . " - ";
 		$ret .= $row['title'] . "</a></h1>";
-		
+
 		$band = getEntityByID($row['bandid'], "bands");
 		$location = getEntityByID($row['locid'], "locations");
-		
+
 		if ($band != "" && $location != "")
 			$ret .= $band . " - " . $location;
 		else if ($band)
 			$ret .= $band;
 		else if ($location)
 			$ret .= $location;
-		
+
 		$ret .= "<br /><p align='right'>";
 		$ret .= embediPhonePlayer($id);
 		$ret .= "</p><br /><div class='quote'>" . $row['notes'];
@@ -464,26 +464,26 @@ function printAJam($id)
 		$ret .= "</div>";
 	}
 
-	return $ret;	
+	return $ret;
 }
 
 function embediPhonePlayer($id=-1)
 {
   $result = bink_query("select * from tracks where jamid = $id order by num asc	");
-	
+
   $row = mysqli_fetch_array($result);
 
   $toRet = "<embed target=\"myself\" src=\"play-button.gif\" href=\"https://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "\" width=\"128\" height=\"16\" autoplay=\"true\" type=\"audio/mp3\" loop=\"true\" controller=\"false\"";
-  
+
   $i = 1;
   while ($row = mysqli_fetch_array($result))
   {
   	$toRet .= " qtnext" . $i . "=\"<https://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "> T<myself>\"";
   	$i++;
   }
-  
+
   $toRet .= "></embed>";
-  
+
   return $toRet;
 
 }
@@ -504,15 +504,15 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 	{
 		$ret .= "<div class='item'>";
 		$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
-		$sql = "select distinct $columns from jams, bands where jams.bandid=bands.id and bands.id = $query";	
+
+		$sql = "select distinct $columns from jams, bands where jams.bandid=bands.id and bands.id = $query";
 	}
 	elseif ($listmode == 1)
 	{
 		$ret .= "<div class='item'>";
 		$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
-		$sql = "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $query";	
+
+		$sql = "select distinct $columns from musiciansoncollection, jams, musicians where jams.private=0 and musicians.id = musiciansoncollection.musicianid and musiciansoncollection.jamid = jams.id and musicians.id = $query";
 	}
 	elseif ($listmode == 0)
 	{
@@ -527,7 +527,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 		$ret .= "<h1>Searching the Collection</h1>";
 
 		$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
+
 		$sTitle = "select $columns from jams where jams.private=0 and title like ('%$query%')";
 		$sLocation = "select $columns from locations, jams where jams.private=0 and locations.name like ('%$query%') and jams.locid = locations.id";
 		$sBand = "select $columns from bands, jams where jams.private=0 and bands.name like ('%$query%') and jams.bandid = bands.id";
@@ -535,12 +535,12 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 		$sStaff = "select $columns from productiononcollection, jams, staff where jams.private=0 and staff.id = productiononcollection.staffid and productiononcollection.jamid = jams.id and staff.name like ('%$query%')";
 		$sNotes = "select $columns from jams where jams.private=0 and notes like ('%$query%')";
 		$sTracks = "select $columns from tracks, jams where jams.private=0 and tracks.jamid = jams.id and tracks.title like ('%$query%')";
-	
+
 		$sql = "($sTitle) union ($sLocation) union ($sBand) union ($sMusicians) union ($sStaff) union ($sNotes) union ($sTracks)";
 	}
-	
+
 	$result = bink_query($sql);
-	
+
 	$num = mysqli_num_rows($result);
 
 	if ($length == "all")
@@ -553,7 +553,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 	$result = bink_query($sql);
 
 	$lenbold[$order] = 1;
-	
+
 	if ($listmode == 1)
 		$url = "musician";
 	elseif ($listmode == 2)
@@ -562,62 +562,62 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 		$url = "band";
 	else
 		$url = "list";
-	
+
 	$ret .= generateSearchLink($url, $query, "date", $offset, $length, "date", $sort, $lenbold["date"]);
-	
+
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "asc"); 	
+		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "asc");
 	else
 		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, "desc");
-	
-	
+
+
 	$lenbold[$length] = 1;
-	
+
 	$ret .= generateSearchLink($url, $query, "3", $offset, "3", $order, $sort, $lenbold[3]);
 	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, $lenbold[5]);
 	$ret .= generateSearchLink($url, $query, "all", $offset, "all", $order, $sort, $lenbold["all"]);
 
 	if ($offset+$length < $num && $length != "all")
 		$ret .= generateSearchLink($url, $query, "next", $offset+$length, $length, $order, $sort);
-	
+
 	if ($offset-$length >= 0 && $length != "all")
 		$ret .= generateSearchLink($url, $query, "prev", $offset-$length, $length, $order, $sort);
-	
 
-	
+
+
 	$ret .= "</div><div class='item'>";
-	
+
 	$ret .= "<table width='100%'>";
 	while (	$row = mysqli_fetch_array($result) )
 	{
 		$ret .= "<tr>";
 		$ret .= "<td valign='top'>" . sDate($row['date']) . "&nbsp;&nbsp;</td>";
-		$ret .= "<td valign='top'><a href='jam.php?id=" . $row['id'] . "'>"; 
+		$ret .= "<td valign='top'><a href='jam.php?id=" . $row['id'] . "'>";
 		$ret .= $row['title'] . "</a></td>";
-		$ret .= "</tr>";	
+		$ret .= "</tr>";
 	}
 	$ret .= "</table>";
 	$ret .= "<p align='right'>Listing " . $offset . " - " . ($offset + $length) . " of "  . $num . "</p>";
 	$ret .= "</div>";
-	return $ret;	
+	return $ret;
 
 }
 
 function todayInHistory()
 {
-	
+
 	echo "<div class='item'><h1>Today in BINK! History</h1>";
 	echo "These are the jams that happened today, " . date("m/d") . " in previous years on BINK!";
-	
+
 	$sqldate = date("-m-d");
-	
+
 	$out = getJams("SELECT * FROM `jams` where private=0 and date LIKE('%$sqldate');");
-	
+
 	if ($out == "")
 		echo "</div><div class='item'>Nothing has happened on this date in previous years!";
 	else
 		echo $out;
-	
+
 	echo "</div>";
 }
 
@@ -629,9 +629,9 @@ function getBandInfo($id)
 	$link = $row['link'];
 	$ret = "<div class='item'>";
 	$ret .= "<h2>Band: $musname</h2>";
-	
+
 	$columns = "jams.date, jams.id, jams.title, jams.locid";
-	
+
 	$result = bink_query("select distinct $columns from jams, bands where jams.private=0 and jams.bandid=bands.id and bands.id=$id");
 
 	$num = mysqli_num_rows($result);
@@ -665,7 +665,7 @@ function iconFor($type, $jamid)
 		else
 			return "&nbsp;";
 	}
-	
+
 	if ($type == "pics")
 	{
 		if(mysqli_num_rows(bink_query("select * from pictures where jamid = $jamid")) > 0)
@@ -680,7 +680,7 @@ function iconFor($type, $jamid)
 		else
 			return "&nbsp;";
 	}
-		
+
 }
 
 
@@ -697,21 +697,22 @@ include "../settings.php";
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
-<meta name="keywords" content="music, website, jams, mp3, free, download"/> 
-<meta name="author" content="Ben Smith"/> 
+<meta name="keywords" content="music, website, jams, mp3, free, download"/>
+<meta name="author" content="Ben Smith"/>
 <link rel="stylesheet" type="text/css" href="default.css"/>
+<script language="javascript" src="js/ajax.js"></script>
  <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
-  <meta property="fb:app_id" content="139182602788074" /> 
-  <meta property="og:type"   content="facebookbink:collection" /> 
-  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" /> 
+  <meta property="fb:app_id" content="139182602788074" />
+  <meta property="og:type"   content="facebookbink:collection" />
+  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" />
  <?php
   $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
   $title = $row['title'];
   $notes = $row['notes'];
   ?>
-  <meta property="og:title"  content="<?= $title ?>" /> 
-  <meta property="og:description"  content="<?=$notes ?>" /> 
+  <meta property="og:title"  content="<?= $title ?>" />
+  <meta property="og:description"  content="<?=$notes ?>" />
   <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> <title>BINK!</title>
 </head>
 <body>
@@ -726,7 +727,7 @@ include "../settings.php";
 		<a href="list.php"><span>Browse</span></a>
 		<?=printSearchBar(1) ?>
 	</div>
-	<div class="content">		
+	<div class="content">
 <?php
 }
 
@@ -743,8 +744,8 @@ directPhone();
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
-<meta name="keywords" content="music, website, jams, mp3, free, download"/> 
-<meta name="author" content="Ben Smith"/> 
+<meta name="keywords" content="music, website, jams, mp3, free, download"/>
+<meta name="author" content="Ben Smith"/>
 <link rel="stylesheet" type="text/css" href="default.css"/>
 <script language="javascript" src="js/ajax.js"></script>
 <title>BINK!</title>
@@ -761,7 +762,7 @@ directPhone();
 		<a href="list.php"><span>Browse</span></a>
 		<?=printSearchBar(1) ?>
 	</div>
-	<div class="content">		
+	<div class="content">
 <?php
 }
 
