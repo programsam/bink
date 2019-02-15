@@ -772,7 +772,7 @@ function printFooter()
 ?>
 	<div class='item'>
 </div></div>
-	<div class="footer">&copy; 2009-2018 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
+	<div class="footer">&copy; 2009-2019 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
 </div>
 </body>
 </html>
