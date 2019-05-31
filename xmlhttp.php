@@ -89,7 +89,7 @@ else if ($_GET['action'] == "trackList")
 else if ($_GET['action'] == "list")
 {
 
-	if (isset($_GET['query']))
+	if (isset($_GET['query']) && $_GET['query'] != "")
 	{
 		$query = $_GET['query'];
 		$columns = "jams.date, jams.id, jams.title, jams.locid, jams.bandid";
@@ -106,7 +106,7 @@ else if ($_GET['action'] == "list")
 	}
 	else
 	{
-		$sql = "select * from jams order by date desc";
+		$sql = "select * from jams order by date desc limit 100";
 	}
 	
 	$result = bink_query($sql);
