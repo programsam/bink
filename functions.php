@@ -124,6 +124,7 @@ function directPhone()
 			|| strstr($_SERVER['HTTP_USER_AGENT'],'Android')
 			|| strstr($_SERVER['HTTP_USER_AGENT'],'Moto')
 		) {
+			//then we are using mobile mode and need to redirect them
     	header("Location: " . $BASE_URL . "/m");
 	}
 }
