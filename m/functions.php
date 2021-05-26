@@ -447,7 +447,6 @@ function printAJam($id)
 			$ret .= $location;
 
 		$ret .= "<br /><p align='right'>";
-		$ret .= embediPhonePlayer($id);
 		$ret .= "</p><br /><div class='quote'>" . $row['notes'];
 		$ret .= "<p align=right>";
 		if (getNextId($id) != "")
@@ -465,27 +464,6 @@ function printAJam($id)
 	}
 
 	return $ret;
-}
-
-function embediPhonePlayer($id=-1)
-{
-  $result = bink_query("select * from tracks where jamid = $id order by num asc	");
-
-  $row = mysqli_fetch_array($result);
-
-  $toRet = "<embed target=\"myself\" src=\"play-button.gif\" href=\"https://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "\" width=\"128\" height=\"16\" autoplay=\"true\" type=\"audio/mp3\" loop=\"true\" controller=\"false\"";
-
-  $i = 1;
-  while ($row = mysqli_fetch_array($result))
-  {
-  	$toRet .= " qtnext" . $i . "=\"<https://s3.amazonaws.com/binkmedia/public/" . urlencode($row['path']) . "> T<myself>\"";
-  	$i++;
-  }
-
-  $toRet .= "></embed>";
-
-  return $toRet;
-
 }
 
 function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort, $bold = "")
@@ -701,19 +679,13 @@ include "../settings.php";
 <meta name="author" content="Ben Smith"/>
 <link rel="stylesheet" type="text/css" href="default.css"/>
 <script language="javascript" src="js/ajax.js"></script>
- <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# facebookbink: https://ogp.me/ns/fb/facebookbink#">
-  <meta property="fb:app_id" content="139182602788074" />
-  <meta property="og:type"   content="facebookbink:collection" />
-  <meta property="og:url"    content="<?= $BASE_URL ?>/jam.php?id=<?=$id ?>" />
  <?php
   $result = bink_query("select title, notes from jams where id = $id");
   $row = mysqli_fetch_array($result);
   $title = $row['title'];
   $notes = $row['notes'];
   ?>
-  <meta property="og:title"  content="<?= $title ?>" />
-  <meta property="og:description"  content="<?=$notes ?>" />
-  <meta property="og:image"  content="<?= $BASE_URL ?>/img/header.jpg" /> <title>BINK!</title>
+	<title>BINK!</title>
 </head>
 <body>
 
