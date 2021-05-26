@@ -1060,20 +1060,6 @@ header("Content-Type: application/xml");
 
 }
 
-function printPlayer($id)
-{
-
-$row = mysqli_fetch_array(bink_query("select * from jams where private=0 and id = $id"));
-$jtitle = urlencode($row['title']);
-
-$num = mysqli_num_rows(bink_query("select * from tracks where jamid = $id"));
-if ($num == 0)
-	return;
-
-echo "<div style='position:relative; left: 295px; top: 30px; height: 0px; width: 0px'><object type='application/x-shockwave-flash' width=300 height=15  data='xspf/xspf_player_slim.swf?playlist_url=xspf.php?id=$id&player_title=$jtitle'><param name='movie' value='xspf/xspf_player_slim.swf?playlist_url=xspf.php?id=$id&player_title=$jtitle' /></object></div>";
-
-}
-
 function getLocationInfoWindow($id, $name)
 {
 		$subresult = bink_query("select * from jams where locid = $id limit 3;");
@@ -1228,7 +1214,6 @@ $adminStr = "admin/main.php";
 	<div class="menu">
 		<a href="<?= $leading ?>index.php"><span>Recent</span></a>
 		<a href="<?= $leading ?>history.php"><span>History</span></a>
-		<a href="<?= $leading ?>player.php"><span>Player</span></a>
 		<a href="<?= $leading ?>list.php"><span>Browse</span></a>
  	    <a href="/timeline/"><span>Timeline</span></a>
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
@@ -1365,7 +1350,6 @@ function initialize() {
 	<div class="menu">
 		<a href="<?= $leading ?>index.php"><span>Recent</span></a>
 		<a href="<?= $leading ?>history.php"><span>History</span></a>
-		<a href="<?= $leading ?>player.php"><span>Player</span></a>
 		<a href="<?= $leading ?>list.php"><span>Browse</span></a>
  	    <a href="/timeline/"><span>Timeline</span></a>
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
