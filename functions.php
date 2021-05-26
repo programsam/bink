@@ -240,7 +240,7 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
 function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort, $bold = "")
 {
 	if ($bold)
-		return "[ <strong><a href='$url.php?query=$query&offset=$offset&length=$length&order=$order&sort=$sort'>$name</strong></a> ]";
+		return "[ <big><a href='$url.php?query=$query&offset=$offset&length=$length&order=$order&sort=$sort'>$name</big></a> ]";
 	else
 		return "[ <a href='$url.php?query=$query&offset=$offset&length=$length&order=$order&sort=$sort'>$name</a> ]";
 }
@@ -302,7 +302,6 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 
 	$lenbold[$order] = 1;
 	$lenbold[$length] = 1;
-	$lenbold[$sort] = 1;
 
 	if ($listmode == 1)
 		$url = "musician";
@@ -318,9 +317,9 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	$ret .= generateSearchLink($url, $query, "location", $offset, $length, "locid", isset($sort, $lenbold["locid"]));
 
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, isset($lenbold["asc"]));
+		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order);
 	else
-		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, isset($lenbold["desc"]));
+		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order);
 
 
 	$lenbold[$length] = 1;
