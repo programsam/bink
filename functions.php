@@ -1393,7 +1393,7 @@ function printFooter()
 
 function printCustomPlayer($jamid, $trackid = -1)
 {
-	return "<div><em>In-page player not available. BINK.js will fix these problems!</em></div>";
+	return "<div><p><em>In-page player not available. You can still download the files individually or as a ZIP file, however.</em></p></div>";
 }
 
 ?>
