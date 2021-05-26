@@ -107,7 +107,7 @@ function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
 
 function isPhone()
 {
-	return $_SERVER['HTTP_USER_AGENT'],'iPhone') ||
+	return ($_SERVER['HTTP_USER_AGENT'],'iPhone') ||
 					$_SERVER['HTTP_USER_AGENT'],'iPod') ||
 					$_SERVER['HTTP_USER_AGENT'],'Android') ||
 					$_SERVER['HTTP_USER_AGENT'],'iPad')

@@ -386,15 +386,6 @@ else if ($_SERVER["PHP_SELF"] == "/band.php")
 	return $ret;
 }
 
-function isPhone()
-{
-	return $_SERVER['HTTP_USER_AGENT'],'iPhone') ||
-					$_SERVER['HTTP_USER_AGENT'],'iPod') ||
-					$_SERVER['HTTP_USER_AGENT'],'Android') ||
-					$_SERVER['HTTP_USER_AGENT'],'iPad')
-}
-
-
 function getJams($query)
 {
 	$result = bink_query($query);
