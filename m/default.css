@@ -17,7 +17,7 @@ a {
 	text-decoration: none;
 }
 body {
-	background: #000 url(img/bg.png) repeat-x fixed left bottom; 
+	background: #000 url(img/bg.png) repeat-x fixed left bottom;
 	color: #666;
 	margin: 20px 0;
 	text-align: center;
@@ -53,10 +53,10 @@ div.quote {
 
 /* Main structure */
 .main {
-	background: #000; 
-	border: 3px double #EEE; 
-	border-color: #141414 #202020 #222 #202020; 
-	margin: 20px auto 4px auto; 
+	background: #000;
+	border: 3px double #EEE;
+	border-color: #141414 #202020 #222 #202020;
+	margin: 20px auto 4px auto;
 	text-align: left;
 	/* width: 600px; */
 }
@@ -82,7 +82,7 @@ div.quote {
 	font-size: 1.2em;
 	float: left;
 	padding-top: 4px;
-	width: 77px; height: 26px;
+	width: 100px; height: 26px;
 }
 .menu a span {
 	padding-left: 6px;
@@ -123,4 +123,4 @@ div.quote {
 	padding: 5px;
 	background: #0A0A0A;
 	color: #666;
-} 
+}
