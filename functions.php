@@ -479,12 +479,6 @@ function getMediaList($id, $type)
 	include "settings.php";
 	$s3 = new S3($S3_ACCESS_KEY, $S3_SECRET_KEY);
 
-	/**
-	 * These two lines are required for reading MP3 file information.
-	 */
-	//require_once('getid3/getid3.php');
-	//$getID3 = new getID3;
-
 	if ($type == "music")
 	{
 		$table = "tracks";
@@ -525,20 +519,11 @@ function getMediaList($id, $type)
 			$path = $row['path'];
 			$files = $s3 -> getBucket('binkmedia', 'public/' . $path);
 			$thisfile = array_pop($files);
-			/**
-			 * These two lines are required for reading MP3 file information.
-			 */
-			/*
-			//$ThisFileInfo = $getID3->analyze("https://s3.amazonaws.com/binkmedia/public/$path");
-			//getid3_lib::CopyTagsToComments($ThisFileInfo);
-			*/
+
 			$ret .= "<tr>";
 			$ret .= "<td><a href=\"https://s3.amazonaws.com/binkmedia/public/$path\"><li>" . $row['title'] . "</li></a></td>";
-			/*$ret .= "<td> " . resize_bytes(filesize("https://s3.amazonaws.com/binkmedia/public/$path")) . "</td>"; */
 			$ret .= "<td>" . resize_bytes($thisfile['size']) . "</td>";
 			$ret .= "<td>" . $ext . " file </td>";
-			//$ret .= "<td>" . $ThisFileInfo['playtime_string']. "</td>";
-			//$ret .= "<td>" . ($ThisFileInfo['audio']['bitrate']/1000). " KB/s </td>";
 
 			$id = $row['id'];
 			$notes = $row['notes'];
