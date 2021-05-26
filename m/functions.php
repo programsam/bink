@@ -550,10 +550,10 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, isset($lenbold["5"]));
 	$ret .= generateSearchLink($url, $query, "10", $offset, "10", $order, $sort, isset($lenbold["10"]));
 
-	if ($offset+$length < $num && $length != "all")
+	if ($length != "all" && $offset+$length < $num)
 		$ret .= generateSearchLink($url, $query, "next", $offset+$length, $length, $order, $sort);
 
-	if ($offset-$length >= 0 && $length != "all")
+	if ($length != "all" && $offset-$length >= 0)
 		$ret .= generateSearchLink($url, $query, "prev", $offset-$length, $length, $order, $sort);
 
 
