@@ -1384,7 +1384,7 @@ function printFooter()
 {
 ?>
 	</div>
-	<div class="footer">&copy; 2009-2020 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
+	<div class="footer">&copy; 2009-2021 <a href="index.php">BINK!</a> created by <a href="http://bsmith.me">Ben Smith</a>. Design by <a href="https://arcsin.se">Arcsin</a></div>
 </div>
 </body>
 </html>
