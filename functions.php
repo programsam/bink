@@ -871,30 +871,6 @@ function printAJam($id, $trackid)
 }
 
 
-function getInfo()
-{
-	$result = bink_query("SELECT * FROM `jams` where private=0 ORDER BY `date`;");
-	$row = mysqli_fetch_array($result);
-	$earliest = $row['date'];
-	$earliest = date("n/j/y", strtotime($earliest));
-		?>
-		<div class='item'><h1>Statistics</h1>
-		<table width=100%>
-			<?= getNumberOf("jams", "Collections") ?>
-			<?= getNumberOf("tracks", "Tracks"); ?>
-			<?= getNumberOf("video", "Videos"); ?>
-			<?= getNumberOf("musicians", "Musicians"); ?>
-			<?= getNumberOf("pictures", "Pictures"); ?>
-			<?= getNumberOf("locations", "Locations"); ?>
-			<td>Earliest Collection</td><td><?= $earliest ?></td></tr>
-			</table>
-		</div>
-<?php
-
-	printLogs("Upcoming Features & Fixes", "select * from upcoming order by time desc;");
-	printLogs("Change History", "select * from changelog order by time desc limit 20;");
-}
-
 function todayInHistory()
 {
 
@@ -912,20 +888,6 @@ function todayInHistory()
 
 	echo "</div>";
 }
-
-function printLogs($title, $query)
-{
-		echo "<div class='item'><h1>$title</h1>";
-		echo "<ul>";
-		$result = bink_query($query);
-
-		while ($row = mysqli_fetch_array($result))
-		{
-			echo "<li> (" . date("n/j/y g:ia", strtotime($row['time'])). ") " . $row['change'];
-		}
-		echo "</ul></div>";
-}
-
 
 function resize_bytes($size)
 {
