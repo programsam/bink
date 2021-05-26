@@ -323,9 +323,9 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	$ret .= generateSearchLink($url, $query, "location", $offset, $length, "locid", $sort, isset($lenbold["locid"]));
 
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "asc");
+		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, "asc");
 	else
-		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, "desc");
+		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "desc");
 
 	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, isset($lenbold["5"]));
 	$ret .= generateSearchLink($url, $query, "10", $offset, "10", $order, $sort, isset($lenbold["10"]));
