@@ -304,8 +304,6 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	$lenbold[$length] = 1;
 	$lenbold[$sort] = 1;
 
-	echo "TEST ME OUT!$@#$";
-
 	if ($listmode == 1)
 		$url = "musician";
 	elseif ($listmode == 2)
@@ -315,24 +313,24 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	else
 		$url = "list";
 
-	$ret .= generateSearchLink($url, $query, "date", $offset, $length, "date", $sort, $lenbold["date"]);
-	$ret .= generateSearchLink($url, $query, "id", $offset, $length, "id", $sort, $lenbold["id"]);
-	$ret .= generateSearchLink($url, $query, "location", $offset, $length, "locid", $sort, $lenbold["locid"]);
+	$ret .= generateSearchLink($url, $query, "date", $offset, $length, "date", $sort, isset($lenbold["date"]));
+	$ret .= generateSearchLink($url, $query, "id", $offset, $length, "id", $sort, isset($lenbold["id"]));
+	$ret .= generateSearchLink($url, $query, "location", $offset, $length, "locid", isset($sort, $lenbold["locid"]));
 
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, $lenbold["asc"]);
+		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, isset($lenbold["asc"]));
 	else
-		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, $lenbold["desc"]);
+		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, isset($lenbold["desc"]));
 
 
 	$lenbold[$length] = 1;
 
-	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, $lenbold["5"]);
-	$ret .= generateSearchLink($url, $query, "10", $offset, "10", $order, $sort, $lenbold["10"]);
-	$ret .= generateSearchLink($url, $query, "20", $offset, "20", $order, $sort, $lenbold["20"]);
-	$ret .= generateSearchLink($url, $query, "50", $offset, "50", $order, $sort, $lenbold["50"]);
-	$ret .= generateSearchLink($url, $query, "100", $offset, "100", $order, $sort, $lenbold["100"]);
-	$ret .= generateSearchLink($url, $query, "all", $offset, "all", $order, $sort, $lenbold["all"]);
+	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, isset($lenbold["5"])));
+	$ret .= generateSearchLink($url, $query, "10", $offset, "10", $order, $sort, isset($lenbold["10"]));
+	$ret .= generateSearchLink($url, $query, "20", $offset, "20", $order, $sort, isset($lenbold["20"]));
+	$ret .= generateSearchLink($url, $query, "50", $offset, "50", $order, $sort, isset($lenbold["50"]));
+	$ret .= generateSearchLink($url, $query, "100", $offset, "100", $order, $sort, isset($lenbold["100"]));
+	$ret .= generateSearchLink($url, $query, "all", $offset, "all", $order, $sort, isset($lenbold["all"]));
 
 	if ($offset+$length < $num && $length != "all")
 		$ret .= generateSearchLink($url, $query, "next", $offset+$length, $length, $order, $sort);
