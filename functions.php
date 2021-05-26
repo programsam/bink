@@ -852,7 +852,6 @@ function printAJam($id, $trackid)
 			$ret .= "[ <a href='jam.php?id=" . getNextId($id) . "'>Next</a> ]";
 		if (getPreviousId($id) != "")
 			$ret .= "[ <a href='jam.php?id=" . getPreviousId($id) . "'>Prev</a> ]";
-		$ret .= "[ <a href='admin/main.php?id=$id'>Edit</a> ]";
 		$ret .= "[ <a href=\"javascript:show('shareBox');queryHTML('shareBox', 'share.php?jamid=$id&title=" . urlencode($row['title']) . "')\">Share</a> ]";
 		$ret .= getShareBox($id, $row['title']);
 		$ret .= "</p>";
@@ -1218,8 +1217,6 @@ $adminStr = "admin/main.php";
  	    <a href="/timeline/"><span>Timeline</span></a>
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
 		<a href="<?= $leading ?>news.php"><span>Tweets</span></a>
- 		<a href="/admin/main.php"><span>Admin</span></a>
-
 		<span><?=printSearchBar() ?></span>
 	</div>
 	<div class="content">
@@ -1354,9 +1351,6 @@ function initialize() {
  	    <a href="/timeline/"><span>Timeline</span></a>
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
 		<a href="<?= $leading ?>news.php"><span>Tweets</span></a>
- 		<a href="/admin/main.php"><span>Admin</span></a>
-
-
 		<span><?=printSearchBar() ?></span>
 	</div>
 	<div class="content">
