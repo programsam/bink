@@ -110,7 +110,7 @@ function isPhone()
 	return (strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') ||
 					strstr($_SERVER['HTTP_USER_AGENT'],'iPod') ||
 					strstr($_SERVER['HTTP_USER_AGENT'],'Android') ||
-					strstr($_SERVER['HTTP_USER_AGENT'],'iPad'))
+					strstr($_SERVER['HTTP_USER_AGENT'],'iPad'));
 }
 
 function directPhone()
@@ -119,6 +119,8 @@ function directPhone()
 	if(isPhone()) {
 			//then we are using mobile mode and need to redirect them
     	header("Location: " . $BASE_URL . "/m");
+	} else {
+		//then we are not using a phone and it's ok to keep going
 	}
 }
 
