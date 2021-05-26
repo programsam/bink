@@ -523,11 +523,10 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 	else
 		$sql = $sql . " order by $order $sort limit $offset, $length";
 
-	//echo $sql;
-
-	$result = bink_query($sql);
-
 	$lenbold[$order] = 1;
+	$lenbold[$length] = 1;
+	$lenbold[$length] = 1;
+
 
 	if ($listmode == 1)
 		$url = "musician";
@@ -538,19 +537,16 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 	else
 		$url = "list";
 
-	$ret .= generateSearchLink($url, $query, "date", $offset, $length, "date", $sort, $lenbold["date"]);
+	$ret .= generateSearchLink($url, $query, "date", $offset, $length, "date", $sort, isset($lenbold["date"]));
 
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, "asc");
+		$ret .= generateSearchLink($url, $query, "asc", $offset, $length, $order, "asc");
 	else
-		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, "desc");
+		$ret .= generateSearchLink($url, $query, "desc", $offset, $length, $order, "desc");
 
-
-	$lenbold[$length] = 1;
-
-	$ret .= generateSearchLink($url, $query, "3", $offset, "3", $order, $sort, $lenbold[3]);
-	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, $lenbold[5]);
-	$ret .= generateSearchLink($url, $query, "all", $offset, "all", $order, $sort, $lenbold["all"]);
+	$ret .= generateSearchLink($url, $query, "3", $offset, "3", $order, $sort, isset($lenbold["3"]));
+	$ret .= generateSearchLink($url, $query, "5", $offset, "5", $order, $sort, isset($lenbold["5"]));
+	$ret .= generateSearchLink($url, $query, "10", $offset, "10", $order, $sort, isset($lenbold["10"]));
 
 	if ($offset+$length < $num && $length != "all")
 		$ret .= generateSearchLink($url, $query, "next", $offset+$length, $length, $order, $sort);
