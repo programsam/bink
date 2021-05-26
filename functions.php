@@ -1208,17 +1208,10 @@ directPhone();
 "https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-<script charset="utf-8" src="https://widgets.twimg.com/j/2/widget.js"></script>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="BINK! is an experiment in musical documentation."/>
 <meta name="keywords" content="music, website, jams, mp3, free, download"/>
 <meta name="author" content="Ben Smith"/>
-<meta property="og:title" content="BINK! An experiment in musical documentation" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="<?= $BASE_URL ?>" />
-<meta property="og:image" content="<?= $BASE_URL ?>img/header.jpg" />
-<meta property="og:site_name" content="BINK!" />
-<meta property="fb:admins" content="11801699" />
 <?php
 if ($root == 0)
 	echo "<META HTTP-EQUIV='PRAGMA' CONTENT='NO-CACHE'>";
