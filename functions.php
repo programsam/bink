@@ -1146,12 +1146,7 @@ $adminStr = "admin/main.php";
 <body onload="initialize();">
 <div class="main">
 	<div class="gfx">
-	<table border=0 width="100%">
-	<tr>
-	<td width="670px"><img src="<?= $leading ?>img/header.jpg" /></td>
-	<td width="30px"><a href="feed.php?podcast=1"><img src=<?= $leading ?>img/podcast.gif border=0 width=25/></a></td>
-	</tr>
-	</table>
+		<img src="<?= $leading ?>img/header.jpg" />
 	</div>
 	<div class="menu">
 		<a href="<?= $leading ?>index.php"><span>Recent</span></a>
