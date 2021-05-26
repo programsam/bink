@@ -31,15 +31,12 @@ function bink_query($querystr)
 function directPhone()
 {
 	include "../settings.php";
-	if(		 strstr($_SERVER['HTTP_USER_AGENT'],'iPhone')
-			|| strstr($_SERVER['HTTP_USER_AGENT'],'iPod')
-			|| strstr($_SERVER['HTTP_USER_AGENT'],'Android')
-			|| strstr($_SERVER['HTTP_USER_AGENT'],'Moto')
-		) {
+	if(isPhone()) {
 			// then yes, we're using a phone so we can stay in mobile mode.
 	}
 	else
 	{
+		//not using a phone; get me out of mobile mode.
 		header("Location: $BASE_URL");
 	}
 }
@@ -391,13 +388,10 @@ else if ($_SERVER["PHP_SELF"] == "/band.php")
 
 function isPhone()
 {
-	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
-    	return 1;
-	}
-	else
-	{
-		return 0;
-	}
+	return $_SERVER['HTTP_USER_AGENT'],'iPhone') ||
+					$_SERVER['HTTP_USER_AGENT'],'iPod') ||
+					$_SERVER['HTTP_USER_AGENT'],'Android') ||
+					$_SERVER['HTTP_USER_AGENT'],'iPad')
 }
 
 

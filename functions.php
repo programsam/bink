@@ -107,23 +107,16 @@ function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
 
 function isPhone()
 {
-	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
-    	return 1;
-	}
-	else
-	{
-		return 0;
-	}
+	return $_SERVER['HTTP_USER_AGENT'],'iPhone') ||
+					$_SERVER['HTTP_USER_AGENT'],'iPod') ||
+					$_SERVER['HTTP_USER_AGENT'],'Android') ||
+					$_SERVER['HTTP_USER_AGENT'],'iPad')
 }
 
 function directPhone()
 {
 	include "settings.php";
-	if(		 strstr($_SERVER['HTTP_USER_AGENT'],'iPhone')
-			|| strstr($_SERVER['HTTP_USER_AGENT'],'iPod')
-			|| strstr($_SERVER['HTTP_USER_AGENT'],'Android')
-			|| strstr($_SERVER['HTTP_USER_AGENT'],'Moto')
-		) {
+	if(isPhone()) {
 			//then we are using mobile mode and need to redirect them
     	header("Location: " . $BASE_URL . "/m");
 	}
