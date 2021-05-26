@@ -237,7 +237,7 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
    unlink($localthmpath);
 }
 
-function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort, $bold = "")
+function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort, $bold="")
 {
 	if ($bold)
 		return "[ <big><a href='$url.php?query=$query&offset=$offset&length=$length&order=$order&sort=$sort'>$name</big></a> ]";
@@ -317,9 +317,9 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	$ret .= generateSearchLink($url, $query, "location", $offset, $length, "locid", isset($sort, $lenbold["locid"]));
 
 	if ($sort == "desc")
-		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order);
+		$ret .= generateSearchLink($url, $query, "reverse", $offset, $length, $order, 0);
 	else
-		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order);
+		$ret .= generateSearchLink($url, $query, "forward", $offset, $length, $order, 0);
 
 
 	$lenbold[$length] = 1;
