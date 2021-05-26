@@ -119,7 +119,11 @@ function isPhone()
 function directPhone()
 {
 	include "settings.php";
-	if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) {
+	if(		 strstr($_SERVER['HTTP_USER_AGENT'],'iPhone')
+			|| strstr($_SERVER['HTTP_USER_AGENT'],'iPod')
+			|| strstr($_SERVER['HTTP_USER_AGENT'],'Android')
+			|| strstr($_SERVER['HTTP_USER_AGENT'],'Moto')
+		) {
     	header("Location: " . $BASE_URL . "/m");
 	}
 }
@@ -1203,7 +1207,6 @@ else
 directPhone();
 
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
