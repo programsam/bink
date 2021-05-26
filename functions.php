@@ -296,15 +296,6 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	else
 		$sql = $sql . " order by $order $sort limit $offset, $length";
 
-	//echo $sql;
-
-	$result = bink_query($sql);
-
-
-	//generateSearchLink($url, $query, $name, $offset, $length, $order, $sort, $bold="")
-	//order [date, id, locid]
-	//sort [asc, desc]
-
 	$lenbold[$order] = 1;
 	$lenbold[$length] = 1;
 	$lenbold[$length] = 1;
@@ -339,8 +330,6 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 
 	if ($offset-$length >= 0 && $length != "all")
 		$ret .= generateSearchLink($url, $query, "prev", $offset-$length, $length, $order, $sort);
-
-
 
 	$ret .= "<br />Listing " . $offset . " - " . ($offset + $length) . " of "  . $num;
 	$ret .= "</div><div class='item'><h1>Results</h1>";
