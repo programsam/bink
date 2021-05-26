@@ -1214,7 +1214,6 @@ $adminStr = "admin/main.php";
 		<a href="<?= $leading ?>index.php"><span>Recent</span></a>
 		<a href="<?= $leading ?>history.php"><span>History</span></a>
 		<a href="<?= $leading ?>list.php"><span>Browse</span></a>
- 	    <a href="/timeline/"><span>Timeline</span></a>
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
 		<a href="<?= $leading ?>news.php"><span>Tweets</span></a>
 		<span><?=printSearchBar() ?></span>
@@ -1348,7 +1347,6 @@ function initialize() {
 		<a href="<?= $leading ?>index.php"><span>Recent</span></a>
 		<a href="<?= $leading ?>history.php"><span>History</span></a>
 		<a href="<?= $leading ?>list.php"><span>Browse</span></a>
- 	    <a href="/timeline/"><span>Timeline</span></a>
 		<a href="<?= $leading ?>maps.php"><span>Map</span></a>
 		<a href="<?= $leading ?>news.php"><span>Tweets</span></a>
 		<span><?=printSearchBar() ?></span>
