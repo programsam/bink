@@ -28,6 +28,14 @@ function bink_query($querystr)
 	return $result;
 }
 
+function isPhone()
+{
+	return (strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') ||
+					strstr($_SERVER['HTTP_USER_AGENT'],'iPod') ||
+					strstr($_SERVER['HTTP_USER_AGENT'],'Android') ||
+					strstr($_SERVER['HTTP_USER_AGENT'],'iPad'));
+}
+
 function directPhone()
 {
 	include "../settings.php";
