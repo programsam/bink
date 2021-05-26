@@ -296,6 +296,8 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	else
 		$sql = $sql . " order by $order $sort limit $offset, $length";
 
+	$result = bink_query($sql);
+
 	$lenbold[$order] = 1;
 	$lenbold[$length] = 1;
 	$lenbold[$length] = 1;

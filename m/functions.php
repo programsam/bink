@@ -528,6 +528,8 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=3, $order="d
 	$lenbold[$length] = 1;
 
 
+	$result = bink_query($sql);
+
 	if ($listmode == 1)
 		$url = "musician";
 	elseif ($listmode == 2)
