@@ -1,9 +1,12 @@
 <?php
 	include "functions.php";
 	printHeader();
-	if ($_GET['offset'] || $_GET['length'] || $_GET['order'] || $_GET['sort']) {
+	if (isset($_GET['offset'])
+			|| isset($_GET['length'])
+			|| isset($_GET['order'])
+			|| isset($_GET['sort'])) {
 		$offset = 0;
-		$length = 10;
+		$length = 20;
 		$order="date";
 		$sort="desc";
 		if (isset($_GET['offet']))
