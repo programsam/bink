@@ -329,11 +329,14 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 
 	if ($length != "all" && $offset+$length < $num)
 		$ret .= generateSearchLink($url, $query, "next", $offset+$length, $length, $order, $sort);
-
 	if ($length != "all" && $offset-$length >= 0)
 		$ret .= generateSearchLink($url, $query, "prev", $offset-$length, $length, $order, $sort);
 
-	$ret .= "<br />Listing " . $offset . " - " . ($offset + $length) . " of "  . $num;
+	if ($length != "all")
+		$ret .= "<br />Listing " . $offset . " - " . ($offset + $length) . " of "  . $num;
+	else
+		$ret .= "<br />Listing all $num..."
+
 	$ret .= "</div><div class='item'><h1>Results</h1>";
 
 	$ret .= "<table width='100%'>";
