@@ -23,7 +23,7 @@
 
 		echo getJamsSearch(2, $query, $offset, $length, $order, $sort, 2);
 	} else {
-		echo getJamsSearch(2, $_GET['query']);
+		echo getJamsSearch(2, $query);
 	}
 	printFooter();
 ?>
