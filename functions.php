@@ -335,7 +335,7 @@ function getJamsSearch($listmode=0, $query=null, $offset=0, $length=20, $order="
 	if ($length != "all")
 		$ret .= "<br />Listing " . $offset . " - " . ($offset + $length) . " of "  . $num;
 	else
-		$ret .= "<br />Listing all $num..."
+		$ret .= "<br />Listing all $num...";
 
 	$ret .= "</div><div class='item'><h1>Results</h1>";
 
