@@ -237,7 +237,7 @@ function makethumb($id, $filename, $max_width=100, $max_height=100)
    unlink($localthmpath);
 }
 
-function generateSearchLink($url, $query, $name, $offset, $length, $order, $sort, $bold="")
+function generateSearchLink($url, $query, $name, $offset=0, $length, $order, $sort, $bold="")
 {
 	if ($bold)
 		return "[ <big><a href='$url.php?query=$query&offset=$offset&length=$length&order=$order&sort=$sort'>$name</big></a> ]";
