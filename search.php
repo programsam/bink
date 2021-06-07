@@ -18,10 +18,10 @@
 			$order = $_GET['order'];
 		if (isset($_GET['sort']))
 			$sort = $_GET['sort'];
-		if (isset($_GET['query'))
+		if (isset($_GET['query']))
 			$query = $_GET['query'];
 
-		echo getJamsSearch(2, $query, $_GET['offset'], $_GET['length'], $_GET['order'], $_GET['sort'], 2);
+		echo getJamsSearch(2, $query, $offset, $length, $order, $sort, 2);
 	} else {
 		echo getJamsSearch(2, $_GET['query']);
 	}
