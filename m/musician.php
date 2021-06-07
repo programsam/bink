@@ -10,7 +10,7 @@
 		$length = 20;
 		$order="date";
 		$sort="desc";
-		if (isset($_GET['offet']))
+		if (isset($_GET['offset']))
 			$offset = $_GET['offset'];
 		if (isset($_GET['length']))
 			$length = $_GET['length'];
@@ -18,7 +18,7 @@
 			$order = $_GET['order'];
 		if (isset($_GET['sort']))
 			$sort = $_GET['sort'];
-		echo getJamsSearch(1, $_GET['query'], $_GET['offset'], $_GET['length'], $_GET['order'], $_GET['sort'], 2);
+		echo getJamsSearch(1, $_GET['query'], $offset, $length, $order, $sort, 2);
 	} else {
 		echo getJamsSearch(1, $_GET['query']);
 	}

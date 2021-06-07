@@ -10,7 +10,7 @@
 		$order="date";
 		$sort="desc";
 		$query="";
-		if (isset($_GET['offet']))
+		if (isset($_GET['offset']))
 			$offset = $_GET['offset'];
 		if (isset($_GET['length']))
 			$length = $_GET['length'];
