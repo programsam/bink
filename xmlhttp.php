@@ -106,7 +106,7 @@ else if ($_GET['action'] == "list")
 	}
 	else
 	{
-		$sql = "select * from jams order by date desc limit 100";
+		$sql = "select * from jams order by date desc limit 50";
 	}
 	
 	$result = bink_query($sql);
