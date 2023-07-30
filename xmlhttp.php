@@ -643,10 +643,12 @@ foreach ($files as $file)
 	$title = pathinfo($fullpath, PATHINFO_FILENAME);
 	$filename = pathinfo($fullpath, PATHINFO_BASENAME);
 	//Add it to an array to be sorted.
-	$filenames[$i] = mysqli_escape_string($connection, $filename);
-	//Add the filename to a dictionary for later lookup
-	$titles[mysqli_escape_string($connection, $filename)] = mysqli_escape_string($connection, $title);
-	echo "Full Path: " . $fullpath . " Title: " . $title . "Filename: " . $filename . "<br />";
+	if ($title !== $filename) {
+		$filenames[$i] = mysqli_escape_string($connection, $filename);
+		//Add the filename to a dictionary for later lookup
+		$titles[mysqli_escape_string($connection, $filename)] = mysqli_escape_string($connection, $title);
+		echo "Full Path: " . $fullpath . " Title: " . $title . "Filename: " . $filename . "<br />";
+	}
 }
 mysqli_close($connection);
 
@@ -736,7 +738,7 @@ foreach ($files as $file)
 	//echo "INSERT INTO `video` (`id`,`jamid`,`title`,`num`, `path`) VALUES (NULL, '$id', '$title', '$i', 'video/$id/$filename');";
 }
 
- }
+}
 else if ($_GET['action'] == "deletefile")
 {
 	$path = $_GET['path'];
