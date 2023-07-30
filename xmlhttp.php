@@ -330,8 +330,6 @@ else if ($_GET['action'] == "managedata")
 		if ($field == "locations")
 		{
 			echo "<address>" . $row['address'] . "</address>";
-			echo "<lat>" . $row['lat'] . "</lat>";
-			echo "<lon>" . $row['lon'] . "</lon>";
 		}
 		
 		echo "</" . $field . ">";
@@ -384,16 +382,6 @@ else if ($_GET['action'] == "editdataitem")
 	$id = $_GET['id'];
 	$field = $_GET['field'];
 	$value = $_GET['value'];
-	$lat = $_GET['lat'];
-	$lng = $_GET['lng']; 
-	if ($field == "address" && $type == "locations")
-	{
-		if (isset($_GET['lat']) && isset($_GET['lng'])) {
-			bink_query("update $type set $field = '$value', lat = '$lat', lon = '$lng' where id = $id");
-		} else {
-			bink_query("update $type set $field = '$value' where id = $id");
-		}
-	}
 	bink_query("update $type set $field = '$value' where id = $id");
 	
 	echo "<sucess>true</sucess>";
