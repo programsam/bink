@@ -557,6 +557,7 @@ bink_query("delete from tracks where jamid = $id");
 $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
 $i = 0; 
 $connection = sql();
+$titles = [];
 foreach ($files as $file)
 {
 	$i++;
