@@ -9,34 +9,33 @@
     header('Expires: 0');
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header('Pragma: public');
-    header('Content-Length: ' . filesize('/var/tmp/temp.zip'));
+    header('Content-Length: ' . filesize('/tmp/temp.zip'));
     ob_clean();
     flush();
-    readfile('/var/tmp/temp.zip');
+    readfile('/tmp/temp.zip');
     exit;
     
  } 
 
- $output = `rm -rf /var/tmp/*`;
+ $output = `rm -rf /tmp/*`;
 
  include "functions.php";
  
- $id = $_GET['id']; 
-	//echo "Would be making zip file for $id";
-	//echo ". First we need the list of sound files...";
-	
+ $id = $_GET['id']; 	
 	$result = bink_query("select * from tracks where jamid = $id order by num asc");
 
 	if (mysqli_num_rows($result) == 0)
 		return "";
 	
-	$logfile = "/var/tmp/downloadlog";
+	$logfile = "/tmp/downloadlog";
 	
-	unlink ($logfile);
+	if (file_exists($logfile)) {
+		unlink($logfile);
+	}
 	
 	$log = fopen($logfile, 'a') or die("can't open file");
 			
-	$file = "/var/tmp/temp.zip";
+	$file = "/tmp/temp.zip";
 	
 	$zip = new ZipArchive();
 	$zip-> open($file, ZipArchive::CREATE);
@@ -61,15 +60,15 @@
 			
 			$urlfilename = rawurlencode($split[2]);
 			$fullpath = "https://s3.amazonaws.com/binkmedia/public/" . $split[0] . "/" . $split[1] . "/" . $urlfilename;
-			$output = `wget $fullpath -O "/var/tmp/$zipfilename" --append-output=/var/tmp/downloadlog`;
+			$output = `wget $fullpath -O "/tmp/$zipfilename" --append-output=/tmp/downloadlog`;
 			
 			
-			$zip -> addFile("/var/tmp/$zipfilename", $zipfilename); 
+			$zip -> addFile("/tmp/$zipfilename", $zipfilename); 
 			fwrite($log, "Zipped up $zipfilename into zip file...\n\n");
 		}
 	}
 	$zip -> close();
 	
 	fwrite($log, "DONE...");
-	fwrite($log, "Total ZIP filesize: " . filesize("/var/tmp/temp.zip"));
+	fwrite($log, "Total ZIP filesize: " . filesize("/tmp/temp.zip"));
 ?>
