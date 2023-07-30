@@ -639,7 +639,7 @@ $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
 bink_query("delete from tracks where jamid = $id");
 
 $connection = sql();
-
+$titles = [];
 $i = 0; 
 foreach ($files as $file)
 {
