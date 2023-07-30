@@ -565,14 +565,19 @@ foreach ($files as $file)
 	$splitfile = explode("/", $fullpath);
 	//Extract the last portion of the path: the filename with extension
 	$filename = $splitfile[3];
-	//Split off the extension
-	$title = explode(".", $filename);
-	//Just get the name before extension: this is now the title
-	$title = $title[0];
-	//Add it to an array to be sorted.
-	$titles[$i] = mysqli_escape_string($connection, $title);
-	//Add the filename to a dictionary for later lookup
-	$filenames[mysqli_escape_string($connection, $title)] = mysqli_escape_string($connection, $filename);
+	//Check to see if it's not empty; directories will be empty
+	if (strlen($filename) > 0) {
+		//Split off the extension
+		$title = explode(".", $filename);
+		//Just get the name before extension: this is now the title
+		$title = $title[0];
+		//Add it to an array to be sorted.
+		$titles[$i] = mysqli_escape_string($connection, $title);
+		//Add the filename to a dictionary for later lookup
+		$filenames[mysqli_escape_string($connection, $title)] = mysqli_escape_string($connection, $filename);
+	} else {
+		echo "$fullpath is a directory; skipping that."
+	}
 }
 
 //Now we sort the array and add it to the database
