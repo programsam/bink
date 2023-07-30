@@ -388,7 +388,11 @@ else if ($_GET['action'] == "editdataitem")
 	$lng = $_GET['lng']; 
 	if ($field == "address" && $type == "locations")
 	{
-		bink_query("update $type set $field = '$value', lat = '$lat', lon = '$lng' where id = $id");
+		if (isset($_GET['lat']) && isset($_GET['lng'])) {
+			bink_query("update $type set $field = '$value', lat = '$lat', lon = '$lng' where id = $id");
+		} else {
+			bink_query("update $type set $field = '$value' where id = $id");
+		}
 	}
 	bink_query("update $type set $field = '$value' where id = $id");
 	
