@@ -620,6 +620,10 @@ $i = 0;
 else if ($_GET['action'] == "scan")
 {
 $id = $_GET['jamid']; 
+if (! isset($_GET['jamid'])) {
+	echo "<error>No jam specified!</error>";
+	return;
+}
 
 $files = $s3 -> getBucket('binkmedia', 'public/snd/' . $id);
 
