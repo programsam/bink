@@ -381,7 +381,7 @@ else if ($_GET['action'] == "editdataitem")
 	$type = $_GET['type'];
 	$id = $_GET['id'];
 	$field = $_GET['field'];
-	$value = $_GET['value'];
+	$value = mysqli_real_escape_string($_GET['value']);
 	bink_query("update $type set $field = '$value' where id = $id");
 	
 	echo "<sucess>true</sucess>";
