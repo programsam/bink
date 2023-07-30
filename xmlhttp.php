@@ -355,8 +355,11 @@ else if ($_GET['action'] == "data")
 }
 else if ($_GET['action'] == "edit")
 {
+	$connection = sql();
+
 	$field = $_GET['field'];
 	$value = urldecode($_GET['value']);
+	$value = mysqli_escape_string($connection, $value);
 	$id = $_GET['id'];
 	
 	if ($field == "date")
@@ -365,6 +368,7 @@ else if ($_GET['action'] == "edit")
 	bink_query("update jams set $field='$value' where id = $id");
 	
 	echo "<response>success</response>";
+	mysqli_close($connection)
 }
 else if ($_GET['action'] == "deleteitem")
 {
@@ -387,6 +391,7 @@ else if ($_GET['action'] == "editdataitem")
 	bink_query("update $type set $field = '$value' where id = $id");
 	
 	echo "<sucess>true</sucess>";
+	mysqli_close($connection)
 	
 }
 else if ($_GET['action'] == "additem")
