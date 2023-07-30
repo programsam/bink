@@ -368,7 +368,7 @@ else if ($_GET['action'] == "edit")
 	bink_query("update jams set $field='$value' where id = $id");
 	
 	echo "<response>success</response>";
-	mysqli_close($connection)
+	mysqli_close($connection);
 }
 else if ($_GET['action'] == "deleteitem")
 {
@@ -391,7 +391,7 @@ else if ($_GET['action'] == "editdataitem")
 	bink_query("update $type set $field = '$value' where id = $id");
 	
 	echo "<sucess>true</sucess>";
-	mysqli_close($connection)
+	mysqli_close($connection);
 	
 }
 else if ($_GET['action'] == "additem")
