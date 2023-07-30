@@ -576,7 +576,7 @@ foreach ($files as $file)
 		//Add the filename to a dictionary for later lookup
 		$filenames[mysqli_escape_string($connection, $title)] = mysqli_escape_string($connection, $filename);
 	} else {
-		echo "$fullpath is a directory; skipping that."
+		echo "$fullpath is a directory; skipping that.";
 	}
 }
 
