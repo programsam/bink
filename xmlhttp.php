@@ -538,13 +538,15 @@ else if ($_GET['action'] == "previous")
 }
 else if ($_GET['action'] == "edittrack")
 {
+	$connection = sql();
 	$trackid = $_GET['trackid'];
 	$field = $_GET['field'];
-	$value = $_GET['value'];
+	$value = mysqli_escape_string($connection, $_GET['value']);
 	
 	bink_query("update tracks set $field = '$value' where id = $trackid");
 	
 	echo "<sucess />";
+	mysqli_close($connection);
 }
 else if ($_GET['action'] == "strip")
 {
