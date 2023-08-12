@@ -34,9 +34,7 @@ if (isset($_GET['trackstyle']))
 
 	$tracktitle = $trackrow['title'];
 	$encodedtracktitle = urlencode($tracktitle);
-	
-	$facebookName = "$encodedtitle - $encodedtracktitle";
-	
+		
 	$encodedbody = urlencode("Check out the track $tracktitle from $title");
 	$encodedlisten = urlencode("Go to $url to listen");
 	$encodedsubject = urlencode("Check out the track $tracktitle from $title");
@@ -44,17 +42,8 @@ if (isset($_GET['trackstyle']))
 	echo "[ <a target=\'_blank\" href=\"mailto:friends@email.address?subject=$encodedsubject&body=" . $encodedbody . ". " .  $encodedlisten . "\">Send an Email</a> ]";
 	
 	echo "[ <a target=\'_blank\" href=\"https://twitter.com/share?url=" . $encodedurl . "&text=" . $encodedsubject . "\">Tweet</a> ]";
-	
-	echo "[ <a target=\'_blank\" href=\"https://www.facebook.com/dialog/feed?
-	  app_id=139182602788074&
-	  link=$encodedurl&
-	  picture=" . $BASE_URL . "/img/header.jpg&
-	  name=$facebookName&
-	  caption=BINK!%20Collection&
-	  description=$encodedsubject&
-	  redirect_uri=$redirecturi\">Share on Facebook</a> ]";
 	  
-	  echo "<p /><form>Copy to clipboard:&nbsp;&nbsp;<input type=text size=70 value=\"$url\" style=\"background: black; color: white\" /></form>";
+	echo "<p /><form>Copy to clipboard:&nbsp;&nbsp;<input type=text size=70 value=\"$url\" style=\"background: black; color: white\" /></form>";
 
 	exit;
 
@@ -84,16 +73,8 @@ echo "[ <a target=\'_blank\" href=\"mailto:friends@email.address?subject=$encode
 
 echo "[ <a target=\'_blank\" href=\"https://twitter.com/share?url=" . $encodedurl . "&text=" . $encodedsubject . "\">Tweet</a> ]";
 
-echo "[ <a target=\'_blank\" href=\"https://www.facebook.com/dialog/feed?
-  app_id=139182602788074&
-  link=$encodedurl&
-  picture=" . $BASE_URL . "/img/header.jpg&
-  name=$encodedtitle&
-  caption=BINK!%20Collection&
-  description=$encodedsubject&
-  redirect_uri=$redirecturi\">Share on Facebook</a> ]";
   
-   echo "<p /><form>Copy to clipboard:&nbsp;&nbsp;<input type=text size=70 value=\"$url\" style=\"background: black; color: white\" /></form>";
+echo "<p /><form>Copy to clipboard:&nbsp;&nbsp;<input type=text size=70 value=\"$url\" style=\"background: black; color: white\" /></form>";
 
 ?>
 
